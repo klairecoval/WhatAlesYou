@@ -55,7 +55,7 @@ BeerSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   brewer: doc.brewer,
   type: doc.type,
-  abv: dov.abv,
+  abv: doc.abv,
   notes: doc.notes,
 });
 
