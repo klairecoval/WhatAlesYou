@@ -7,4 +7,3 @@ Criteria:
 - Name
 - Type
 - Notes
-- Pairs with
