@@ -1,11 +1,11 @@
 {
-  "name": "Logins",
+  "name": "LagerLogger",
   "version": "1.0.0",
   "engines": {
     "node": "10.16.0",
     "npm": "6.9.0"
   },
-  "description": "A Simple Login Example using Node.js, Mongo and Redis",
+  "description": "A beer tracker using Node.js, Mongo and Redis",
   "main": "./server/app.js",
   "scripts": {
     "buildLoginBundle": "babel ./client/login ./client/helper --presets react --out-file ./hosted/loginBundle.js",
@@ -21,10 +21,9 @@
   "keywords": [
     "Node",
     "MVC",
-    "Redis",
-    "Login"
+    "Redis"
   ],
-  "author": "Cody Van De Mark",
+  "author": "Claire Koval",
   "license": "Apache 2.0",
   "dependencies": {
     "body-parser": "^1.15.0",

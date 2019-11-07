@@ -1,96 +1,96 @@
-const handleDomo = (e) => {
+const handleBeer = (e) => {
     e.preventDefault();
 
-    $('#domoMessage').animate({width:'hide'}, 350);
+    $('#beerMessage').animate({width:'hide'}, 350);
 
-    if($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoHeight').val() === '') {
+    if($('#beerName').val() == '' || $('#beerAge').val() == '' || $('#beerHeight').val() === '') {
         handleError('RAWR! All fields are required');
         return false;
     }
 
-    sendAjax('POST', $('#domoForm').attr('action'), $('#domoForm').serialize(), function() {
-        loadDomosFromServer();
+    sendAjax('POST', $('#beerForm').attr('action'), $('#beerForm').serialize(), function() {
+        loadBeersFromServer();
     });
 
     return false;
 };
 
-const deleteDomo = e => {
-	const id = e.target.parentElement.querySelector('.domoId').innerText;
+const deleteBeer = e => {
+	const id = e.target.parentElement.querySelector('.beerId').innerText;
 	const _csrf = document.querySelector('input[name="_csrf"]').value;
 	
-	sendAjax('DELETE', '/deleteDomo', {id, _csrf}, data => {
-		loadDomosFromServer();
+	sendAjax('DELETE', '/deleteBeer', {id, _csrf}, data => {
+		loadBeersFromServer();
 	});
 };
 
-const DomoForm = (props) => {
+const BeerForm = (props) => {
     return (
-        <form id='domoForm'
-        onSubmit={handleDomo}
-        name='domoForm'
+        <form id='beerForm'
+        onSubmit={handleBeer}
+        name='beerForm'
         action='/maker'
         method='POST'
-        className='domoForm' >
+        className='beerForm' >
             <label htmlFor='name'>Name: </label>
-            <input id='domoName' type='text' name='name' placeholder='Domo Name' />
+            <input id='beerName' type='text' name='name' placeholder='Beer Name' />
             <label htmlFor='age'>Age: </label>
-            <input id='domoAge' type='text' name='age' placeholder='Domo Age' />
+            <input id='beerAge' type='text' name='age' placeholder='Beer Age' />
             <label htmlFor="height">Height: </label>
-            <input id="domoHeight" type="text" name="height" placeholder="Domo Height" />
+            <input id="beerHeight" type="text" name="height" placeholder="Beer Height" />
             <input type='hidden' name='_csrf' value={props.csrf} />
-            <input className='makeDomoSubmit' type='submit' value='Make Domo' />
+            <input className='makeBeerSubmit' type='submit' value='Make Beer' />
         </form>
     );
 };
 
-const DomoList = function(props) {
-    if(props.domos.length === 0) {
+const BeerList = function(props) {
+    if(props.beers.length === 0) {
         return (
-            <div className='domosList'>
-                <h3 className='emptyDomo'>No Domos Yet</h3>
+            <div className='beersList'>
+                <h3 className='emptyBeer'>No Beers Yet</h3>
             </div>
         );
     }
 
-    const domoNodes = props.domos.map(function(domo) {
+    const beerNodes = props.beers.map(function(beer) {
         return (
-            <div key={domo._id} className='domo'>
-                <img src='/assets/img/domoFace.jpeg' alt='domo face' className='domoFace'/>
-                <h3 className='domoName'> Name: {domo.name} </h3>
-                <h3 className='domoAge'> Age: {domo.age} </h3>
-                <h3 className='domoHeight'> Height: {domo.height} </h3>
-                <button className="deleteDomo" onClick={deleteDomo}>Remove</button>
-                <span className="domoId">{domo._id}</span>
+            <div key={beer._id} className='beer'>
+                <img src='/assets/img/domoFace.jpeg' alt='beer face' className='beerFace'/>
+                <h3 className='beerName'> Name: {beer.name} </h3>
+                <h3 className='beerAge'> Age: {beer.age} </h3>
+                <h3 className='beerHeight'> Height: {beer.height} </h3>
+                <button className="deleteBeer" onClick={deleteBeer}>Remove</button>
+                <span className="beerId">{beer._id}</span>
             </div>
         );
     });
 
     return (
-        <div className='domoList'>
-            {domoNodes}
+        <div className='beerList'>
+            {beerNodes}
         </div>
     );
 };
 
-const loadDomosFromServer = () => {
-    sendAjax('GET', '/getDomos', null, (data) => {
+const loadBeersFromServer = () => {
+    sendAjax('GET', '/getBeers', null, (data) => {
         ReactDOM.render(
-            <DomoList domos={data.domos} />, document.querySelector('#domos')
+            <BeerList beers={data.beers} />, document.querySelector('#beers')
         );
     });
 };
 
 const setup = function(csrf) {
     ReactDOM.render(
-        <DomoForm csrf={csrf} />, document.querySelector('#makeDomo')
+        <BeerForm csrf={csrf} />, document.querySelector('#makeBeer')
     );
 
     ReactDOM.render(
-        <DomoList domos={[]} />, document.querySelector('#domos')
+        <BeerList beers={[]} />, document.querySelector('#beers')
     );
 
-    loadDomosFromServer();
+    loadBeersFromServer();
 };
 
 const getToken = () => {
