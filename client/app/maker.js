@@ -3,8 +3,9 @@ const handleBeer = (e) => {
 
     $('#beerMessage').animate({width:'hide'}, 350);
 
-    if($('#beerName').val() == '' || $('#beerAge').val() == '' || $('#beerHeight').val() === '') {
-        handleError('RAWR! All fields are required');
+    if($('#beerName').val() == '' || $('#beerBrewer').val() == '' || $('#beerType').val() === '' ||
+        $('#beerABV').val() == '' || $('#beerNotes').val() == '') {
+        handleError('All fields are required');
         return false;
     }
 
@@ -34,12 +35,16 @@ const BeerForm = (props) => {
         className='beerForm' >
             <label htmlFor='name'>Name: </label>
             <input id='beerName' type='text' name='name' placeholder='Beer Name' />
-            <label htmlFor='age'>Age: </label>
-            <input id='beerAge' type='text' name='age' placeholder='Beer Age' />
-            <label htmlFor="height">Height: </label>
-            <input id="beerHeight" type="text" name="height" placeholder="Beer Height" />
+            <label htmlFor='brewer'>Brewer: </label>
+            <input id='beerBrewer' type='text' name='brewer' placeholder='Brewer' />
+            <label htmlFor='type'>Type: </label>
+            <input id='beerType' type='text' name='type' placeholder='Type' />
+            <label htmlFor='abv'>ABV: </label>
+            <input id='beerABV' type='text' name='abv' placeholder='ABV' />
+            <label htmlFor='notes'>Notes: </label>
+            <input id='beerNotes' type='text' name='notes' placeholder='Notes' />
             <input type='hidden' name='_csrf' value={props.csrf} />
-            <input className='makeBeerSubmit' type='submit' value='Make Beer' />
+            <input className='makeBeerSubmit' type='submit' value='Log Beer' />
         </form>
     );
 };
@@ -58,10 +63,12 @@ const BeerList = function(props) {
             <div key={beer._id} className='beer'>
                 <img src='/assets/img/domoFace.jpeg' alt='beer face' className='beerFace'/>
                 <h3 className='beerName'> Name: {beer.name} </h3>
-                <h3 className='beerAge'> Age: {beer.age} </h3>
-                <h3 className='beerHeight'> Height: {beer.height} </h3>
-                <button className="deleteBeer" onClick={deleteBeer}>Remove</button>
-                <span className="beerId">{beer._id}</span>
+                <h3 className='beerBrewer'> Brewer: {beer.brewer} </h3>
+                <h3 className='beerType'> Type: {beer.type} </h3>
+                <h3 className='beerABV'> ABV: {beer.abv} </h3>
+                <h3 className='beerNotes'> Type: {beer.notes} </h3>
+                <button className='deleteBeer' onClick={deleteBeer}>Remove</button>
+                <span className='beerId'>{beer._id}</span>
             </div>
         );
     });

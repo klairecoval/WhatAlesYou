@@ -14,13 +14,15 @@ const makerPage = (req, res) => {
 
 const makeBeer = (req, res) => {
   if (!req.body.name || !req.body.age) {
-    return res.status(400).json({ error: 'Name, age, and height are all required' });
+    return res.status(400).json({ error: 'All fields are required' });
   }
 
   const beerData = {
     name: req.body.name,
-    age: req.body.age,
-    height: req.body.height,
+    brewer: req.body.brewer,
+    type: req.body.type,
+    abv: req.body.abv,
+    notes: req.body.notes,
     owner: req.session.account._id,
   };
 

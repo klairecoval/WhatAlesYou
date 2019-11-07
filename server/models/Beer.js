@@ -16,16 +16,27 @@ const BeerSchema = new mongoose.Schema({
     set: setName,
   },
 
-  age: {
+  brewer: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
+  type: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+
+  abv: {
     type: Number,
-    min: 0,
     required: true,
   },
 
-  height: {
-    type: Number,
-    min: 0,
+  notes: {
+    type: String,
     required: true,
+    trim: true,
   },
 
   owner: {
@@ -42,8 +53,10 @@ const BeerSchema = new mongoose.Schema({
 
 BeerSchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  age: doc.age,
-  height: doc.height,
+  brewer: doc.brewer,
+  type: doc.type,
+  abv: dov.abv,
+  notes: doc.notes,
 });
 
 BeerSchema.statics.findByOwner = (ownerId, callback) => {

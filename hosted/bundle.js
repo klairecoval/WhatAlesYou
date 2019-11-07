@@ -1,134 +1,160 @@
 'use strict';
 
-var handleDomo = function handleDomo(e) {
+var handleBeer = function handleBeer(e) {
     e.preventDefault();
 
-    $('#domoMessage').animate({ width: 'hide' }, 350);
+    $('#beerMessage').animate({ width: 'hide' }, 350);
 
-    if ($('#domoName').val() == '' || $('#domoAge').val() == '' || $('#domoHeight').val() === '') {
+    if ($('#beerName').val() == '' || $('#beerAge').val() == '' || $('#beerHeight').val() === '') {
         handleError('RAWR! All fields are required');
         return false;
     }
 
-    sendAjax('POST', $('#domoForm').attr('action'), $('#domoForm').serialize(), function () {
-        loadDomosFromServer();
+    sendAjax('POST', $('#beerForm').attr('action'), $('#beerForm').serialize(), function () {
+        loadBeersFromServer();
     });
 
     return false;
 };
 
-var deleteDomo = function deleteDomo(e) {
-    var id = e.target.parentElement.querySelector('.domoId').innerText;
+var deleteBeer = function deleteBeer(e) {
+    var id = e.target.parentElement.querySelector('.beerId').innerText;
     var _csrf = document.querySelector('input[name="_csrf"]').value;
 
-    sendAjax('DELETE', '/deleteDomo', { id: id, _csrf: _csrf }, function (data) {
-        loadDomosFromServer();
+    sendAjax('DELETE', '/deleteBeer', { id: id, _csrf: _csrf }, function (data) {
+        loadBeersFromServer();
     });
 };
 
-var DomoForm = function DomoForm(props) {
+var BeerForm = function BeerForm(props) {
     return React.createElement(
         'form',
-        { id: 'domoForm',
-            onSubmit: handleDomo,
-            name: 'domoForm',
+        { id: 'beerForm',
+            onSubmit: handleBeer,
+            name: 'beerForm',
             action: '/maker',
             method: 'POST',
-            className: 'domoForm' },
+            className: 'beerForm' },
         React.createElement(
             'label',
             { htmlFor: 'name' },
             'Name: '
         ),
-        React.createElement('input', { id: 'domoName', type: 'text', name: 'name', placeholder: 'Domo Name' }),
+        React.createElement('input', { id: 'beerName', type: 'text', name: 'name', placeholder: 'Beer Name' }),
         React.createElement(
             'label',
-            { htmlFor: 'age' },
+            { htmlFor: 'brewer' },
             'Age: '
         ),
-        React.createElement('input', { id: 'domoAge', type: 'text', name: 'age', placeholder: 'Domo Age' }),
+        React.createElement('input', { id: 'beerBrewer', type: 'text', name: 'brewer', placeholder: 'Brewer' }),
         React.createElement(
             'label',
-            { htmlFor: 'height' },
-            'Height: '
+            { htmlFor: 'type' },
+            'Type: '
         ),
-        React.createElement('input', { id: 'domoHeight', type: 'text', name: 'height', placeholder: 'Domo Height' }),
+        React.createElement('input', { id: 'beerType', type: 'text', name: 'type', placeholder: 'Type' }),
+        React.createElement(
+            'label',
+            { htmlFor: 'abv' },
+            'ABV: '
+        ),
+        React.createElement('input', { id: 'beerABV', type: 'text', name: 'abv', placeholder: 'ABV' }),
+        React.createElement(
+            'label',
+            { htmlFor: 'notes' },
+            'Notes: '
+        ),
+        React.createElement('input', { id: 'beerNotes', type: 'text', name: 'notes', placeholder: 'Notes' }),
         React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
-        React.createElement('input', { className: 'makeDomoSubmit', type: 'submit', value: 'Make Domo' })
+        React.createElement('input', { className: 'makeBeerSubmit', type: 'submit', value: 'Log Beer' })
     );
 };
 
-var DomoList = function DomoList(props) {
-    if (props.domos.length === 0) {
+var BeerList = function BeerList(props) {
+    if (props.beers.length === 0) {
         return React.createElement(
             'div',
-            { className: 'domosList' },
+            { className: 'beersList' },
             React.createElement(
                 'h3',
-                { className: 'emptyDomo' },
-                'No Domos Yet'
+                { className: 'emptyBeer' },
+                'No Beers Yet'
             )
         );
     }
 
-    var domoNodes = props.domos.map(function (domo) {
+    var beerNodes = props.beers.map(function (beer) {
         return React.createElement(
             'div',
-            { key: domo._id, className: 'domo' },
-            React.createElement('img', { src: '/assets/img/domoFace.jpeg', alt: 'domo face', className: 'domoFace' }),
+            { key: beer._id, className: 'beer' },
+            React.createElement('img', { src: '/assets/img/domoFace.jpeg', alt: 'beer face', className: 'beerFace' }),
             React.createElement(
                 'h3',
-                { className: 'domoName' },
+                { className: 'beerName' },
                 ' Name: ',
-                domo.name,
+                beer.name,
                 ' '
             ),
             React.createElement(
                 'h3',
-                { className: 'domoAge' },
-                ' Age: ',
-                domo.age,
+                { className: 'beerBrewer' },
+                ' Brewer: ',
+                beer.brewer,
                 ' '
             ),
             React.createElement(
                 'h3',
-                { className: 'domoHeight' },
-                ' Height: ',
-                domo.height,
+                { className: 'beerType' },
+                ' Type: ',
+                beer.type,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'beerABV' },
+                ' ABV: ',
+                beer.abv,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'beerNotes' },
+                ' Type: ',
+                beer.notes,
                 ' '
             ),
             React.createElement(
                 'button',
-                { className: 'deleteDomo', onClick: deleteDomo },
+                { className: 'deleteBeer', onClick: deleteBeer },
                 'Remove'
             ),
             React.createElement(
                 'span',
-                { className: 'domoId' },
-                domo._id
+                { className: 'beerId' },
+                beer._id
             )
         );
     });
 
     return React.createElement(
         'div',
-        { className: 'domoList' },
-        domoNodes
+        { className: 'beerList' },
+        beerNodes
     );
 };
 
-var loadDomosFromServer = function loadDomosFromServer() {
-    sendAjax('GET', '/getDomos', null, function (data) {
-        ReactDOM.render(React.createElement(DomoList, { domos: data.domos }), document.querySelector('#domos'));
+var loadBeersFromServer = function loadBeersFromServer() {
+    sendAjax('GET', '/getBeers', null, function (data) {
+        ReactDOM.render(React.createElement(BeerList, { beers: data.beers }), document.querySelector('#beers'));
     });
 };
 
 var setup = function setup(csrf) {
-    ReactDOM.render(React.createElement(DomoForm, { csrf: csrf }), document.querySelector('#makeDomo'));
+    ReactDOM.render(React.createElement(BeerForm, { csrf: csrf }), document.querySelector('#makeBeer'));
 
-    ReactDOM.render(React.createElement(DomoList, { domos: [] }), document.querySelector('#domos'));
+    ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
 
-    loadDomosFromServer();
+    loadBeersFromServer();
 };
 
 var getToken = function getToken() {
@@ -144,11 +170,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
     $('#errorMessage').text(message);
-    $('#domoMessage').animate({ width: 'toggle' }, 350);
+    $('#beerMessage').animate({ width: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
-    $('#domoMessage').animate({ width: 'hide' }, 350);
+    $('#beerMessage').animate({ width: 'hide' }, 350);
     window.location = response.redirect;
 };
 
