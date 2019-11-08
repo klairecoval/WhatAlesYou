@@ -4,7 +4,7 @@ const handleBeer = (e) => {
     $('#beerMessage').animate({width:'hide'}, 350);
 
     if($('#beerName').val() == '' || $('#beerBrewer').val() == '' || $('#beerType').val() === '' ||
-        $('#beerABV').val() == '' || $('#beerNotes').val() == '') {
+        $('#beerABV').val() == '' || $('#beerIBU') || $('#beerNotes').val() == '') {
         handleError('All fields are required');
         return false;
     }
@@ -41,6 +41,8 @@ const BeerForm = (props) => {
             <input id='beerType' type='text' name='type' placeholder='Type' />
             <label htmlFor='abv'>ABV: </label>
             <input id='beerABV' type='text' name='abv' placeholder='ABV' />
+            <label htmlFor='ibu'>IBU: </label>
+            <input id='beerIBU' type='text' name='ibu' placeholder='IBU' />
             <label htmlFor='notes'>Notes: </label>
             <input id='beerNotes' type='text' name='notes' placeholder='Notes' />
             <input type='hidden' name='_csrf' value={props.csrf} />
@@ -66,6 +68,7 @@ const BeerList = function(props) {
                 <h3 className='beerBrewer'> Brewer: {beer.brewer} </h3>
                 <h3 className='beerType'> Type: {beer.type} </h3>
                 <h3 className='beerABV'> ABV: {beer.abv} </h3>
+                <h3 className='beerIBU'> IBU: {beer.ibu} </h3>
                 <h3 className='beerNotes'> Type: {beer.notes} </h3>
                 <button className='deleteBeer' onClick={deleteBeer}>Remove</button>
                 <span className='beerId'>{beer._id}</span>

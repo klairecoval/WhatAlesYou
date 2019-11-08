@@ -22,6 +22,7 @@ const makeBeer = (req, res) => {
     brewer: req.body.brewer,
     type: req.body.type,
     abv: req.body.abv,
+    ibu: req.body.ibu,
     notes: req.body.notes,
     owner: req.session.account._id,
   };

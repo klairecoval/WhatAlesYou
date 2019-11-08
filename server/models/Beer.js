@@ -33,6 +33,11 @@ const BeerSchema = new mongoose.Schema({
     required: true,
   },
 
+  ibu: {
+    type: Number,
+    required: true,
+  },
+
   notes: {
     type: String,
     required: true,
