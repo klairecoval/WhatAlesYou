@@ -40,7 +40,7 @@ AccountSchema.statics.toAPI = (doc) => {
     _id: doc._id,
   };
 
-  if(doc.upgraded) {
+  if (doc.upgraded) {
     account.upgraded = doc.upgraded;
   } else {
     account.upgraded = false;

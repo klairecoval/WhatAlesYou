@@ -13,7 +13,10 @@ const router = (app) => {
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
   app.post('/maker', mid.requiresLogin, controllers.Beer.make);
   app.post('/upgrade', mid.requiresSecure, mid.requiresLogin, controllers.Account.upgradeAccount);
-  app.post('/changePassword', mid.requiresSecure, mid.requiresLogin, controllers.Account.changePassword);
+  app.post('/changePassword',
+    mid.requiresSecure,
+    mid.requiresLogin,
+    controllers.Account.changePassword);
 
   app.delete('/deleteBeer', mid.requiresLogin, controllers.Beer.deleteBeer);
 

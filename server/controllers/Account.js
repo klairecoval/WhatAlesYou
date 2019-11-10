@@ -95,10 +95,7 @@ const changePassword = (request, response) => {
     return res.status(400).json({ error: 'Passwords do not match' });
   }
 
-  return Account.AccountModel.generateHash(req.body.newPass), (salt, hash) => 
-    Account.AccountModel.updatePassword(req.session.account._id, hash, salt, () => {
-      res.json({message: 'Password changed'})
-    })
+  return false; // fix eslint. function not working yet
 };
 
 // upgrade user's account to the paid, no-adds version with 'increased logger size'

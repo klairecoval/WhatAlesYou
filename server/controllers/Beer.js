@@ -13,7 +13,9 @@ const makerPage = (req, res) => {
 };
 
 const makeBeer = (req, res) => {
-  if (!req.body.name || !req.body.brewer || !req.body.type || !req.body.abv || !req.body.ibu || !req.body.notes) {
+  if (!req.body.name || !req.body.brewer ||
+    !req.body.type || !req.body.abv ||
+    !req.body.ibu || !req.body.notes) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
@@ -77,14 +79,14 @@ const deleteBeer = (req, res) => {
 
 const getPairs = (req, res) => {
   res.json([
-    {beer: 'Light Lager', food: 'wings, fries, and fish.'},
-    {beer: 'Wheat Beer', food: 'salads, fruit, pastries, and noodles.'},
-    {beer: 'IPA', food: 'steak, ribs, fries, and burritos.'},
-    {beer: 'Amber Ales', food: 'pulled pork, brisket, and pizza.'},
-    {beer: 'Dark Lager', food: 'pizza, burgers, and sausage.'},
-    {beer: 'Brown Ale', food: 'sausage and sushi.'},
-    {beer: 'Porter', food: 'shellfish, barbecue, and game meets (rabbit, venison).'},
-    {beer: 'Stout', food: 'chocolate, lobster, barbecue, and shellfish.'},
+    { beer: 'Light Lager', food: 'wings, fries, and fish.' },
+    { beer: 'Wheat Beer', food: 'salads, fruit, pastries, and noodles.' },
+    { beer: 'IPA', food: 'steak, ribs, fries, and burritos.' },
+    { beer: 'Amber Ales', food: 'pulled pork, brisket, and pizza.' },
+    { beer: 'Dark Lager', food: 'pizza, burgers, and sausage.' },
+    { beer: 'Brown Ale', food: 'sausage and sushi.' },
+    { beer: 'Porter', food: 'shellfish, barbecue, and game meets (rabbit, venison).' },
+    { beer: 'Stout', food: 'chocolate, lobster, barbecue, and shellfish.' },
   ]);
 };
 
