@@ -52,7 +52,7 @@ app.use(session({
     port: redisURL.port,
     pass: redisPASS,
   }),
-  secret: 'Lager Logger',
+  secret: 'Log your favorite beers',
   resave: true,
   saveUninitialized: true,
   cookie: {

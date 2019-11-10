@@ -6,7 +6,7 @@ const makerPage = (req, res) => {
   Beer.BeerModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
-      return res.status(400).json({ errpr: 'An error occurred.' });
+      return res.status(400).json({ error: 'An error occurred.' });
     }
     return res.render('app', { csrfToken: req.csrfToken(), beers: docs });
   });
@@ -78,7 +78,7 @@ const deleteBeer = (req, res) => {
 const getPairs = (req, res) => {
   res.json([
     {beer: 'Light Lager', food: 'wings, fries, and fish.'},
-    {beer: 'Wheat Beer', food: 'salads, fruit, pastries, and noodles.'}
+    {beer: 'Wheat Beer', food: 'salads, fruit, pastries, and noodles.'},
     {beer: 'IPA', food: 'steak, ribs, fries, and burritos.'},
     {beer: 'Amber Ales', food: 'pulled pork, brisket, and pizza.'},
     {beer: 'Dark Lager', food: 'pizza, burgers, and sausage.'},

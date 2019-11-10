@@ -26,6 +26,7 @@ nav:nth-child(1) {
 }
 
 .navlink {
+    cursor: pointer;
     padding: 5px;
     padding-top: 12px;
     padding-left: 20px;
@@ -35,6 +36,7 @@ nav:nth-child(1) {
 }
 
 .navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+    cursor: pointer;
     color: black;
     text-decoration: none;
     padding: 5px;
@@ -43,6 +45,7 @@ nav:nth-child(1) {
 }
 
 .navlink a:hover {
+    cursor: pointer;
     transition: background-color 0.8s ease;
     background-color: #C96E12;
 }

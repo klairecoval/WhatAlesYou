@@ -79,21 +79,26 @@ const signup = (request, response) => {
   });
 };
 
-const changePassword = (req, res) => {
-  const request = req;
-  const response = res;
+const changePassword = (request, response) => {
+  const req = request;
+  const res = response;
 
-  request.body.password = `${request.body.password}`;
-  request.body.newPassword = `${request.body.newPassword}`;
-  request.body.newPassword2 = `${request.body.newPassword2}`;
+  req.body.pass = `${req.body.pass}`;
+  req.body.newPass = `${req.body.newPass}`;
+  req.body.newPass2 = `${req.body.newPass2}`;
 
-  if (!request.body.password || !request.body.newPassword || !request.body.newPassword2) {
-    return response.status(400).json({ error: 'All fields are required' });
+  if (!req.body.password || !req.body.newPass || !req.body.newPass2) {
+    return res.status(400).json({ error: 'All fields are required' });
   }
 
-  if (request.body.newPassword !== request.body.newPassword2) {
-    return response.status(400).json({ error: 'Passwords do not match' });
+  if (req.body.newPass !== req.body.newPass2) {
+    return res.status(400).json({ error: 'Passwords do not match' });
   }
+
+  return Account.AccountModel.generateHash(req.body.newPass), (salt, hash) => 
+    Account.AccountModel.updatePassword(req.session.account._id, hash, salt, () => {
+      res.json({message: 'Password changed'})
+    })
 };
 
 // upgrade user's account to the paid, no-adds version with 'increased logger size'

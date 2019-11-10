@@ -1,4 +1,4 @@
-const PairingsContainter = (props) => {
+const PairingsContainer = (props) => {
     if(props.pairs.length === 0) {
         return (
             <div>No pairs...yet!</div>
@@ -28,7 +28,7 @@ const loadPairsFromServer = () => {
         const pairResponse = JSON.parse(xhr.response);
 
         ReactDOM.render(
-            <PairingsContainter pairs={pairResponse} />,
+            <PairingsContainer pairs={pairResponse} />,
             document.getElementById('beers')
         );
     };
@@ -37,13 +37,38 @@ const loadPairsFromServer = () => {
     xhr.send();
 };
 
-const init = () => {
+const PairingsTitle = (props) => {
+    return (
+        <h2>Food-Beer Pairings</h2>
+    );
+};
+
+const createPairingsTitle = () => {
     ReactDOM.render(
-        <PairingsContainter songs={[]} />, 
+        <PairingsTitle />,
+        document.querySelector('#makeBeer')
+    );
+};
+
+const createPairingContainer = () => {
+    ReactDOM.render(
+        <PairingsContainer pairs={[]} />, 
         document.getElementById('beers')
     );
 
     loadPairsFromServer();
 };
 
-window.onload = init;
+const createPairingsView = () => {
+    createPairingsTitle();
+	createPairingContainer();
+};
+
+const handlePairingsClick = () => {
+	const changePass = document.querySelector('#pairings');
+	
+	changePass.addEventListener('click', e => {
+		e.preventDefault();
+		createPairingsView();
+	});
+};

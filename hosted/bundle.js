@@ -6,7 +6,6 @@ var handlePasswordChange = function handlePasswordChange(e) {
     var currPass = document.querySelector('#password').value;
     var newPass = document.querySelector('#newPassword').value;
     var newPass2 = document.querySelector('#newPassword2').value;
-    var changePassForm = document.querySelector('#changePassForm');
 
     if (currPass.val() == '' || newPass.val() == '' || newPass2.val() == '') {
         handleError('All fields required');
@@ -14,48 +13,62 @@ var handlePasswordChange = function handlePasswordChange(e) {
     }
 
     if (newPass !== newPass2) {
-        handleError('Passwords Do Not Match');
+        handleError('Passwords do no match');
         return false;
     }
 
-    sendAjax('POST', '/changePassword', $('#changePassForm').serialize(), redirect);
+    sendAjax('POST', '/changePassword', $('#changePassForm').serialize(), function () {
+        handleError('Password changed');
+    });
 
     return false;
 };
 
 var ChangePassword = function ChangePassword(props) {
     return React.createElement(
-        'div',
-        null,
+        'form',
+        { id: 'changePassForm', name: 'changePassForm', action: 'changePassword', onSubmit: handlePasswordChange, method: 'POST' },
         React.createElement(
-            'form',
-            { id: 'changePassForm', name: 'changePassForm', action: 'changePassword', onSubmit: handlePasswordChange, method: 'POST' },
-            '\'\'',
-            React.createElement(
-                'label',
-                { htmlFor: 'password' },
-                ' Current Password: '
-            ),
-            React.createElement('input', { id: 'password', type: 'password', name: 'password', placeholder: 'current password' }),
-            React.createElement(
-                'label',
-                { htmlFor: 'newPassword' },
-                ' New Password: '
-            ),
-            React.createElement('input', { id: 'newPassword', type: 'password', name: 'newPassword', placeholder: 'new password' }),
-            React.createElement(
-                'label',
-                { htmlFor: 'newPassword2' },
-                ' Confirm New Password: '
-            ),
-            React.createElement('input', { id: 'newPassword2', type: 'password', name: 'newPassword2', placeholder: 'confirm new password' }),
-            React.createElement('input', { className: 'submitForm', type: 'submit', value: 'Change Password' })
-        )
+            'label',
+            { htmlFor: 'password' },
+            ' Current Password: '
+        ),
+        React.createElement('input', { id: 'password', type: 'password', name: 'password', placeholder: 'current password' }),
+        React.createElement(
+            'label',
+            { htmlFor: 'newPassword' },
+            ' New Password: '
+        ),
+        React.createElement('input', { id: 'newPassword', type: 'password', name: 'newPassword', placeholder: 'new password' }),
+        React.createElement(
+            'label',
+            { htmlFor: 'newPassword2' },
+            ' Confirm New Password: '
+        ),
+        React.createElement('input', { id: 'newPassword2', type: 'password', name: 'newPassword2', placeholder: 'confirm new password' }),
+        React.createElement('input', { className: 'submitForm', type: 'submit', value: 'Change Password' })
     );
 };
 
-var createChangePassForm = function createChangePassForm() {
+var PassTitle = function PassTitle(props) {
+    return React.createElement(
+        'h2',
+        null,
+        'Change Password'
+    );
+};
+
+var createPassTitle = function createPassTitle() {
+    ReactDOM.render(React.createElement(PassTitle, null), document.querySelector('#makeBeer'));
+};
+
+var createChangePasswordForm = function createChangePasswordForm() {
     ReactDOM.render(React.createElement(ChangePassword, null), document.querySelector('#beers'));
+};
+
+var createChangePasswordView = function createChangePasswordView() {
+    createPassTitle();
+    createChangePasswordForm();
 };
 
 var handleChangePasswordClick = function handleChangePasswordClick() {
@@ -63,7 +76,7 @@ var handleChangePasswordClick = function handleChangePasswordClick() {
 
     changePass.addEventListener('click', function (e) {
         e.preventDefault();
-        createChangePassForm();
+        createChangePasswordView();
     });
 };
 'use strict';
@@ -236,6 +249,9 @@ var setup = function setup(csrf) {
 
     ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
 
+    handlePairingsClick();
+    handleUpgradeClick();
+    handleChangePasswordClick();
     loadBeersFromServer();
 };
 
@@ -248,51 +264,97 @@ var getToken = function getToken() {
 $(document).ready(function () {
     getToken();
 });
-"use strict";
-
-// const handlePairings = (e) => {
-//     e.preventDefault();
-
-//     sendAjax('POST', '/pairings', null, function() {
-//         console.log('pairings');
-//     });
-// };
-
-var UpgradeAccount = function UpgradeAccount(props) {
-    return React.createElement(
-        "div",
-        null,
-        React.createElement(
-            "h2",
-            null,
-            "Pairings"
-        ),
-        React.createElement(
-            "h4",
-            null,
-            "Ever wonder what foods pair well with your favorite type of beer? Well look no further"
-        )
-    );
-};
 'use strict';
 
-var handleAccountUpgrade = function handleAccountUpgrade(e) {
-    e.preventDefault();
-
-    sendAjax('POST', '/upgrade', null, function () {
-        console.log('here?');
+var PairingsContainer = function PairingsContainer(props) {
+    if (props.pairs.length === 0) {
+        return React.createElement(
+            'div',
+            null,
+            'No pairs...yet!'
+        );
+    }
+    var pairsList = props.pairs.map(function (pair) {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement(
+                'h4',
+                null,
+                pair.beer,
+                ' pairs well with ',
+                pair.food
+            )
+        );
     });
-};
-
-var UpgradeAccount = function UpgradeAccount(props) {
     return React.createElement(
         'div',
         null,
         React.createElement(
             'h2',
             null,
-            'Upgrade Account'
+            'Pairings'
         ),
+        React.createElement(
+            'h4',
+            null,
+            'Ever wondered what foods would pair best with your favorite types of beers? If so, look no further!'
+        ),
+        pairsList
+    );
+};
+
+var loadPairsFromServer = function loadPairsFromServer() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/getPairs');
+
+    var setPairs = function setPairs() {
+        var pairResponse = JSON.parse(xhr.response);
+
+        ReactDOM.render(React.createElement(PairingsContainer, { pairs: pairResponse }), document.getElementById('beers'));
+    };
+
+    xhr.onload = setPairs;
+    xhr.send();
+};
+
+var PairingsTitle = function PairingsTitle(props) {
+    return React.createElement(
+        'h2',
+        null,
+        'Food-Beer Pairings'
+    );
+};
+
+var createPairingsTitle = function createPairingsTitle() {
+    ReactDOM.render(React.createElement(PairingsTitle, null), document.querySelector('#makeBeer'));
+};
+
+var createPairingContainer = function createPairingContainer() {
+    ReactDOM.render(React.createElement(PairingsContainer, { pairs: [] }), document.getElementById('beers'));
+
+    loadPairsFromServer();
+};
+
+var createPairingsView = function createPairingsView() {
+    createPairingsTitle();
+    createPairingContainer();
+};
+
+var handlePairingsClick = function handlePairingsClick() {
+    var changePass = document.querySelector('#pairings');
+
+    changePass.addEventListener('click', function (e) {
+        e.preventDefault();
+        createPairingsView();
+    });
+};
+'use strict';
+
+var UpgradeAccount = function UpgradeAccount(props) {
+    return React.createElement(
+        'div',
+        null,
         React.createElement(
             'h4',
             null,
@@ -305,14 +367,40 @@ var UpgradeAccount = function UpgradeAccount(props) {
         ),
         React.createElement(
             'a',
-            { href: '#', onClick: handleAccountUpgrade },
+            { href: '#' },
             'Upgrade'
         )
     );
 };
 
+var UpgradeTitle = function UpgradeTitle(props) {
+    return React.createElement(
+        'h2',
+        null,
+        'Upgrade Account'
+    );
+};
+
+var createUpgradeTitle = function createUpgradeTitle() {
+    ReactDOM.render(React.createElement(UpgradeTitle, null), document.querySelector('#makeBeer'));
+};
+
 var createUpgradeAccountInfo = function createUpgradeAccountInfo() {
     ReactDOM.render(React.createElement(UpgradeAccount, null), document.querySelector('#beers'));
+};
+
+var createUpgradeView = function createUpgradeView() {
+    createUpgradeTitle();
+    createUpgradeAccountInfo();
+};
+
+var handleUpgradeClick = function handleUpgradeClick() {
+    var changePass = document.querySelector('#upgrade');
+
+    changePass.addEventListener('click', function (e) {
+        e.preventDefault();
+        createUpgradeView();
+    });
 };
 "use strict";
 'use strict';
