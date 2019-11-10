@@ -20,7 +20,7 @@ const login = (request, response) => {
   const password = `${req.body.pass}`;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'RAWR! All fields required!' });
+    return res.status(400).json({ error: 'All fields required.' });
   }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
@@ -44,11 +44,11 @@ const signup = (request, response) => {
   req.body.pass2 = `${req.body.pass2}`;
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR! All fields are required!' });
+    return res.status(400).json({ error: 'All fields are required.' });
   }
 
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR! Passwords do not match!' });
+    return res.status(400).json({ error: 'Passwords do not match.' });
   }
 
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
@@ -79,6 +79,42 @@ const signup = (request, response) => {
   });
 };
 
+const changePassword = (req, res) => {
+  const request = req;
+  const response = res;
+
+  request.body.password = `${request.body.password}`;
+  request.body.newPassword = `${request.body.newPassword}`;
+  request.body.newPassword2 = `${request.body.newPassword2}`;
+
+  if (!request.body.password || !request.body.newPassword || !request.body.newPassword2) {
+    return response.status(400).json({ error: 'All fields are required' });
+  }
+
+  if (request.body.newPassword !== request.body.newPassword2) {
+    return response.status(400).json({ error: 'Passwords do not match' });
+  }
+};
+
+// upgrade user's account to the paid, no-adds version with 'increased logger size'
+const upgradeAccount = (req, res) => {
+  const request = req;
+  const response = res;
+
+  const search = {
+    username: `${request.session.account.username}`,
+  };
+
+  return Account.AccountModel.update(search, { $set: { upgraded: true } }, {}, (err) => {
+    if (err) {
+      return response.status(500).json({ error: 'Unable to upgrade account.' });
+    }
+
+    request.session.account.upgraded = true;
+    return response.status(200).json({ message: 'Account upgraded successfully!' });
+  });
+};
+
 const getToken = (request, response) => {
   const req = request;
   const res = response;
@@ -90,8 +126,12 @@ const getToken = (request, response) => {
   res.json(csrfJSON);
 };
 
-module.exports.loginPage = loginPage;
-module.exports.login = login;
-module.exports.logout = logout;
-module.exports.signup = signup;
-module.exports.getToken = getToken;
+module.exports = {
+  loginPage,
+  login,
+  logout,
+  signup,
+  changePassword,
+  upgradeAccount,
+  getToken,
+};

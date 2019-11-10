@@ -11,6 +11,10 @@ const router = (app) => {
   app.get('/maker', mid.requiresLogin, controllers.Beer.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Beer.make);
   app.delete('/deleteBeer', mid.requiresLogin, controllers.Beer.deleteBeer);
+  app.post('/upgrade', mid.requiresSecure, mid.requiresLogin, controllers.Account.upgradeAccount);
+  app.post('/changePassword', mid.requiresSecure, mid.requiresLogin, controllers.Account.changePassword);
+  app.post('/pairings', mid.requiresSecure, mid.requiresLogin);
+  app.get('/getPairs', controllers.Beer.getPairs);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 

@@ -11,7 +11,6 @@ Criteria:
 
 Pages:
 - Pairings
-- Recipes
 - Upgrade Account
 - Login/Signup
 - Change Password
@@ -25,3 +24,6 @@ Colors:
 - #EC9D00
 - #DF8D03
 - #C96E12
+
+Assets:
+- Beer: https://freeiconshop.com/icon/beer-icon-outline/

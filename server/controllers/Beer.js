@@ -13,7 +13,7 @@ const makerPage = (req, res) => {
 };
 
 const makeBeer = (req, res) => {
-  if (!req.body.name || !req.body.age) {
+  if (!req.body.name || !req.body.brewer || !req.body.type || !req.body.abv || !req.body.ibu || !req.body.notes) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
@@ -53,7 +53,7 @@ const getBeers = (request, response) => {
   return Beer.BeerModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
+      return res.status(400).json({ error: 'An error occurred.' });
     }
 
     return res.json({ beers: docs });
@@ -62,20 +62,36 @@ const getBeers = (request, response) => {
 
 const deleteBeer = (req, res) => {
   if (!req.body.id) {
-    return res.status(400).json({ error: 'RAWR! Beer name required to delete' });
+    return res.status(400).json({ error: 'Beer id is required to delete.' });
   }
 
   return Beer.BeerModel.deleteById(req.body.id, (err) => {
     if (err) {
       console.log(err);
-      return res.status(500).json({ error: 'An error ocurred' });
+      return res.status(500).json({ error: 'An error ocurred.' });
     }
 
-    return res.status(200).json({ msg: 'Beer deleted successfully' });
+    return res.status(200).json({ msg: 'Beer deleted successfully.' });
   });
 };
 
-module.exports.make = makeBeer;
-module.exports.getBeers = getBeers;
-module.exports.makerPage = makerPage;
-module.exports.deleteBeer = deleteBeer;
+const getPairs = (req, res) => {
+  res.json([
+    {beer: 'Light Lager', food: 'wings, fries, and fish.'},
+    {beer: 'Wheat Beer', food: 'salads, fruit, pastries, and noodles.'}
+    {beer: 'IPA', food: 'steak, ribs, fries, and burritos.'},
+    {beer: 'Amber Ales', food: 'pulled pork, brisket, and pizza.'},
+    {beer: 'Dark Lager', food: 'pizza, burgers, and sausage.'},
+    {beer: 'Brown Ale', food: 'sausage and sushi.'},
+    {beer: 'Porter', food: 'shellfish, barbecue, and game meets (rabbit, venison).'},
+    {beer: 'Stout', food: 'chocolate, lobster, barbecue, and shellfish.'},
+  ]);
+};
+
+module.exports = {
+  make: makeBeer,
+  getBeers,
+  makerPage,
+  deleteBeer,
+  getPairs,
+};

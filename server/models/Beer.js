@@ -61,6 +61,7 @@ BeerSchema.statics.toAPI = (doc) => ({
   brewer: doc.brewer,
   type: doc.type,
   abv: doc.abv,
+  ibu: doc.ibu,
   notes: doc.notes,
 });
 
@@ -69,7 +70,7 @@ BeerSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return BeerModel.find(search).select('name age height').exec(callback);
+  return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);
 };
 
 BeerSchema.statics.deleteById = (id, callback) => {
@@ -82,5 +83,7 @@ BeerSchema.statics.deleteById = (id, callback) => {
 
 BeerModel = mongoose.model('Beer', BeerSchema);
 
-module.exports.BeerModel = BeerModel;
-module.exports.BeerSchema = BeerSchema;
+module.exports = {
+  BeerModel,
+  BeerSchema,
+};

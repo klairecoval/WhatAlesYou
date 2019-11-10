@@ -3,8 +3,8 @@ const handleBeer = (e) => {
 
     $('#beerMessage').animate({width:'hide'}, 350);
 
-    if($('#beerName').val() == '' || $('#beerBrewer').val() == '' || $('#beerType').val() === '' ||
-        $('#beerABV').val() == '' || $('#beerIBU') || $('#beerNotes').val() == '') {
+    if($('#beerName').val() == '' || $('#beerBrewer').val() == '' || $('#beerType').val() == '' ||
+        $('#beerABV').val() == '' || $('#beerIBU').val() == '' || $('#beerNotes').val() == '') {
         handleError('All fields are required');
         return false;
     }
@@ -61,10 +61,11 @@ const BeerList = function(props) {
     }
 
     const beerNodes = props.beers.map(function(beer) {
+        console.log(beer.notes);
         return (
             <div key={beer._id} className='beer'>
-                <img src='/assets/img/domoFace.jpeg' alt='beer face' className='beerFace'/>
-                <h3 className='beerName'> Name: {beer.name} </h3>
+                <img src='/assets/img/beerIcon.png' alt='beer face' className='beerDefaultIcon'/>
+                <h3 className='beerName'> {beer.name} </h3>
                 <h3 className='beerBrewer'> Brewer: {beer.brewer} </h3>
                 <h3 className='beerType'> Type: {beer.type} </h3>
                 <h3 className='beerABV'> ABV: {beer.abv} </h3>

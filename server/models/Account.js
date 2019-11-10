@@ -24,17 +24,30 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  upgraded: {
+    type: Boolean,
+    default: false,
+  },
   createdDate: {
     type: Date,
     default: Date.now,
   },
 });
 
-AccountSchema.statics.toAPI = doc => ({
-  // _id is built into your mongo document and is guaranteed to be unique
-  username: doc.username,
-  _id: doc._id,
-});
+AccountSchema.statics.toAPI = (doc) => {
+  const account = {
+    username: doc.username,
+    _id: doc._id,
+  };
+
+  if(doc.upgraded) {
+    account.upgraded = doc.upgraded;
+  } else {
+    account.upgraded = false;
+  }
+
+  return account;
+};
 
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
@@ -84,5 +97,7 @@ AccountModel.findByUsername(username, (err, doc) => {
 
 AccountModel = mongoose.model('Account', AccountSchema);
 
-module.exports.AccountModel = AccountModel;
-module.exports.AccountSchema = AccountSchema;
+module.exports = {
+  AccountModel,
+  AccountSchema,
+};

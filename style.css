@@ -244,19 +244,6 @@ h3.beerName {
     font-size: 1.5em;
 }
 
-h3.beerAge {
-    float:right;
-    text-align: left;
-    font-weight: bold;
-    padding-right: 40px;
-    font-size: 1.5em;
-}
-
-h3.beerHeight {
-    font-weight: bold;
-    font-size: 1.5em;
-}
-
 .beer:first-child {
     margin-top: 10px;
 }

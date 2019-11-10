@@ -8,19 +8,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.6.2/remarkable.min.js"></script>
-  <link rel="shortcut icon" href="/assets/img/favicon.png"/>
-  <link rel="stylesheet" type="text/css" href="/assets/style.css"/>
+  <link rel="shortcut icon" href="/assets/img/beerIcon.png"/>
+  <link rel="stylesheet" type="text/css" href="/assets/css/app.css"/>
 </head>
 <body>
-  <nav><a href="/login"><img id="logo" src="/assets/img/face.png" alt="face logo"/></a>
-    <div class="navlink"><a href="/logout">Log out</a></div>
+  <nav><a href="/login"><img id="logo" src="/assets/img/beerIcon.png" alt="beer logo"/></a>
+    <div class="navlink">
+      <a href="/pairings">Pairings</a>
+      <a href="/upgrade">Upgrade</a>
+      <a href="/changePassword">Change Password</a>
+      <a href="/account">Account Info</a>
+      <a href="/logout">Log out</a>
+    </div>
   </nav>
   <section id="makeBeer">
   </section>
   <section id="beers">
   </section>
-  <div id="beerMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage"></span></h3><img id="beer" src="assets/img/domo.png" alt="beer"/>
+  <div id="beerMessage">
+    <h3><span id="errorMessage"></span></h3>
   </div>
   <script src="/assets/bundle.js"></script>
 </body>
