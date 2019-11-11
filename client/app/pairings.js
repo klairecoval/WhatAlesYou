@@ -6,15 +6,14 @@ const PairingsContainer = (props) => {
     }
     const pairsList = props.pairs.map((pair) => {
         return (
-            <div>
+            <div className="pairing">
                 <h4>{pair.beer} pairs well with {pair.food}</h4>
             </div>
         );
     });
     return (
         <div>
-            <h2>Pairings</h2>
-            <h4>Ever wondered what foods would pair best with your favorite types of beers? If so, look no further!</h4>
+            <h2>Ever wondered what foods would pair best with your favorite types of beers? If so, look no further!</h2>
             {pairsList}
         </div>
     );

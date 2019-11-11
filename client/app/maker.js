@@ -101,6 +101,7 @@ const setup = function(csrf) {
         <BeerList beers={[]} />, document.querySelector('#beers')
     );
 
+    handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
     handleChangePasswordClick();

@@ -13,6 +13,7 @@ html, body {
     padding-top: 5px;
     float:left;
     border-radius: 8px;
+    padding-left: 5px;
 }
 
 nav {
@@ -21,31 +22,25 @@ nav {
     background-color: #EC9D00;
 }
 
-nav:nth-child(1) {
-    padding-left: 25px;
-}
-
 .navlink {
     cursor: pointer;
-    padding: 5px;
-    padding-top: 12px;
-    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 10px;
     color: black;
-    font-size: 1.3em;
     float: right;
 }
 
-.navlink a, .navlink a:link, .navlink a:visited, .navlink a:hover, .navlink a:active {
+.navlink img, .navlink img:link, .navlink img:visited, .navlink img:hover, .navlink img:active {
     cursor: pointer;
     color: black;
     text-decoration: none;
-    padding: 5px;
     border-radius: 4px;
     transition: background-color 0.4s ease;
 }
 
-.navlink a:hover {
+.navlink img:hover {
     cursor: pointer;
+    border-radius: 4px;
     transition: background-color 0.8s ease;
     background-color: #C96E12;
 }
@@ -241,4 +236,15 @@ button.deleteBeer:hover{
 
 .beerId {
     display: none;
+}
+
+.pairing {
+    display: inline-block;
+    width: 20rem;
+    margin: 0 auto;
+    border: 2px solid #EC9D00;
+    border-radius: 4px;
+    padding: 10px;
+    overflow: hidden;
+    margin-right: 1rem;
 }

@@ -15,7 +15,7 @@ Pages:
 - Login/Signup
 - Change Password
 - Main App
-- User Account
+- Recipes
 
 Colors:
 - #FFF897
@@ -26,4 +26,5 @@ Colors:
 - #C96E12
 
 Assets:
-- Beer: https://freeiconshop.com/icon/beer-icon-outline/
+- Beer Icon: https://freeiconshop.com/icon/beer-icon-outline/
+- Icons: https://thenounproject.com/

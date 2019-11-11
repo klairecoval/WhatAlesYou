@@ -90,9 +90,18 @@ const getPairs = (req, res) => {
   ]);
 };
 
+const getRecipes = (req, res) => {
+  res.json([
+    { name: 'Beer Dip', description: 'Ranch dressing and shredded cheese come together to form the best dip to be paired with pretzles', link: 'https://www.tasteofhome.com/recipes/beer-dip/'},
+    {name: 'Beer Can Chichen', description: 'Keep chicken moist by teaming it in beer while on the grill', link: 'https://www.tasteofhome.com/article/beer-can-chicken/'},
+    {name: 'Potato-Beer-Cheese Sour', description: 'This potato soup has a comforting velvety texture to warm your soul on could nights', link: 'https://www.tasteofhome.com/recipes/potato-beer-cheese-soup/'},
+  ])
+};
+
 module.exports = {
   make: makeBeer,
   getBeers,
+  getRecipes,
   makerPage,
   deleteBeer,
   getPairs,

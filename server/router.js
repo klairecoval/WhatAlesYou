@@ -8,6 +8,7 @@ const router = (app) => {
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
   app.get('/maker', mid.requiresLogin, controllers.Beer.makerPage);
   app.get('/getPairs', mid.requiresLogin, controllers.Beer.getPairs);
+  app.get('/getRecipes', mid.requiresLogin, controllers.Beer.getRecipes);
 
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
@@ -21,6 +22,9 @@ const router = (app) => {
   app.delete('/deleteBeer', mid.requiresLogin, controllers.Beer.deleteBeer);
 
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+
+  // app.post('/*', mid.requiresSecure, );
+
 };
 
 module.exports = router;

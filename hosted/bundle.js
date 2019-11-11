@@ -249,6 +249,7 @@ var setup = function setup(csrf) {
 
     ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
 
+    handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
     handleChangePasswordClick();
@@ -277,7 +278,7 @@ var PairingsContainer = function PairingsContainer(props) {
     var pairsList = props.pairs.map(function (pair) {
         return React.createElement(
             'div',
-            null,
+            { className: 'pairing' },
             React.createElement(
                 'h4',
                 null,
@@ -292,11 +293,6 @@ var PairingsContainer = function PairingsContainer(props) {
         null,
         React.createElement(
             'h2',
-            null,
-            'Pairings'
-        ),
-        React.createElement(
-            'h4',
             null,
             'Ever wondered what foods would pair best with your favorite types of beers? If so, look no further!'
         ),
@@ -347,6 +343,93 @@ var handlePairingsClick = function handlePairingsClick() {
     changePass.addEventListener('click', function (e) {
         e.preventDefault();
         createPairingsView();
+    });
+};
+'use strict';
+
+var RecipesContainer = function RecipesContainer(props) {
+    if (props.recipes.length === 0) {
+        return React.createElement(
+            'div',
+            null,
+            'No pairs...yet!'
+        );
+    }
+    var recipesList = props.recipes.map(function (recipe) {
+        return React.createElement(
+            'div',
+            { className: 'recipe' },
+            React.createElement(
+                'h4',
+                null,
+                React.createElement(
+                    'a',
+                    { href: recipe.link },
+                    recipe.name
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                recipe.description
+            )
+        );
+    });
+    return React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h2',
+            null,
+            'Have a lot of left-over beer? Cook it up!'
+        ),
+        pairsList
+    );
+};
+
+var loadPairsFromServer = function loadPairsFromServer() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/getRecipes');
+
+    var setRecipes = function setRecipes() {
+        var recipesResponse = JSON.parse(xhr.response);
+
+        ReactDOM.render(React.createElement(RecipesContainer, { recipes: recipesResponse }), document.getElementById('beers'));
+    };
+
+    xhr.onload = setRecipes;
+    xhr.send();
+};
+
+var RecipesTitle = function RecipesTitle(props) {
+    return React.createElement(
+        'h2',
+        null,
+        'Beer-Based Recipes'
+    );
+};
+
+var createRecipesTitle = function createRecipesTitle() {
+    ReactDOM.render(React.createElement(RecipesTitle, null), document.querySelector('#makeBeer'));
+};
+
+var createRecipesContainer = function createRecipesContainer() {
+    ReactDOM.render(React.createElement(RecipesContainer, { recipes: [] }), document.getElementById('beers'));
+
+    loadPairsFromServer();
+};
+
+var createRecipesView = function createRecipesView() {
+    createRecipesTitle();
+    createRecipesContainer();
+};
+
+var handleRecipesClick = function handleRecipesClick() {
+    var changePass = document.querySelector('#recipes');
+
+    changePass.addEventListener('click', function (e) {
+        e.preventDefault();
+        createRecipesView();
     });
 };
 'use strict';
