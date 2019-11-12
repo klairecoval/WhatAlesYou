@@ -6,6 +6,10 @@ const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+const notFoundPage = (req, res) => {
+  res.render('notFound', { csrfToken:req.csrfToken() });
+};
+
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -148,6 +152,7 @@ const getToken = (request, response) => {
 
 module.exports = {
   loginPage,
+  notFoundPage,
   login,
   logout,
   signup,

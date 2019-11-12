@@ -28,3 +28,4 @@ Colors:
 Assets:
 - Beer Icon: https://freeiconshop.com/icon/beer-icon-outline/
 - Icons: https://thenounproject.com/
+- 404 Page GIF: https://giphy.com/gifs/beer-drink-tap-2kSfEOhJJApaYXsRJ7/media
