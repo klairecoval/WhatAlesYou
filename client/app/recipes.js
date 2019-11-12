@@ -1,7 +1,7 @@
 const RecipesContainer = (props) => {
     if(props.recipes.length === 0) {
         return (
-            <div>No pairs...yet!</div>
+            <div>No recipes...yet!</div>
         );
     }
     const recipesList = props.recipes.map((recipe) => {
@@ -20,7 +20,7 @@ const RecipesContainer = (props) => {
     );
 };
 
-const loadPairsFromServer = () => {
+const loadRecipesFromServer = () => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '/getRecipes');
 
@@ -56,7 +56,7 @@ const createRecipesContainer = () => {
         document.getElementById('beers')
     );
 
-    loadPairsFromServer();
+    loadRecipesFromServer();
 };
 
 const createRecipesView = () => {

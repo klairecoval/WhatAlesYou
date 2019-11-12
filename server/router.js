@@ -24,7 +24,6 @@ const router = (app) => {
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 
   // app.post('/*', mid.requiresSecure, );
-
 };
 
 module.exports = router;

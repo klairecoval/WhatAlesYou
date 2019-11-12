@@ -1,17 +1,12 @@
 const handlePasswordChange = (e) => {
     e.preventDefault();
-
-    const currPass = document.querySelector('#password').value;
-	const newPass = document.querySelector('#newPassword').value;
-	const newPass2 = document.querySelector('#newPassword2').value;
     
-    if(currPass.val() == '' || newPass.val() == '' || newPass2.val() == '')
-    {
+    if($('currPass').val() == '' || $('#newPass').val() == '' || $('#newPass2').val() == '') {
         handleError('All fields required');
         return false;
     }
 
-    if (newPass !== newPass2) {
+    if ($('#newPass').val() !== $('#newPass2').val()) {
         handleError('Passwords do no match');
         return false;
     }
@@ -26,12 +21,15 @@ const handlePasswordChange = (e) => {
 const ChangePassword = (props) => {
     return (
         <form id='changePassForm' name='changePassForm' action='changePassword' onSubmit={handlePasswordChange} method='POST'>
-            <label htmlFor='password'> Current Password: </label>
-            <input id='password' type='password' name='password' placeholder='current password' />
-            <label htmlFor='newPassword'> New Password: </label>
-            <input id='newPassword' type='password' name='newPassword' placeholder='new password'/>
-            <label htmlFor='newPassword2'> Confirm New Password: </label>
-            <input id='newPassword2' type='password' name='newPassword2' placeholder='confirm new password'/>
+            {/* <label htmlFor='userName'> Username: </label>
+            <input id='userName' type='text' name='userName' placeholder='username' /> */}
+            <label htmlFor='currPass'> Current Password: </label>
+            <input id='currPass' type='password' name='currPass' placeholder='current password' />
+            <label htmlFor='newPass'> New Password: </label>
+            <input id='newPass' type='password' name='newPass' placeholder='new password'/>
+            <label htmlFor='newPass2'> Confirm New Password: </label>
+            <input id='newPass2' type='password' name='newPass2' placeholder='confirm new password'/>
+            <input type='hidden' name='_csrf' value={props.csrf} placeholder={props.csrf}/>
             <input className='submitForm' type='submit' value='Change Password'/>
         </form>
     );
@@ -50,23 +48,33 @@ const createPassTitle = () => {
     );
 };
 
-const createChangePasswordForm = () => {
+const createChangePasswordForm = (csrf) => {
     ReactDOM.render(
-        <ChangePassword />,
+        <ChangePassword csrf={csrf} />,
         document.querySelector('#beers')
     );
 };
 
-const createChangePasswordView = () => {
+const createChangePasswordView = (csrf) => {
     createPassTitle();
-	createChangePasswordForm();
+	createChangePasswordForm(csrf);
 };
 
-const handleChangePasswordClick = () => {
+const handleChangePasswordClick = (csrf) => {
 	const changePass = document.querySelector('#changePassword');
 	
 	changePass.addEventListener('click', e => {
 		e.preventDefault();
-		createChangePasswordView();
+		createChangePasswordView(csrf);
 	});
 };
+
+const getCSRFToken = () => {
+    sendAjax('GET', '/getToken', null, (result) => {
+        handleChangePasswordClick(result.csrfToken);
+    });
+};
+
+$(document).ready(function() {
+    getCSRFToken();
+});

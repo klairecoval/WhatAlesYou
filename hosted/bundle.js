@@ -3,16 +3,12 @@
 var handlePasswordChange = function handlePasswordChange(e) {
     e.preventDefault();
 
-    var currPass = document.querySelector('#password').value;
-    var newPass = document.querySelector('#newPassword').value;
-    var newPass2 = document.querySelector('#newPassword2').value;
-
-    if (currPass.val() == '' || newPass.val() == '' || newPass2.val() == '') {
+    if ($('currPass').val() == '' || $('#newPass').val() == '' || $('#newPass2').val() == '') {
         handleError('All fields required');
         return false;
     }
 
-    if (newPass !== newPass2) {
+    if ($('#newPass').val() !== $('#newPass2').val()) {
         handleError('Passwords do no match');
         return false;
     }
@@ -30,22 +26,23 @@ var ChangePassword = function ChangePassword(props) {
         { id: 'changePassForm', name: 'changePassForm', action: 'changePassword', onSubmit: handlePasswordChange, method: 'POST' },
         React.createElement(
             'label',
-            { htmlFor: 'password' },
+            { htmlFor: 'currPass' },
             ' Current Password: '
         ),
-        React.createElement('input', { id: 'password', type: 'password', name: 'password', placeholder: 'current password' }),
+        React.createElement('input', { id: 'currPass', type: 'password', name: 'currPass', placeholder: 'current password' }),
         React.createElement(
             'label',
-            { htmlFor: 'newPassword' },
+            { htmlFor: 'newPass' },
             ' New Password: '
         ),
-        React.createElement('input', { id: 'newPassword', type: 'password', name: 'newPassword', placeholder: 'new password' }),
+        React.createElement('input', { id: 'newPass', type: 'password', name: 'newPass', placeholder: 'new password' }),
         React.createElement(
             'label',
-            { htmlFor: 'newPassword2' },
+            { htmlFor: 'newPass2' },
             ' Confirm New Password: '
         ),
-        React.createElement('input', { id: 'newPassword2', type: 'password', name: 'newPassword2', placeholder: 'confirm new password' }),
+        React.createElement('input', { id: 'newPass2', type: 'password', name: 'newPass2', placeholder: 'confirm new password' }),
+        React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf, placeholder: props.csrf }),
         React.createElement('input', { className: 'submitForm', type: 'submit', value: 'Change Password' })
     );
 };
@@ -62,23 +59,33 @@ var createPassTitle = function createPassTitle() {
     ReactDOM.render(React.createElement(PassTitle, null), document.querySelector('#makeBeer'));
 };
 
-var createChangePasswordForm = function createChangePasswordForm() {
-    ReactDOM.render(React.createElement(ChangePassword, null), document.querySelector('#beers'));
+var createChangePasswordForm = function createChangePasswordForm(csrf) {
+    ReactDOM.render(React.createElement(ChangePassword, { csrf: csrf }), document.querySelector('#beers'));
 };
 
-var createChangePasswordView = function createChangePasswordView() {
+var createChangePasswordView = function createChangePasswordView(csrf) {
     createPassTitle();
-    createChangePasswordForm();
+    createChangePasswordForm(csrf);
 };
 
-var handleChangePasswordClick = function handleChangePasswordClick() {
+var handleChangePasswordClick = function handleChangePasswordClick(csrf) {
     var changePass = document.querySelector('#changePassword');
 
     changePass.addEventListener('click', function (e) {
         e.preventDefault();
-        createChangePasswordView();
+        createChangePasswordView(csrf);
     });
 };
+
+var getCSRFToken = function getCSRFToken() {
+    sendAjax('GET', '/getToken', null, function (result) {
+        handleChangePasswordClick(result.csrfToken);
+    });
+};
+
+$(document).ready(function () {
+    getCSRFToken();
+});
 'use strict';
 
 var handleBeer = function handleBeer(e) {
@@ -252,7 +259,7 @@ var setup = function setup(csrf) {
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
-    handleChangePasswordClick();
+    handleChangePasswordClick(csrf);
     loadBeersFromServer();
 };
 
@@ -352,7 +359,7 @@ var RecipesContainer = function RecipesContainer(props) {
         return React.createElement(
             'div',
             null,
-            'No pairs...yet!'
+            'No recipes...yet!'
         );
     }
     var recipesList = props.recipes.map(function (recipe) {
@@ -383,11 +390,11 @@ var RecipesContainer = function RecipesContainer(props) {
             null,
             'Have a lot of left-over beer? Cook it up!'
         ),
-        pairsList
+        recipesList
     );
 };
 
-var loadPairsFromServer = function loadPairsFromServer() {
+var loadRecipesFromServer = function loadRecipesFromServer() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/getRecipes');
 
@@ -416,7 +423,7 @@ var createRecipesTitle = function createRecipesTitle() {
 var createRecipesContainer = function createRecipesContainer() {
     ReactDOM.render(React.createElement(RecipesContainer, { recipes: [] }), document.getElementById('beers'));
 
-    loadPairsFromServer();
+    loadRecipesFromServer();
 };
 
 var createRecipesView = function createRecipesView() {

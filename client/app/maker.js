@@ -104,7 +104,7 @@ const setup = function(csrf) {
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
-    handleChangePasswordClick();
+    handleChangePasswordClick(csrf);
     loadBeersFromServer();
 };
 

@@ -15,7 +15,7 @@ const login = (request, response) => {
   const req = request;
   const res = response;
 
-    // force case to strings to cover security flaws
+  // force case to strings to cover security flaws
   const username = `${req.body.username}`;
   const password = `${req.body.pass}`;
 
@@ -38,7 +38,7 @@ const signup = (request, response) => {
   const req = request;
   const res = response;
 
-    // cast to a string to cover some security flaws
+  // cast to a string to cover some security flaws
   req.body.username = `${req.body.username}`;
   req.body.pass = `${req.body.pass}`;
   req.body.pass2 = `${req.body.pass2}`;
@@ -83,19 +83,37 @@ const changePassword = (request, response) => {
   const req = request;
   const res = response;
 
-  req.body.pass = `${req.body.pass}`;
-  req.body.newPass = `${req.body.newPass}`;
-  req.body.newPass2 = `${req.body.newPass2}`;
+  // force case to strings to cover security flaws
+  // const userName = `${req.body.userName}`;
+  const currentPass = `${req.body.currPass}`;
+  const newPass = `${req.body.newPass}`;
+  const newPass2 = `${req.body.newPass2}`;
 
-  if (!req.body.password || !req.body.newPass || !req.body.newPass2) {
-    return res.status(400).json({ error: 'All fields are required' });
+  if (!currentPass || !newPass || !newPass2) {
+    return res.status(400).json({ error: 'All fields required.' });
   }
 
-  if (req.body.newPass !== req.body.newPass2) {
-    return res.status(400).json({ error: 'Passwords do not match' });
-  }
+  return Account.AccountModel.authenticate(`${req.session.account.username}`, currentPass,
+    (err, pass) => {
+      if (err || !pass) {
+        return res.status(401).json({ error: 'Current password is incorrect.' });
+      }
 
-  return false; // fix eslint. function not working yet
+      return Account.AccountModel.generateHash(newPass, (salt, hash) => {
+        const searchUser = {
+          username: `${req.session.account.username}`,
+        };
+
+        Account.AccountModel.update(searchUser, { $set: { password: hash, salt } }, {}, (error) => {
+          if (error) {
+            return res.status(500).json({ error: 'Unable to update password.' });
+          }
+
+          return res.status(200).json({ redirect: '/maker' });
+        });
+      });
+    }
+  );
 };
 
 // upgrade user's account to the paid, no-adds version with 'increased logger size'
