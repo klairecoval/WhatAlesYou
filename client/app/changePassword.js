@@ -21,8 +21,6 @@ const handlePasswordChange = (e) => {
 const ChangePassword = (props) => {
     return (
         <form id='changePassForm' name='changePassForm' action='changePassword' onSubmit={handlePasswordChange} method='POST'>
-            {/* <label htmlFor='userName'> Username: </label>
-            <input id='userName' type='text' name='userName' placeholder='username' /> */}
             <label htmlFor='currPass'> Current Password: </label>
             <input id='currPass' type='password' name='currPass' placeholder='current password' />
             <label htmlFor='newPass'> New Password: </label>
@@ -37,7 +35,7 @@ const ChangePassword = (props) => {
 
 const PassTitle = (props) => {
     return (
-        <h2>Change Password</h2>
+        <h2 id="changePassTitle">Change Password</h2>
     );
 };
 

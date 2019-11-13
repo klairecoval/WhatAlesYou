@@ -38,7 +38,7 @@ const loadPairsFromServer = () => {
 
 const PairingsTitle = (props) => {
     return (
-        <h2>Food-Beer Pairings</h2>
+        <h2 id="pairingsTitle">Food-Beer Pairings</h2>
     );
 };
 

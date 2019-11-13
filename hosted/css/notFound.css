@@ -1,3 +1,13 @@
 body {
     background-color: #FFB914;
 }
+
+#notFound h1, #notFound p {
+    text-align: center;
+}
+
+#pourGIF {
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
+}

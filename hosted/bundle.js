@@ -50,7 +50,7 @@ var ChangePassword = function ChangePassword(props) {
 var PassTitle = function PassTitle(props) {
     return React.createElement(
         'h2',
-        null,
+        { id: 'changePassTitle' },
         'Change Password'
     );
 };
@@ -324,7 +324,7 @@ var loadPairsFromServer = function loadPairsFromServer() {
 var PairingsTitle = function PairingsTitle(props) {
     return React.createElement(
         'h2',
-        null,
+        { id: 'pairingsTitle' },
         'Food-Beer Pairings'
     );
 };
@@ -411,7 +411,7 @@ var loadRecipesFromServer = function loadRecipesFromServer() {
 var RecipesTitle = function RecipesTitle(props) {
     return React.createElement(
         'h2',
-        null,
+        { id: 'recipesTitle' },
         'Beer-Based Recipes'
     );
 };
@@ -466,7 +466,7 @@ var UpgradeAccount = function UpgradeAccount(props) {
 var UpgradeTitle = function UpgradeTitle(props) {
     return React.createElement(
         'h2',
-        null,
+        { id: 'upgradeTitle' },
         'Upgrade Account'
     );
 };
@@ -492,7 +492,6 @@ var handleUpgradeClick = function handleUpgradeClick() {
         createUpgradeView();
     });
 };
-"use strict";
 'use strict';
 
 var handleError = function handleError(message) {

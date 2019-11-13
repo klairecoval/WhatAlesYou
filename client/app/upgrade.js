@@ -10,7 +10,7 @@ const UpgradeAccount = (props) => {
 
 const UpgradeTitle = (props) => {
     return (
-        <h2>Upgrade Account</h2>
+        <h2 id="upgradeTitle">Upgrade Account</h2>
     );
 };
 

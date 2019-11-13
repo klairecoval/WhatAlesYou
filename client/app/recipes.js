@@ -39,7 +39,7 @@ const loadRecipesFromServer = () => {
 
 const RecipesTitle = (props) => {
     return (
-        <h2>Beer-Based Recipes</h2>
+        <h2 id="recipesTitle">Beer-Based Recipes</h2>
     );
 };
 
