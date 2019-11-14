@@ -1,4 +1,6 @@
 const RecipesContainer = (props) => {
+    $('#beerMessage').animate({width:'hide'}, 350);
+
     if(props.recipes.length === 0) {
         return (
             <div>No recipes...yet!</div>
@@ -7,6 +9,7 @@ const RecipesContainer = (props) => {
     const recipesList = props.recipes.map((recipe) => {
         return (
             <div className="recipe">
+                {/* <img src={recipe.image} className="recipeImg"/> */}
                 <h4><a href={recipe.link}>{recipe.name}</a></h4>
                 <p>{recipe.description}</p>
             </div>
@@ -14,7 +17,6 @@ const RecipesContainer = (props) => {
     });
     return (
         <div>
-            <h2>Have a lot of left-over beer? Cook it up!</h2>
             {recipesList}
         </div>
     );

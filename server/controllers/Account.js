@@ -7,7 +7,7 @@ const loginPage = (req, res) => {
 };
 
 const notFoundPage = (req, res) => {
-  res.render('notFound', { csrfToken:req.csrfToken() });
+  res.render('notFound', { csrfToken: req.csrfToken() });
 };
 
 const logout = (req, res) => {

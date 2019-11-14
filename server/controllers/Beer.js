@@ -92,9 +92,11 @@ const getPairs = (req, res) => {
 
 const getRecipes = (req, res) => {
   res.json([
-    { name: 'Beer Dip', description: 'Ranch dressing and shredded cheese come together to form the best dip to be paired with pretzles', link: 'https://www.tasteofhome.com/recipes/beer-dip/' },
-    { name: 'Beer Can Chicken', description: 'Keep chicken moist by teaming it in beer while on the grill', link: 'https://www.tasteofhome.com/article/beer-can-chicken/' },
-    { name: 'Potato-Beer-Cheese Soup', description: 'This potato soup has a comforting velvety texture to warm your soul on could nights', link: 'https://www.tasteofhome.com/recipes/potato-beer-cheese-soup/' },
+    { name: 'Beer Dip', image: 'https://www.tasteofhome.com/wp-content/uploads/2018/06/Beer-Dip_EXPS_THSO18_33049_D01_25_8b-696x696.jpg', description: 'Ranch dressing and shredded cheese form dip, paired best with pretzles', link: 'https://www.tasteofhome.com/recipes/beer-dip/' },
+    { name: 'Beer Can Chicken', image: 'https://www.tasteofhome.com/wp-content/uploads/2018/06/shutterstock_438406987-1200x675.jpg', description: 'Keep chicken moist by teaming it in beer while on the grill', link: 'https://www.tasteofhome.com/article/beer-can-chicken/' },
+    { name: 'Potato-Beer-Cheese Soup', image: 'https://www.tasteofhome.com/wp-content/uploads/2018/01/Potato-Beer-Cheese-Soup_EXPS_SBZ19_71598_B09_14_1b-696x696.jpg', description: 'This potato soup has a comforting velvety texture to warm your soul on could nights', link: 'https://www.tasteofhome.com/recipes/potato-beer-cheese-soup/' },
+    { name: 'Fish and Chips with Mushy Peas', image: 'https://assets.bonappetit.com/photos/57acf290f1c801a1038bc934/16:9/w_5120,c_limit/fish-and-chips-with-minty-mushy-peas.jpg', description: 'Fry once to cook through. Fry twice to crisp the outside', link: 'https://www.bonappetit.com/recipe/fish-and-chips-with-minty-mushy-peas' },
+    { name: 'Beer Battered Onion Rings', image: 'https://media.foodnetwork.ca/recipetracker/90cfe932-9edb-441c-9377-0e1662c5bd9f_beer-battered-onion-rings_WebReady.jpg', description: 'Onion rings deliver big crunch and rich onion flavor', link: 'https://www.foodnetwork.ca/recipe/beer-battered-onion-rings/18695/' },
   ]);
 };
 

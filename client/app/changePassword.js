@@ -1,5 +1,7 @@
 const handlePasswordChange = (e) => {
     e.preventDefault();
+
+    $('#beerMessage').animate({width:'hide'}, 350);
     
     if($('currPass').val() == '' || $('#newPass').val() == '' || $('#newPass2').val() == '') {
         handleError('All fields required');
@@ -26,9 +28,9 @@ const ChangePassword = (props) => {
             <label htmlFor='newPass'> New Password: </label>
             <input id='newPass' type='password' name='newPass' placeholder='new password'/>
             <label htmlFor='newPass2'> Confirm New Password: </label>
-            <input id='newPass2' type='password' name='newPass2' placeholder='confirm new password'/>
+            <input id='newPass2' type='password' name='newPass2' placeholder='confirm new pass'/>
             <input type='hidden' name='_csrf' value={props.csrf} placeholder={props.csrf}/>
-            <input className='submitForm' type='submit' value='Change Password'/>
+            <input className='submitForm' type='submit' value='Change'/>
         </form>
     );
 };

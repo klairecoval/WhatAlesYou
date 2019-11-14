@@ -3,6 +3,8 @@
 var handlePasswordChange = function handlePasswordChange(e) {
     e.preventDefault();
 
+    $('#beerMessage').animate({ width: 'hide' }, 350);
+
     if ($('currPass').val() == '' || $('#newPass').val() == '' || $('#newPass2').val() == '') {
         handleError('All fields required');
         return false;
@@ -41,9 +43,9 @@ var ChangePassword = function ChangePassword(props) {
             { htmlFor: 'newPass2' },
             ' Confirm New Password: '
         ),
-        React.createElement('input', { id: 'newPass2', type: 'password', name: 'newPass2', placeholder: 'confirm new password' }),
+        React.createElement('input', { id: 'newPass2', type: 'password', name: 'newPass2', placeholder: 'confirm new pass' }),
         React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf, placeholder: props.csrf }),
-        React.createElement('input', { className: 'submitForm', type: 'submit', value: 'Change Password' })
+        React.createElement('input', { className: 'submitForm', type: 'submit', value: 'Change' })
     );
 };
 
@@ -91,7 +93,7 @@ $(document).ready(function () {
 var handleBeer = function handleBeer(e) {
     e.preventDefault();
 
-    $('#beerMessage').animate({ width: 'hide' }, 350);
+    $('#beerMessage').animate({ height: 'hide' }, 350);
 
     if ($('#beerName').val() == '' || $('#beerBrewer').val() == '' || $('#beerType').val() == '' || $('#beerABV').val() == '' || $('#beerIBU').val() == '' || $('#beerNotes').val() == '') {
         handleError('All fields are required');
@@ -178,7 +180,6 @@ var BeerList = function BeerList(props) {
     }
 
     var beerNodes = props.beers.map(function (beer) {
-        console.log(beer.notes);
         return React.createElement(
             'div',
             { key: beer._id, className: 'beer' },
@@ -275,6 +276,8 @@ $(document).ready(function () {
 'use strict';
 
 var PairingsContainer = function PairingsContainer(props) {
+    $('#beerMessage').animate({ width: 'hide' }, 350);
+
     if (props.pairs.length === 0) {
         return React.createElement(
             'div',
@@ -298,11 +301,6 @@ var PairingsContainer = function PairingsContainer(props) {
     return React.createElement(
         'div',
         null,
-        React.createElement(
-            'h2',
-            null,
-            'Ever wondered what foods would pair best with your favorite types of beers? If so, look no further!'
-        ),
         pairsList
     );
 };
@@ -355,6 +353,8 @@ var handlePairingsClick = function handlePairingsClick() {
 'use strict';
 
 var RecipesContainer = function RecipesContainer(props) {
+    $('#beerMessage').animate({ width: 'hide' }, 350);
+
     if (props.recipes.length === 0) {
         return React.createElement(
             'div',
@@ -385,11 +385,6 @@ var RecipesContainer = function RecipesContainer(props) {
     return React.createElement(
         'div',
         null,
-        React.createElement(
-            'h2',
-            null,
-            'Have a lot of left-over beer? Cook it up!'
-        ),
         recipesList
     );
 };
@@ -442,11 +437,13 @@ var handleRecipesClick = function handleRecipesClick() {
 'use strict';
 
 var UpgradeAccount = function UpgradeAccount(props) {
+    $('#beerMessage').animate({ width: 'hide' }, 350);
+
     return React.createElement(
         'div',
-        null,
+        { id: 'upgradeContent' },
         React.createElement(
-            'h4',
+            'h3',
             null,
             'Upgrade your account for a larger inventory size. Keep track of up to 150 beers instead of the free 15 and remove ads.'
         ),
@@ -456,11 +453,15 @@ var UpgradeAccount = function UpgradeAccount(props) {
             'For a one-time fee of $10 USD, you can increase your storage size so you never have to quench your thirst for more beers! '
         ),
         React.createElement(
-            'a',
-            { href: '#' },
+            'button',
+            { className: 'upgradeButton', onClick: upgradeView },
             'Upgrade'
         )
     );
+};
+
+var upgradeView = function upgradeView(props) {
+    $('#ads').animate({ width: 'hide' }, 350);
 };
 
 var UpgradeTitle = function UpgradeTitle(props) {
@@ -496,11 +497,11 @@ var handleUpgradeClick = function handleUpgradeClick() {
 
 var handleError = function handleError(message) {
     $('#errorMessage').text(message);
-    $('#beerMessage').animate({ width: 'toggle' }, 350);
+    $('#beerMessage').animate({ height: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
-    $('#beerMessage').animate({ width: 'hide' }, 350);
+    $('#beerMessage').animate({ height: 'hide' }, 350);
     window.location = response.redirect;
 };
 

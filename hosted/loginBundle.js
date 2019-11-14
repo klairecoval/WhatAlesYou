@@ -3,7 +3,7 @@
 var handleLogin = function handleLogin(e) {
     e.preventDefault();
 
-    $('#beerMessage').animate({ width: 'hide' }, 350);
+    $('#beerMessage').animate({ height: 'hide' }, 350);
 
     if ($('#user').val() == '' || $('#pass').val() == '') {
         handleError('Username or password is empty.');
@@ -20,7 +20,7 @@ var handleLogin = function handleLogin(e) {
 var handleSignup = function handleSignup(e) {
     e.preventDefault();
 
-    $('#beerMessage').animate({ width: 'hide' }, 350);
+    $('#beerMessage').animate({ height: 'hide' }, 350);
 
     if ($('#user').val() == '' || $('#pass').val() == '' || $('#pass2').val() == '') {
         handleError('All fields are required.');
@@ -133,11 +133,11 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
     $('#errorMessage').text(message);
-    $('#beerMessage').animate({ width: 'toggle' }, 350);
+    $('#beerMessage').animate({ height: 'toggle' }, 350);
 };
 
 var redirect = function redirect(response) {
-    $('#beerMessage').animate({ width: 'hide' }, 350);
+    $('#beerMessage').animate({ height: 'hide' }, 350);
     window.location = response.redirect;
 };
 

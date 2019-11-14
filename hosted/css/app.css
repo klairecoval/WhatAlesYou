@@ -9,10 +9,9 @@ html, body {
 
 #logo {
     width: 40;
-    padding-top: 5px;
+    padding: 5px;
     float: left;
     border-radius: 4px;
-    padding-left: 5px;
 }
 
 #logo:hover {
@@ -26,7 +25,7 @@ nav {
     width: 100%;
     height: 50px;
     background-color: #EC9D00;
-    box-shadow: 0px 4px 14px 0px rgba(0,0,0,0.14);
+    box-shadow: 0px 4px 14px 0px rgba(119, 53, 53, 0.14);
 }
 
 .navlink {
@@ -60,7 +59,7 @@ nav {
 
 .beerForm label {
     display: inline-block;
-    width: 75px;
+    margin-right: 0.5rem;
     margin-left: 1rem;
     font-size: 1.2em;
     float: left;
@@ -69,7 +68,7 @@ nav {
 
 .beerForm input[type=text] {
     font-size: 1.1em;
-    width: 180px;
+    width: 150px;
     border: 1px solid #EC9D00;
     border-radius: 4px;
     height: 1.5rem;
@@ -107,7 +106,7 @@ nav {
     height: 300px;
     width: 350px;
     margin: 0 auto;
-    padding-top: 350px;
+    padding-top: 4rem;
     font-size: 1.2em;
 }
 
@@ -123,16 +122,21 @@ nav {
     font-size: 1.2em;
 }
 
+#loginTitle {
+    font-size: 4rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
 #changePassForm {
     width: 500px;
     margin: 0 auto;
-    padding-top: 350px;
     font-size: 1.2em;
 }
 
 #changePassForm label {
     display: inline-block;
-    width: 250px;
+    width: 255px;
     margin-right: 10px;
     text-align: right;
     font-size: 1.2em;
@@ -155,7 +159,7 @@ nav {
 }
 
 .submitForm {
-    width: 175px;
+    width: 100px;
 }
 
 .formSubmit:link, .formSubmit:visited, .formSubmit:hover, .formSubmit:active, .submitForm:link, .submitForm:visited, .submitForm:hover, .submitForm:active {
@@ -184,21 +188,20 @@ nav {
 }
 
 #beerMessage {
+    width: 100%;
+    margin-top: 8rem;
     display: none;
-    top: 550px;
-    width: 500px;
+    top: 20rem;
     height: 100px;
     position: absolute;
     z-index: 200;
-    left: 45%;
     overflow: hidden;
+    margin-left: 42%;
 }
 
 #beerMessage h3 {
-    width: 200px;
     position: absolute;
-    top: 0px;
-    left: 20px;
+    margin: 0 auto;
 }
 
 #errorMessage {
@@ -261,7 +264,24 @@ button.deleteBeer {
     padding: 5px 10px;
 }
 
-button.deleteBeer:hover{
+button.upgradeButton {
+    cursor: pointer;
+    transition: background-color 0.4s ease;
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 3rem;
+    font-size: 1.2em;
+    width: 100px;
+    background-color: #EC9D00;
+    border: 1px solid #EC9D00;
+    border-radius: 4px;
+    padding: 3px 0px;
+    color: white;
+    text-decoration: none;
+}
+
+button.deleteBeer:hover, button.upgradeButton:hover{
     background: #C96E12;
     transition: background 1s;
 }
@@ -277,4 +297,22 @@ button.deleteBeer:hover{
 .recipe a {
     color: #C96E12;
     text-decoration: none;
+}
+
+.recipeImg {
+    width: 20rem;
+}
+
+#upgradeContent {
+    text-align: center;
+}
+
+#ads {
+    background-color: #C96E12;
+    height: 4rem;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }

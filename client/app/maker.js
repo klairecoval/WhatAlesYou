@@ -1,7 +1,7 @@
 const handleBeer = (e) => {
     e.preventDefault();
 
-    $('#beerMessage').animate({width:'hide'}, 350);
+    $('#beerMessage').animate({height:'hide'}, 350);
 
     if($('#beerName').val() == '' || $('#beerBrewer').val() == '' || $('#beerType').val() == '' ||
         $('#beerABV').val() == '' || $('#beerIBU').val() == '' || $('#beerNotes').val() == '') {
@@ -61,7 +61,6 @@ const BeerList = function(props) {
     }
 
     const beerNodes = props.beers.map(function(beer) {
-        console.log(beer.notes);
         return (
             <div key={beer._id} className='beer'>
                 <img src='/assets/img/beerIcon.png' alt='beer face' className='beerDefaultIcon'/>

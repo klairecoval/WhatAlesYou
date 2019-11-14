@@ -1,4 +1,6 @@
 const PairingsContainer = (props) => {
+    $('#beerMessage').animate({width:'hide'}, 350);
+
     if(props.pairs.length === 0) {
         return (
             <div>No pairs...yet!</div>
@@ -13,7 +15,6 @@ const PairingsContainer = (props) => {
     });
     return (
         <div>
-            <h2>Ever wondered what foods would pair best with your favorite types of beers? If so, look no further!</h2>
             {pairsList}
         </div>
     );
