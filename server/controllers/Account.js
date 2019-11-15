@@ -135,6 +135,7 @@ const upgradeAccount = (req, res) => {
     }
 
     request.session.account.upgraded = true;
+    console.log(req.session.account.upgraded);
     return response.status(200).json({ message: 'Account upgraded successfully!' });
   });
 };

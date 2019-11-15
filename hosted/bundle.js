@@ -454,15 +454,15 @@ var UpgradeAccount = function UpgradeAccount(props) {
         ),
         React.createElement(
             'button',
-            { className: 'upgradeButton', onClick: upgradeView },
+            { className: 'upgradeButton' },
             'Upgrade'
         )
     );
 };
 
-var upgradeView = function upgradeView(props) {
-    $('#ads').animate({ width: 'hide' }, 350);
-};
+// const upgradeView = (props) => {
+//     $('#ads').animate({width:'hide'}, 350);
+// }
 
 var UpgradeTitle = function UpgradeTitle(props) {
     return React.createElement(

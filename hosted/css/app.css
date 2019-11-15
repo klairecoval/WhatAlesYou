@@ -24,7 +24,8 @@ html, body {
 nav {
     width: 100%;
     height: 50px;
-    background-color: #EC9D00;
+    /* background-color: #EC9D00; */
+    background-image: linear-gradient(to right, #F6C101 , #EC9D00);
     box-shadow: 0px 4px 14px 0px rgba(119, 53, 53, 0.14);
 }
 
@@ -53,8 +54,9 @@ nav {
 
 .beerForm {
     height: 35px;
-    margin-top: 1rem;
-    padding-top:10px;
+    padding-top: 1.5rem;
+    width: 92rem;
+    margin: 0 auto;
 }
 
 .beerForm label {
@@ -123,8 +125,21 @@ nav {
 }
 
 #loginTitle {
-    font-size: 4rem;
+    /* font-size: 4rem;
     padding-top: 2rem;
+    text-align: center; */
+    margin-top: 1.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30rem;
+}
+#loginSubText {
+    width: 35rem;
+    margin-top: 1.5rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
     text-align: center;
 }
 

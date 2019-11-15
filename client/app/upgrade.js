@@ -5,14 +5,14 @@ const UpgradeAccount = (props) => {
         <div id="upgradeContent">
             <h3>Upgrade your account for a larger inventory size. Keep track of up to 150 beers instead of the free 15 and remove ads.</h3>
             <p>For a one-time fee of $10 USD, you can increase your storage size so you never have to quench your thirst for more beers! </p>
-            <button className="upgradeButton" onClick={upgradeView}>Upgrade</button>
+            <button className="upgradeButton" >Upgrade</button>
         </div>
     );
 };
 
-const upgradeView = (props) => {
-    $('#ads').animate({width:'hide'}, 350);
-}
+// const upgradeView = (props) => {
+//     $('#ads').animate({width:'hide'}, 350);
+// }
 
 const UpgradeTitle = (props) => {
     return (
