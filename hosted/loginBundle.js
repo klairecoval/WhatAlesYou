@@ -1,5 +1,6 @@
 'use strict';
 
+// check if existing user has entered data into all fields
 var handleLogin = function handleLogin(e) {
     e.preventDefault();
 
@@ -17,6 +18,8 @@ var handleLogin = function handleLogin(e) {
     return false;
 };
 
+// check if new user has filled out all fields
+// check if pass and confirmed pass match
 var handleSignup = function handleSignup(e) {
     e.preventDefault();
 
@@ -37,6 +40,7 @@ var handleSignup = function handleSignup(e) {
     return false;
 };
 
+// create login form with username and pass
 var LoginWindow = function LoginWindow(props) {
     return React.createElement(
         'form',
@@ -62,6 +66,7 @@ var LoginWindow = function LoginWindow(props) {
     );
 };
 
+// create signup window with username, pass, and confirmed pass
 var SignupWindow = function SignupWindow(props) {
     return React.createElement(
         'form',
@@ -93,14 +98,17 @@ var SignupWindow = function SignupWindow(props) {
     );
 };
 
+// create login view in center of page
 var createLoginWindow = function createLoginWindow(csrf) {
     ReactDOM.render(React.createElement(LoginWindow, { csrf: csrf }), document.querySelector('#content'));
 };
 
+// create signup view in center of page
 var createSignupWindow = function createSignupWindow(csrf) {
     ReactDOM.render(React.createElement(SignupWindow, { csrf: csrf }), document.querySelector('#content'));
 };
 
+// depending on if login or signup icon pressed, create corresponding view
 var setup = function setup(csrf) {
     var loginButton = document.querySelector('#loginButton');
     var signupButton = document.querySelector('#signupButton');
@@ -120,27 +128,32 @@ var setup = function setup(csrf) {
     createLoginWindow(csrf);
 };
 
+// get csrf token
 var getToken = function getToken() {
     sendAjax('GET', '/getToken', null, function (result) {
         setup(result.csrfToken);
     });
 };
 
+// load in csrf token
 $(document).ready(function () {
     getToken();
 });
 'use strict';
 
+// helper function to create an error message with desired error text
 var handleError = function handleError(message) {
     $('#errorMessage').text(message);
     $('#beerMessage').animate({ height: 'toggle' }, 350);
 };
 
+// redirect page and hide error
 var redirect = function redirect(response) {
     $('#beerMessage').animate({ height: 'hide' }, 350);
     window.location = response.redirect;
 };
 
+// send ajax data and handle error
 var sendAjax = function sendAjax(type, action, data, success) {
     $.ajax({
         cache: false,

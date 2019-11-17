@@ -1,6 +1,8 @@
 const controllers = require('./controllers');
 const mid = require('./middleware');
 
+// setup routes from controllers folder
+// handle security/login requirements to view content
 const router = (app) => {
   app.get('/getToken', mid.requiresSecure, controllers.Account.getToken);
   app.get('/getBeers', mid.requiresLogin, controllers.Beer.getBeers);
@@ -13,7 +15,6 @@ const router = (app) => {
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
   app.post('/maker', mid.requiresLogin, controllers.Beer.make);
-  app.post('/upgrade', mid.requiresSecure, mid.requiresLogin, controllers.Account.upgradeAccount);
   app.post('/changePassword',
     mid.requiresSecure,
     mid.requiresLogin,

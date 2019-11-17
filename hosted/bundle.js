@@ -1,5 +1,9 @@
 'use strict';
 
+// check if user has entered values into all fields
+// check if values are valid (match, etc)
+// return error messages if not correct
+// return success message if all requirements met
 var handlePasswordChange = function handlePasswordChange(e) {
     e.preventDefault();
 
@@ -22,6 +26,7 @@ var handlePasswordChange = function handlePasswordChange(e) {
     return false;
 };
 
+// create change password form with current pass, new pass, confirm new pass
 var ChangePassword = function ChangePassword(props) {
     return React.createElement(
         'form',
@@ -49,6 +54,7 @@ var ChangePassword = function ChangePassword(props) {
     );
 };
 
+// create change pass page title
 var PassTitle = function PassTitle(props) {
     return React.createElement(
         'h2',
@@ -57,19 +63,23 @@ var PassTitle = function PassTitle(props) {
     );
 };
 
+// place new title on top of page, below nav bar
 var createPassTitle = function createPassTitle() {
     ReactDOM.render(React.createElement(PassTitle, null), document.querySelector('#makeBeer'));
 };
 
+// create pass form in main center of page
 var createChangePasswordForm = function createChangePasswordForm(csrf) {
     ReactDOM.render(React.createElement(ChangePassword, { csrf: csrf }), document.querySelector('#beers'));
 };
 
+// create total view
 var createChangePasswordView = function createChangePasswordView(csrf) {
     createPassTitle();
     createChangePasswordForm(csrf);
 };
 
+// when gear icon clicked, create view
 var handleChangePasswordClick = function handleChangePasswordClick(csrf) {
     var changePass = document.querySelector('#changePassword');
 
@@ -78,18 +88,11 @@ var handleChangePasswordClick = function handleChangePasswordClick(csrf) {
         createChangePasswordView(csrf);
     });
 };
-
-var getCSRFToken = function getCSRFToken() {
-    sendAjax('GET', '/getToken', null, function (result) {
-        handleChangePasswordClick(result.csrfToken);
-    });
-};
-
-$(document).ready(function () {
-    getCSRFToken();
-});
 'use strict';
 
+// check if all fields have values
+// if not, return proper error message
+// if there are beers, load them in
 var handleBeer = function handleBeer(e) {
     e.preventDefault();
 
@@ -107,6 +110,8 @@ var handleBeer = function handleBeer(e) {
     return false;
 };
 
+// delete a beer by id
+// reload beers to update view
 var deleteBeer = function deleteBeer(e) {
     var id = e.target.parentElement.querySelector('.beerId').innerText;
     var _csrf = document.querySelector('input[name="_csrf"]').value;
@@ -116,6 +121,7 @@ var deleteBeer = function deleteBeer(e) {
     });
 };
 
+// create beer form inside of a modal
 var BeerForm = function BeerForm(props) {
     return React.createElement(
         'div',
@@ -188,6 +194,8 @@ var BeerForm = function BeerForm(props) {
     );
 };
 
+// create list of beers
+// if no beers, create simple h3 saying no data
 var BeerList = function BeerList(props) {
     if (props.beers.length === 0) {
         return React.createElement(
@@ -268,32 +276,29 @@ var BeerList = function BeerList(props) {
     );
 };
 
+// load in beers from server
+// place them in center of page
 var loadBeersFromServer = function loadBeersFromServer() {
     sendAjax('GET', '/getBeers', null, function (data) {
         ReactDOM.render(React.createElement(BeerList, { beers: data.beers }), document.querySelector('#beers'));
     });
 };
 
+// handle new beer button (create modal)
 var logNewBeer = function logNewBeer() {
     var modal = document.getElementById("newBeerWindow");
-
-    // Get the button that opens the modal
     var btn = document.getElementById("newBeerBtn");
-
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks on the button, open the modal
     btn.onclick = function () {
         modal.style.display = "block";
     };
 
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
     };
 
-    // When the user clicks anywhere outside of the modal, close it
+    // if user clicks outside the modal, close
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
@@ -301,30 +306,36 @@ var logNewBeer = function logNewBeer() {
     };
 };
 
+// render main page view of beers
+// load in all functions required to handle clicks for new views
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(BeerForm, { csrf: csrf }), document.querySelector('#makeBeer'));
 
     ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
 
+    loadBeersFromServer();
     logNewBeer();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
     handleChangePasswordClick(csrf);
-    loadBeersFromServer();
 };
 
+// get csrf token
 var getToken = function getToken() {
     sendAjax('GET', '/getToken', null, function (result) {
         setup(result.csrfToken);
     });
 };
 
+// instantiate above
 $(document).ready(function () {
     getToken();
 });
 'use strict';
 
+// safety check that pairings exist/are loaded
+// create pairings list
 var PairingsContainer = function PairingsContainer(props) {
     $('#beerMessage').animate({ width: 'hide' }, 350);
 
@@ -355,6 +366,7 @@ var PairingsContainer = function PairingsContainer(props) {
     );
 };
 
+// load in pairings from server
 var loadPairsFromServer = function loadPairsFromServer() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/getPairs');
@@ -369,6 +381,7 @@ var loadPairsFromServer = function loadPairsFromServer() {
     xhr.send();
 };
 
+// create title for pairings page to replace new beer button
 var PairingsTitle = function PairingsTitle(props) {
     return React.createElement(
         'h2',
@@ -377,21 +390,25 @@ var PairingsTitle = function PairingsTitle(props) {
     );
 };
 
+// create title at top of page, below nav
 var createPairingsTitle = function createPairingsTitle() {
     ReactDOM.render(React.createElement(PairingsTitle, null), document.querySelector('#makeBeer'));
 };
 
+// actually create pairings in center of page
 var createPairingContainer = function createPairingContainer() {
     ReactDOM.render(React.createElement(PairingsContainer, { pairs: [] }), document.getElementById('beers'));
 
     loadPairsFromServer();
 };
 
+// create total pairings view (call both needed functions)
 var createPairingsView = function createPairingsView() {
     createPairingsTitle();
     createPairingContainer();
 };
 
+// when drink and burger icon clicked, create view
 var handlePairingsClick = function handlePairingsClick() {
     var changePass = document.querySelector('#pairings');
 
@@ -402,6 +419,8 @@ var handlePairingsClick = function handlePairingsClick() {
 };
 'use strict';
 
+// safety check recipes exist or are loaded
+// create individual recipe cards
 var RecipesContainer = function RecipesContainer(props) {
     $('#beerMessage').animate({ width: 'hide' }, 350);
 
@@ -416,6 +435,7 @@ var RecipesContainer = function RecipesContainer(props) {
         return React.createElement(
             'div',
             { className: 'recipe' },
+            React.createElement('img', { src: recipe.image, className: 'recipeImg' }),
             React.createElement(
                 'h4',
                 null,
@@ -439,6 +459,7 @@ var RecipesContainer = function RecipesContainer(props) {
     );
 };
 
+// load in recipes from server
 var loadRecipesFromServer = function loadRecipesFromServer() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', '/getRecipes');
@@ -453,6 +474,7 @@ var loadRecipesFromServer = function loadRecipesFromServer() {
     xhr.send();
 };
 
+// create header title for view
 var RecipesTitle = function RecipesTitle(props) {
     return React.createElement(
         'h2',
@@ -461,21 +483,25 @@ var RecipesTitle = function RecipesTitle(props) {
     );
 };
 
+// place title in center top of page, below nav bar
 var createRecipesTitle = function createRecipesTitle() {
     ReactDOM.render(React.createElement(RecipesTitle, null), document.querySelector('#makeBeer'));
 };
 
+// create recipes in center of page
 var createRecipesContainer = function createRecipesContainer() {
     ReactDOM.render(React.createElement(RecipesContainer, { recipes: [] }), document.getElementById('beers'));
 
     loadRecipesFromServer();
 };
 
+// call both functions for recipe view
 var createRecipesView = function createRecipesView() {
     createRecipesTitle();
     createRecipesContainer();
 };
 
+// when chefs hat icon clicked, create view
 var handleRecipesClick = function handleRecipesClick() {
     var changePass = document.querySelector('#recipes');
 
@@ -486,9 +512,10 @@ var handleRecipesClick = function handleRecipesClick() {
 };
 'use strict';
 
+// create upgrade page info
+// hide error message for now
 var UpgradeAccount = function UpgradeAccount(props) {
     $('#beerMessage').animate({ width: 'hide' }, 350);
-
     return React.createElement(
         'div',
         { id: 'upgradeContent' },
@@ -510,6 +537,7 @@ var UpgradeAccount = function UpgradeAccount(props) {
     );
 };
 
+// create title for upgrade page
 var UpgradeTitle = function UpgradeTitle(props) {
     return React.createElement(
         'h2',
@@ -518,19 +546,23 @@ var UpgradeTitle = function UpgradeTitle(props) {
     );
 };
 
+// place title for page in top center of view
 var createUpgradeTitle = function createUpgradeTitle() {
     ReactDOM.render(React.createElement(UpgradeTitle, null), document.querySelector('#makeBeer'));
 };
 
+// create upgrade content in center of page
 var createUpgradeAccountInfo = function createUpgradeAccountInfo() {
     ReactDOM.render(React.createElement(UpgradeAccount, null), document.querySelector('#beers'));
 };
 
+// call title and main info functions
 var createUpgradeView = function createUpgradeView() {
     createUpgradeTitle();
     createUpgradeAccountInfo();
 };
 
+// create view when gear icon clicked
 var handleUpgradeClick = function handleUpgradeClick() {
     var changePass = document.querySelector('#upgrade');
 
@@ -541,16 +573,19 @@ var handleUpgradeClick = function handleUpgradeClick() {
 };
 'use strict';
 
+// helper function to create an error message with desired error text
 var handleError = function handleError(message) {
     $('#errorMessage').text(message);
     $('#beerMessage').animate({ height: 'toggle' }, 350);
 };
 
+// redirect page and hide error
 var redirect = function redirect(response) {
     $('#beerMessage').animate({ height: 'hide' }, 350);
     window.location = response.redirect;
 };
 
+// send ajax data and handle error
 var sendAjax = function sendAjax(type, action, data, success) {
     $.ajax({
         cache: false,

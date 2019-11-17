@@ -1,3 +1,4 @@
+// check if existing user has entered data into all fields
 const handleLogin = (e) => {
     e.preventDefault();
 
@@ -15,6 +16,8 @@ const handleLogin = (e) => {
     return false;
 };
 
+// check if new user has filled out all fields
+// check if pass and confirmed pass match
 const handleSignup = (e) => {
     e.preventDefault();
 
@@ -35,6 +38,7 @@ const handleSignup = (e) => {
     return false;
 };
 
+// create login form with username and pass
 const LoginWindow = (props) => {
     return (
         <form id='loginForm' name='loginForm'
@@ -52,6 +56,7 @@ const LoginWindow = (props) => {
     );
 };
 
+// create signup window with username, pass, and confirmed pass
 const SignupWindow = (props) => {
     return (
         <form id='signupForm' name='signupForm'
@@ -71,6 +76,7 @@ const SignupWindow = (props) => {
     );
 };
 
+// create login view in center of page
 const createLoginWindow = (csrf) => {
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
@@ -78,6 +84,7 @@ const createLoginWindow = (csrf) => {
     );
 };
 
+// create signup view in center of page
 const createSignupWindow = (csrf) => {
     ReactDOM.render(
         <SignupWindow csrf={csrf} />,
@@ -85,6 +92,7 @@ const createSignupWindow = (csrf) => {
     );
 };
 
+// depending on if login or signup icon pressed, create corresponding view
 const setup = (csrf) => {
     const loginButton = document.querySelector('#loginButton');
     const signupButton = document.querySelector('#signupButton');
@@ -104,12 +112,14 @@ const setup = (csrf) => {
     createLoginWindow(csrf);
 };
 
+// get csrf token
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
 };
 
+// load in csrf token
 $(document).ready(function() {
     getToken();
 });

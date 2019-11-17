@@ -24,31 +24,23 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  upgraded: {
-    type: Boolean,
-    default: false,
-  },
   createdDate: {
     type: Date,
     default: Date.now,
   },
 });
 
+// format data to api
 AccountSchema.statics.toAPI = (doc) => {
   const account = {
     username: doc.username,
     _id: doc._id,
   };
 
-  if (doc.upgraded) {
-    account.upgraded = doc.upgraded;
-  } else {
-    account.upgraded = false;
-  }
-
   return account;
 };
 
+// check if pass is valid
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;
 
@@ -60,6 +52,7 @@ const validatePassword = (doc, password, callback) => {
   });
 };
 
+// find username
 AccountSchema.statics.findByUsername = (name, callback) => {
   const search = {
     username: name,
@@ -68,6 +61,7 @@ AccountSchema.statics.findByUsername = (name, callback) => {
   return AccountModel.findOne(search, callback);
 };
 
+// generate hash for password encryption 
 AccountSchema.statics.generateHash = (password, callback) => {
   const salt = crypto.randomBytes(saltLength);
 
@@ -76,6 +70,7 @@ AccountSchema.statics.generateHash = (password, callback) => {
   );
 };
 
+// check for valid username, pass
 AccountSchema.statics.authenticate = (username, password, callback) =>
 AccountModel.findByUsername(username, (err, doc) => {
   if (err) {

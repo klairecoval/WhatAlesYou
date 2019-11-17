@@ -1,3 +1,7 @@
+// check if user has entered values into all fields
+// check if values are valid (match, etc)
+// return error messages if not correct
+// return success message if all requirements met
 const handlePasswordChange = (e) => {
     e.preventDefault();
 
@@ -20,6 +24,7 @@ const handlePasswordChange = (e) => {
     return false;
 };
 
+// create change password form with current pass, new pass, confirm new pass
 const ChangePassword = (props) => {
     return (
         <form id='changePassForm' name='changePassForm' action='changePassword' onSubmit={handlePasswordChange} method='POST'>
@@ -35,12 +40,14 @@ const ChangePassword = (props) => {
     );
 };
 
+// create change pass page title
 const PassTitle = (props) => {
     return (
         <h2 id="changePassTitle">Change Password</h2>
     );
 };
 
+// place new title on top of page, below nav bar
 const createPassTitle = () => {
     ReactDOM.render(
         <PassTitle />,
@@ -48,6 +55,7 @@ const createPassTitle = () => {
     );
 };
 
+// create pass form in main center of page
 const createChangePasswordForm = (csrf) => {
     ReactDOM.render(
         <ChangePassword csrf={csrf} />,
@@ -55,11 +63,13 @@ const createChangePasswordForm = (csrf) => {
     );
 };
 
+// create total view
 const createChangePasswordView = (csrf) => {
     createPassTitle();
 	createChangePasswordForm(csrf);
 };
 
+// when gear icon clicked, create view
 const handleChangePasswordClick = (csrf) => {
 	const changePass = document.querySelector('#changePassword');
 	
@@ -68,13 +78,3 @@ const handleChangePasswordClick = (csrf) => {
 		createChangePasswordView(csrf);
 	});
 };
-
-const getCSRFToken = () => {
-    sendAjax('GET', '/getToken', null, (result) => {
-        handleChangePasswordClick(result.csrfToken);
-    });
-};
-
-$(document).ready(function() {
-    getCSRFToken();
-});

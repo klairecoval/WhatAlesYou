@@ -12,9 +12,11 @@ const RedisStore = require('connect-redis')(session);
 const url = require('url');
 const csrf = require('csurf');
 
+// create local urls
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const dbURL = process.env.MONGODB_URI || 'mongodb://localhost/LagerLogger';
 
+// connect to database
 mongoose.connect(dbURL, (err) => {
   if (err) {
     console.log('Could not connect to database');
@@ -22,6 +24,7 @@ mongoose.connect(dbURL, (err) => {
   }
 });
 
+// connect to redis
 let redisURL = {
   hostname: 'redis-18254.c17.us-east-1-4.ec2.cloud.redislabs.com',
   port: 18254, // port number from RedisLabs
@@ -34,17 +37,23 @@ if (process.env.REDISCLOUD_URL) {
   redisPASS = redisURL.auth.split(':')[1];
 }
 
+// route app
 const router = require('./router.js');
 
 const app = express();
 
+// grab assets from folder
 app.use('/assets', express.static(path.resolve(`${__dirname}/../hosted/`)));
+
+// set favicon to beer icon
 app.use(favicon(`${__dirname}/../hosted/img/beerIcon.png`));
 app.disable('x-powered-by');
 app.use(compression());
 app.use(bodyParser.urlencoded({
   extended: true,
 }));
+
+// use redis store
 app.use(session({
   key: 'sessionid',
   store: new RedisStore({
@@ -59,6 +68,8 @@ app.use(session({
     httpOnly: true,
   },
 }));
+
+// use handlebars
 app.engine('handlebars', expressHandlebars({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.set('views', `${__dirname}/../views`);
@@ -75,6 +86,7 @@ app.use((err, req, res, next) => {
 
 router(app);
 
+// check for errors
 app.listen(port, (err) => {
   if (err) {
     throw err;

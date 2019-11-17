@@ -1,11 +1,14 @@
+/*make page color match gif background color*/
 body {
     background-color: #FFB914;
 }
 
+/*center not found text*/
 #notFound h1, #notFound p {
     text-align: center;
 }
 
+/*center gif on 404 page*/
 #pourGIF {
     display: block;
     margin-left: auto;

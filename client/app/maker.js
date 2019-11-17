@@ -1,3 +1,6 @@
+// check if all fields have values
+// if not, return proper error message
+// if there are beers, load them in
 const handleBeer = (e) => {
     e.preventDefault();
 
@@ -16,6 +19,8 @@ const handleBeer = (e) => {
     return false;
 };
 
+// delete a beer by id
+// reload beers to update view
 const deleteBeer = e => {
 	const id = e.target.parentElement.querySelector('.beerId').innerText;
 	const _csrf = document.querySelector('input[name="_csrf"]').value;
@@ -25,6 +30,7 @@ const deleteBeer = e => {
 	});
 };
 
+// create beer form inside of a modal
 const BeerForm = (props) => {
     return (
         <div>
@@ -59,6 +65,8 @@ const BeerForm = (props) => {
     );
 };
 
+// create list of beers
+// if no beers, create simple h3 saying no data
 const BeerList = function(props) {
     if(props.beers.length === 0) {
         return (
@@ -91,6 +99,8 @@ const BeerList = function(props) {
     );
 };
 
+// load in beers from server
+// place them in center of page
 const loadBeersFromServer = () => {
     sendAjax('GET', '/getBeers', null, (data) => {
         ReactDOM.render(
@@ -99,26 +109,21 @@ const loadBeersFromServer = () => {
     });
 };
 
+// handle new beer button (create modal)
 const logNewBeer = () => {
     const modal = document.getElementById("newBeerWindow");
-
-    // Get the button that opens the modal
-    var btn = document.getElementById("newBeerBtn");
+    const btn = document.getElementById("newBeerBtn");
+    const span = document.getElementsByClassName("close")[0];
     
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    
-    // When the user clicks on the button, open the modal
     btn.onclick = function() {
       modal.style.display = "block";
     }
     
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
       modal.style.display = "none";
     }
     
-    // When the user clicks anywhere outside of the modal, close it
+    // if user clicks outside the modal, close
     window.onclick = function(event) {
       if (event.target == modal) {
         modal.style.display = "none";
@@ -126,6 +131,8 @@ const logNewBeer = () => {
     }
 };
 
+// render main page view of beers
+// load in all functions required to handle clicks for new views
 const setup = function(csrf) {
     ReactDOM.render(
         <BeerForm csrf={csrf} />, document.querySelector('#makeBeer')
@@ -135,20 +142,22 @@ const setup = function(csrf) {
         <BeerList beers={[]} />, document.querySelector('#beers')
     );
 
+    loadBeersFromServer();
     logNewBeer();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
     handleChangePasswordClick(csrf);
-    loadBeersFromServer();
 };
 
+// get csrf token
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
 };
 
+// instantiate above
 $(document).ready(function() {
     getToken();
 });

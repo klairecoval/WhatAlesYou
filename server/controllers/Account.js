@@ -2,19 +2,26 @@ const models = require('../models');
 
 const Account = models.Account;
 
+// render login page
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
 };
 
+// render custom 404 page
 const notFoundPage = (req, res) => {
   res.render('notFound', { csrfToken: req.csrfToken() });
 };
 
+// logout, delete session, redirect to login page
 const logout = (req, res) => {
   req.session.destroy();
   res.redirect('/');
 };
 
+// login user
+// check for all fields filled out
+// check for values that match existing accounts
+// redirect once successful to main maker page
 const login = (request, response) => {
   const req = request;
   const res = response;
@@ -38,6 +45,9 @@ const login = (request, response) => {
   });
 };
 
+// handle new user signup
+// check for VALID values in all fields
+// create a new user and redirect to main maker page
 const signup = (request, response) => {
   const req = request;
   const res = response;
@@ -83,12 +93,14 @@ const signup = (request, response) => {
   });
 };
 
+// change user password
+// check for data in all fields
+// update password and redirect 
 const changePassword = (request, response) => {
   const req = request;
   const res = response;
 
   // force case to strings to cover security flaws
-  // const userName = `${req.body.userName}`;
   const currentPass = `${req.body.currPass}`;
   const newPass = `${req.body.newPass}`;
   const newPass2 = `${req.body.newPass2}`;
@@ -120,26 +132,7 @@ const changePassword = (request, response) => {
   );
 };
 
-// upgrade user's account to the paid, no-adds version with 'increased logger size'
-const upgradeAccount = (req, res) => {
-  const request = req;
-  const response = res;
-
-  const search = {
-    username: `${request.session.account.username}`,
-  };
-
-  return Account.AccountModel.update(search, { $set: { upgraded: true } }, {}, (err) => {
-    if (err) {
-      return response.status(500).json({ error: 'Unable to upgrade account.' });
-    }
-
-    request.session.account.upgraded = true;
-    console.log(req.session.account.upgraded);
-    return response.status(200).json({ message: 'Account upgraded successfully!' });
-  });
-};
-
+// get CSRF token
 const getToken = (request, response) => {
   const req = request;
   const res = response;
@@ -158,6 +151,5 @@ module.exports = {
   logout,
   signup,
   changePassword,
-  upgradeAccount,
   getToken,
 };

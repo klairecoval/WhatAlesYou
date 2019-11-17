@@ -1,3 +1,5 @@
+// safety check that pairings exist/are loaded
+// create pairings list
 const PairingsContainer = (props) => {
     $('#beerMessage').animate({width:'hide'}, 350);
 
@@ -20,6 +22,7 @@ const PairingsContainer = (props) => {
     );
 };
 
+// load in pairings from server
 const loadPairsFromServer = () => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', '/getPairs');
@@ -37,12 +40,14 @@ const loadPairsFromServer = () => {
     xhr.send();
 };
 
+// create title for pairings page to replace new beer button
 const PairingsTitle = (props) => {
     return (
         <h2 id="pairingsTitle">Food-Beer Pairings</h2>
     );
 };
 
+// create title at top of page, below nav
 const createPairingsTitle = () => {
     ReactDOM.render(
         <PairingsTitle />,
@@ -50,6 +55,7 @@ const createPairingsTitle = () => {
     );
 };
 
+// actually create pairings in center of page
 const createPairingContainer = () => {
     ReactDOM.render(
         <PairingsContainer pairs={[]} />, 
@@ -59,11 +65,13 @@ const createPairingContainer = () => {
     loadPairsFromServer();
 };
 
+// create total pairings view (call both needed functions)
 const createPairingsView = () => {
     createPairingsTitle();
 	createPairingContainer();
 };
 
+// when drink and burger icon clicked, create view
 const handlePairingsClick = () => {
 	const changePass = document.querySelector('#pairings');
 	

@@ -56,6 +56,7 @@ const BeerSchema = new mongoose.Schema({
   },
 });
 
+// send beer info to api
 BeerSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   brewer: doc.brewer,
@@ -65,6 +66,7 @@ BeerSchema.statics.toAPI = (doc) => ({
   notes: doc.notes,
 });
 
+// find beer
 BeerSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
@@ -73,6 +75,7 @@ BeerSchema.statics.findByOwner = (ownerId, callback) => {
   return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);
 };
 
+// delete beer by id that is hidden
 BeerSchema.statics.deleteById = (id, callback) => {
   const search = {
     _id: convertId(id),
