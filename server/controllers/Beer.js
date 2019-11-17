@@ -46,7 +46,7 @@ const makeBeer = (req, res) => {
       return res.status(400).json({ error: 'Beer already exists' });
     }
 
-    return res.status(400).json({ error: 'An error occured' });
+    return res.status(400).json({ error: 'An error occurred' });
   });
 
   return beerPromise;
@@ -86,14 +86,14 @@ const deleteBeer = (req, res) => {
 // create pairings to be loaded
 const getPairs = (req, res) => {
   res.json([
-    { beer: 'Light Lager', food: 'wings, fries, and fish.' },
-    { beer: 'Wheat Beer', food: 'salads, fruit, pastries, and noodles.' },
-    { beer: 'IPA', food: 'steak, ribs, fries, and burritos.' },
     { beer: 'Amber Ales', food: 'pulled pork, brisket, and pizza.' },
-    { beer: 'Dark Lager', food: 'pizza, burgers, and sausage.' },
     { beer: 'Brown Ale', food: 'sausage and sushi.' },
+    { beer: 'Dark Lager', food: 'pizza, burgers, and sausage.' },
+    { beer: 'IPA', food: 'steak, ribs, fries, and burritos.' },
+    { beer: 'Light Lager', food: 'wings, fries, and fish.' },
     { beer: 'Porter', food: 'shellfish, barbecue, and game meets (rabbit, venison).' },
     { beer: 'Stout', food: 'chocolate, lobster, barbecue, and shellfish.' },
+    { beer: 'Wheat Beer', food: 'salads, fruit, pastries, and noodles.' },
   ]);
 };
 
