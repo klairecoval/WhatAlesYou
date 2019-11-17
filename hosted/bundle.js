@@ -118,51 +118,73 @@ var deleteBeer = function deleteBeer(e) {
 
 var BeerForm = function BeerForm(props) {
     return React.createElement(
-        'form',
-        { id: 'beerForm',
-            onSubmit: handleBeer,
-            name: 'beerForm',
-            action: '/maker',
-            method: 'POST',
-            className: 'beerForm' },
+        'div',
+        null,
         React.createElement(
-            'label',
-            { htmlFor: 'name' },
-            'Name: '
+            'button',
+            { id: 'newBeerBtn' },
+            'New Beer'
         ),
-        React.createElement('input', { id: 'beerName', type: 'text', name: 'name', placeholder: 'Beer Name' }),
         React.createElement(
-            'label',
-            { htmlFor: 'brewer' },
-            'Brewer: '
-        ),
-        React.createElement('input', { id: 'beerBrewer', type: 'text', name: 'brewer', placeholder: 'Brewer' }),
-        React.createElement(
-            'label',
-            { htmlFor: 'type' },
-            'Type: '
-        ),
-        React.createElement('input', { id: 'beerType', type: 'text', name: 'type', placeholder: 'Type' }),
-        React.createElement(
-            'label',
-            { htmlFor: 'abv' },
-            'ABV: '
-        ),
-        React.createElement('input', { id: 'beerABV', type: 'text', name: 'abv', placeholder: 'ABV' }),
-        React.createElement(
-            'label',
-            { htmlFor: 'ibu' },
-            'IBU: '
-        ),
-        React.createElement('input', { id: 'beerIBU', type: 'text', name: 'ibu', placeholder: 'IBU' }),
-        React.createElement(
-            'label',
-            { htmlFor: 'notes' },
-            'Notes: '
-        ),
-        React.createElement('input', { id: 'beerNotes', type: 'text', name: 'notes', placeholder: 'Notes' }),
-        React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
-        React.createElement('input', { className: 'makeBeerSubmit', type: 'submit', value: 'Log Beer' })
+            'div',
+            { id: 'newBeerWindow', className: 'beerWindow' },
+            React.createElement(
+                'div',
+                { className: 'newBeerContent' },
+                React.createElement(
+                    'form',
+                    { id: 'beerForm',
+                        onSubmit: handleBeer,
+                        name: 'beerForm',
+                        action: '/maker',
+                        method: 'POST',
+                        className: 'beerForm' },
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'name' },
+                        'Name: '
+                    ),
+                    React.createElement('input', { id: 'beerName', type: 'text', name: 'name', placeholder: 'Beer Name' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'brewer' },
+                        'Brewer: '
+                    ),
+                    React.createElement('input', { id: 'beerBrewer', type: 'text', name: 'brewer', placeholder: 'Brewer' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'type' },
+                        'Type: '
+                    ),
+                    React.createElement('input', { id: 'beerType', type: 'text', name: 'type', placeholder: 'Type' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'abv' },
+                        'ABV: '
+                    ),
+                    React.createElement('input', { id: 'beerABV', type: 'text', name: 'abv', placeholder: 'ABV' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'ibu' },
+                        'IBU: '
+                    ),
+                    React.createElement('input', { id: 'beerIBU', type: 'text', name: 'ibu', placeholder: 'IBU' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'notes' },
+                        'Notes: '
+                    ),
+                    React.createElement('input', { id: 'beerNotes', type: 'text', name: 'notes', placeholder: 'Notes' }),
+                    React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
+                    React.createElement('input', { className: 'makeBeerSubmit', type: 'submit', value: 'Log Beer' })
+                ),
+                React.createElement(
+                    'span',
+                    { className: 'close' },
+                    '\xD7'
+                )
+            )
+        )
     );
 };
 
@@ -252,11 +274,39 @@ var loadBeersFromServer = function loadBeersFromServer() {
     });
 };
 
+var logNewBeer = function logNewBeer() {
+    var modal = document.getElementById("newBeerWindow");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("newBeerBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+};
+
 var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(BeerForm, { csrf: csrf }), document.querySelector('#makeBeer'));
 
     ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
 
+    logNewBeer();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
@@ -445,12 +495,12 @@ var UpgradeAccount = function UpgradeAccount(props) {
         React.createElement(
             'h3',
             null,
-            'Upgrade your account for a larger inventory size. Keep track of up to 150 beers instead of the free 15 and remove ads.'
+            'Upgrade your account for a larger inventory size. Keep track of up to 150 beers instead of the free 15!'
         ),
         React.createElement(
             'p',
             null,
-            'For a one-time fee of $10 USD, you can increase your storage size so you never have to quench your thirst for more beers! '
+            'For a one-time fee of $10 USD, you can increase your storage size so you never have to quelch your thirst for more beers! '
         ),
         React.createElement(
             'button',
@@ -459,10 +509,6 @@ var UpgradeAccount = function UpgradeAccount(props) {
         )
     );
 };
-
-// const upgradeView = (props) => {
-//     $('#ads').animate({width:'hide'}, 350);
-// }
 
 var UpgradeTitle = function UpgradeTitle(props) {
     return React.createElement(

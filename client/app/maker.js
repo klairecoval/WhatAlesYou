@@ -27,27 +27,35 @@ const deleteBeer = e => {
 
 const BeerForm = (props) => {
     return (
-        <form id='beerForm'
-        onSubmit={handleBeer}
-        name='beerForm'
-        action='/maker'
-        method='POST'
-        className='beerForm' >
-            <label htmlFor='name'>Name: </label>
-            <input id='beerName' type='text' name='name' placeholder='Beer Name' />
-            <label htmlFor='brewer'>Brewer: </label>
-            <input id='beerBrewer' type='text' name='brewer' placeholder='Brewer' />
-            <label htmlFor='type'>Type: </label>
-            <input id='beerType' type='text' name='type' placeholder='Type' />
-            <label htmlFor='abv'>ABV: </label>
-            <input id='beerABV' type='text' name='abv' placeholder='ABV' />
-            <label htmlFor='ibu'>IBU: </label>
-            <input id='beerIBU' type='text' name='ibu' placeholder='IBU' />
-            <label htmlFor='notes'>Notes: </label>
-            <input id='beerNotes' type='text' name='notes' placeholder='Notes' />
-            <input type='hidden' name='_csrf' value={props.csrf} />
-            <input className='makeBeerSubmit' type='submit' value='Log Beer' />
-        </form>
+        <div>
+            <button id="newBeerBtn">New Beer</button>
+            <div id="newBeerWindow" className="beerWindow">
+                <div className="newBeerContent">
+                    <form id='beerForm'
+                        onSubmit={handleBeer}
+                        name='beerForm'
+                        action='/maker'
+                        method='POST'
+                        className='beerForm' >
+                            <label htmlFor='name'>Name: </label>
+                            <input id='beerName' type='text' name='name' placeholder='Beer Name' />
+                            <label htmlFor='brewer'>Brewer: </label>
+                            <input id='beerBrewer' type='text' name='brewer' placeholder='Brewer' />
+                            <label htmlFor='type'>Type: </label>
+                            <input id='beerType' type='text' name='type' placeholder='Type' />
+                            <label htmlFor='abv'>ABV: </label>
+                            <input id='beerABV' type='text' name='abv' placeholder='ABV' />
+                            <label htmlFor='ibu'>IBU: </label>
+                            <input id='beerIBU' type='text' name='ibu' placeholder='IBU' />
+                            <label htmlFor='notes'>Notes: </label>
+                            <input id='beerNotes' type='text' name='notes' placeholder='Notes' />
+                            <input type='hidden' name='_csrf' value={props.csrf} />
+                            <input className='makeBeerSubmit' type='submit' value='Log Beer' />
+                    </form>
+                    <span className="close">&times;</span>
+                </div>
+            </div>
+        </div>
     );
 };
 
@@ -91,6 +99,33 @@ const loadBeersFromServer = () => {
     });
 };
 
+const logNewBeer = () => {
+    const modal = document.getElementById("newBeerWindow");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("newBeerBtn");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks on the button, open the modal
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+};
+
 const setup = function(csrf) {
     ReactDOM.render(
         <BeerForm csrf={csrf} />, document.querySelector('#makeBeer')
@@ -100,6 +135,7 @@ const setup = function(csrf) {
         <BeerList beers={[]} />, document.querySelector('#beers')
     );
 
+    logNewBeer();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();

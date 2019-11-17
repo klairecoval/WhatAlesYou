@@ -52,20 +52,62 @@ nav {
     background-color: #C96E12;
 }
 
+.beerWindow {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+  
+  /* Modal Content/Box */
+.newBeerContent {
+    background-color: #ffffff;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #C96E12;
+    border-radius: 4px;
+    width: 20rem; 
+    height: 14rem;
+}
+
+  /* The Close Button */
+.close {
+    color: #aaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .beerForm {
-    height: 35px;
-    padding-top: 1.5rem;
-    width: 92rem;
+    height: 12rem;
+    width: 20rem;
     margin: 0 auto;
 }
 
 .beerForm label {
-    display: inline-block;
+    /* display: inline-block;
     margin-right: 0.5rem;
     margin-left: 1rem;
     font-size: 1.2em;
     float: left;
-    color: black;
+    color: black; */
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+    font-size: 1.2em;
 }
 
 .beerForm input[type=text] {
@@ -74,7 +116,7 @@ nav {
     border: 1px solid #EC9D00;
     border-radius: 4px;
     height: 1.5rem;
-    float: left;
+    margin-bottom: 0.5rem;
 }
 
 .beerForm input[type=text]:focus {
@@ -84,14 +126,16 @@ nav {
 
 .makeBeerSubmit {
     cursor: pointer;
-    margin-left: 2rem;
     transition: background-color 0.4s ease;
-    display: inline;
     background-color: #DF8D03;
     border: 1px solid #DF8D03;
     border-radius: 4px;
     color: white;
     padding: 5px 10px;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    float: right;
 }
 
 .makeBeerSubmit:link, .makeBeerSubmit:visited, .makeBeerSubmit:hover, .makeBeerSubmit:active {
@@ -125,15 +169,13 @@ nav {
 }
 
 #loginTitle {
-    /* font-size: 4rem;
-    padding-top: 2rem;
-    text-align: center; */
     margin-top: 1.5rem;
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 30rem;
 }
+
 #loginSubText {
     width: 35rem;
     margin-top: 1.5rem;
@@ -157,7 +199,7 @@ nav {
     font-size: 1.2em;
 }
 
-.formSubmit, .submitForm {
+.formSubmit, .submitForm, #newBeerBtn {
     transition: background-color 0.4s ease;
     display: block;
     text-align: center;
@@ -181,7 +223,7 @@ nav {
     color: white;
 }
 
-.formSubmit:hover, .submitForm:hover {
+.formSubmit:hover, .submitForm:hover, #newBeerBtn:hover {
     cursor: pointer;
     transition: background-color 0.4s ease;
     background-color: #C96E12;
