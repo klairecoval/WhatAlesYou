@@ -350,12 +350,22 @@ var PairingsContainer = function PairingsContainer(props) {
         return React.createElement(
             'div',
             { className: 'pairing' },
+            React.createElement('img', { src: pair.image, className: 'pairImg' }),
             React.createElement(
-                'h4',
-                null,
-                pair.beer,
-                ' pairs well with ',
+                'p',
+                { id: 'pairTitle' },
+                React.createElement(
+                    'strong',
+                    null,
+                    pair.beer
+                ),
+                ' pair well with ',
                 pair.food
+            ),
+            React.createElement(
+                'p',
+                { id: 'subtext' },
+                pair.about
             )
         );
     });

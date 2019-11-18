@@ -344,11 +344,9 @@ button.deleteBeer:hover, button.upgradeButton:hover{
     text-decoration: none;
 }
 
-.recipeImg {
+.recipeImg, .pairImg {
     width: 4rem;
     margin-right: 10px;
-    /* height: 50px;
-    width: 50px; */
     border-radius: 4px;
     margin-top:10px;
     float: left;
@@ -357,4 +355,13 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 /*center upgrade view content*/
 #upgradeContent {
     text-align: center;
+}
+
+#subtext {
+    display: none;
+}
+
+#pairTitle:hover + #subtext {
+    display: block;
+    cursor: pointer;
 }

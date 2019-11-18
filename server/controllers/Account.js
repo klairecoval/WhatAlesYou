@@ -95,7 +95,7 @@ const signup = (request, response) => {
 
 // change user password
 // check for data in all fields
-// update password and redirect 
+// update password and redirect
 const changePassword = (request, response) => {
   const req = request;
   const res = response;

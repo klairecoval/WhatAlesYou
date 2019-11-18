@@ -11,7 +11,9 @@ const PairingsContainer = (props) => {
     const pairsList = props.pairs.map((pair) => {
         return (
             <div className="pairing">
-                <h4>{pair.beer} pairs well with {pair.food}</h4>
+                <img src={pair.image} className="pairImg"/>
+                <p id="pairTitle"><strong>{pair.beer}</strong> pair well with {pair.food}</p>
+                <p id="subtext">{pair.about}</p>
             </div>
         );
     });
@@ -19,7 +21,7 @@ const PairingsContainer = (props) => {
         <div>
             {pairsList}
         </div>
-    );
+    ); 
 };
 
 // load in pairings from server
@@ -68,7 +70,7 @@ const createPairingContainer = () => {
 // create total pairings view (call both needed functions)
 const createPairingsView = () => {
     createPairingsTitle();
-	createPairingContainer();
+    createPairingContainer();
 };
 
 // when drink and burger icon clicked, create view
