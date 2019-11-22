@@ -30,6 +30,11 @@ const deleteBeer = e => {
 	});
 };
 
+// search for a beer
+const searchBeer = (e) => {
+
+};
+
 // create beer form inside of a modal
 const BeerForm = (props) => {
     return (

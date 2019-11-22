@@ -11,6 +11,7 @@ const router = (app) => {
   app.get('/maker', mid.requiresLogin, controllers.Beer.makerPage);
   app.get('/getPairs', mid.requiresLogin, controllers.Beer.getPairs);
   app.get('/getRecipes', mid.requiresLogin, controllers.Beer.getRecipes);
+  app.get('/searchBeer', mid.requiresLogin, controllers.Beer.searchBeer);
 
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);

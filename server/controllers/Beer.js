@@ -83,6 +83,11 @@ const deleteBeer = (req, res) => {
   });
 };
 
+// search for a beer
+const searchBeer = (req, res) => {
+
+};
+
 // create pairings to be loaded
 const getPairs = (req, res) => {
   res.json([
@@ -124,11 +129,26 @@ const getPairs = (req, res) => {
 // create recipes to be loaded
 const getRecipes = (req, res) => {
   res.json([
-    { name: 'Beer Dip', image: '/assets/img/dip.png', description: 'Ranch dressing and shredded cheese form dip, paired best with pretzels.', link: 'https://www.tasteofhome.com/recipes/beer-dip/' },
-    { name: 'Beer Can Chicken', image: '/assets/img/chicken.png', description: 'Keep chicken moist by teaming it in beer while on the grill.', link: 'https://www.tasteofhome.com/article/beer-can-chicken/' },
-    { name: 'Potato-Beer-Cheese Soup', image: '/assets/img/soup.png', description: 'Warm your soul with a velvety soup with notes of beer and cheese.', link: 'https://www.tasteofhome.com/recipes/potato-beer-cheese-soup/' },
-    { name: 'Fish and Chips with Mushy Peas', image: '/assets/img/fishChips.png', description: 'Fry once to cook through. Fry twice to crisp the outside.', link: 'https://www.bonappetit.com/recipe/fish-and-chips-with-minty-mushy-peas' },
-    { name: 'Beer Battered Onion Rings', image: '/assets/img/onionRings.png', description: 'Onion rings deliver big crunch and rich onion flavor.', link: 'https://www.foodnetwork.ca/recipe/beer-battered-onion-rings/18695/' },
+    { name: 'Beer Dip',
+      image: '/assets/img/dip.png',
+      description: 'Ranch dressing and shredded cheese form dip, paired best with pretzels.',
+      link: 'https://www.tasteofhome.com/recipes/beer-dip/' },
+    { name: 'Beer Can Chicken',
+      image: '/assets/img/chicken.png',
+      description: 'Keep chicken moist by teaming it in beer while on the grill.',
+      link: 'https://www.tasteofhome.com/article/beer-can-chicken/' },
+    { name: 'Potato-Beer-Cheese Soup',
+      image: '/assets/img/soup.png',
+      description: 'Warm your soul with a velvety soup with notes of beer and cheese.',
+      link: 'https://www.tasteofhome.com/recipes/potato-beer-cheese-soup/' },
+    { name: 'Fish and Chips with Mushy Peas',
+      image: '/assets/img/fishChips.png',
+      description: 'Fry once to cook through. Fry twice to crisp the outside.',
+      link: 'https://www.bonappetit.com/recipe/fish-and-chips-with-minty-mushy-peas' },
+    { name: 'Beer Battered Onion Rings',
+      image: '/assets/img/onionRings.png',
+      description: 'Onion rings deliver big crunch and rich onion flavor.',
+      link: 'https://www.foodnetwork.ca/recipe/beer-battered-onion-rings/18695/' },
   ]);
 };
 
@@ -138,5 +158,6 @@ module.exports = {
   getRecipes,
   makerPage,
   deleteBeer,
+  searchBeer,
   getPairs,
 };
