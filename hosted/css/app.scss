@@ -1,82 +1,81 @@
 /*variables*/
+$buttonHover: #C96E12;
 $mainOrange: #EC9D00;
 $mustard: #F6C101;
-$buttonHover: #C96E12;
 
 /*Main styles across all pages*/
 html, body {
     font-family: 'Raleway', sans-serif;
     height: 100%;
-    width: 100%;
     margin: 0;
-    padding: 0;
     overflow-x: hidden;
+    padding: 0;
+    width: 100%;
 }
 
 /*style logo*/
 #logo {
-    width: 40;
-    padding: 5px;
-    float: left;
     border-radius: 4px;
+    float: left;
+    padding: 5px;
+    width: 40;
 }
 #logo:hover {
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.8s ease;
     background-color: $buttonHover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.8s ease;
 }
 
 /*style nav bar*/
 nav {
-    width: 100%;
-    height: 50px;
     background-image: linear-gradient(to right, $mustard , $mainOrange);
     box-shadow: 0px 4px 14px 0px rgba(119, 53, 53, 0.14);
+    height: 50px;
+    width: 100%;
 }
 .navlink {
-    cursor: pointer;
-    padding-top: 10px;
-    padding-right: 10px;
     color: black;
+    cursor: pointer;
     float: right;
+    padding-right: 10px;
+    padding-top: 10px;
 }
 .navlink img, .navlink img:link, .navlink img:visited, .navlink img:hover, .navlink img:active {
-    cursor: pointer;
-    color: black;
-    text-decoration: none;
     border-radius: 4px;
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
     transition: background-color 0.4s ease;
 }
 .navlink img:hover {
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.8s ease;
     background-color: $buttonHover;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.8s ease;
 }
 
 /*new beer entry modal
 - base modal styling from W3Schools */
 .beerWindow {
+    background-color: rgba(0,0,0,0.4);
     display: none;
-    position: fixed;
-    z-index: 1;
+    height: 100%; 
     left: 0;
+    overflow: auto;
+    position: fixed;
     top: 0;
     width: 100%; 
-    height: 100%; 
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    z-index: 1;
 }
 .newBeerContent {
     background-color: #ffffff;
-    margin: 15% auto;
-    padding: 20px;
     border: 1px solid $buttonHover;
     border-radius: 4px;
+    height: 13.6rem;
+    margin: 15% auto;
+    padding: 20px;
     width: 20rem; 
-    height: 14rem;
 }
 /*close button x*/
 .close {
@@ -87,76 +86,76 @@ nav {
 }
 .close:hover, .close:focus {
     color: black;
-    text-decoration: none;
     cursor: pointer;
+    text-decoration: none;
 }
 
 /*new beer form*/
 .beerForm {
     height: 12rem;
-    width: 20rem;
     margin: 0 auto;
+    width: 20rem;
 
     label {
         display: inline-block;
-        width: 100px;
+        font-size: 1.2em;
         margin-right: 10px;
         text-align: right;
-        font-size: 1.2em;
+        width: 100px;
     }
 
     input[type=text] {
-        font-size: 1.1em;
-        width: 150px;
         border: 1px solid $mainOrange;
         border-radius: 4px;
+        font-size: 1.1em;
         height: 1.5rem;
         margin-bottom: 0.5rem;
+        width: 150px;
     }
 
     input[type=text]:focus {
-        outline: none;
         box-shadow: 0px 0px 1px 1px $buttonHover;
+        outline: none;
     }
 }
 
 /*new beer sumbit button*/
 .makeBeerSubmit {
-    cursor: pointer;
-    transition: background-color 0.4s ease;
+    align-content: center;
     background-color: $mainOrange;
     border: 1px solid $mainOrange;
     border-radius: 4px;
     color: white;
-    padding: 5px 10px;
-    align-content: center;
+    cursor: pointer;
+    float: right;
     margin-left: auto;
     margin-right: auto;
-    float: right;
+    padding: 5px 10px;
+    transition: background-color 0.4s ease;
 }
 .makeBeerSubmit:link, .makeBeerSubmit:visited, .makeBeerSubmit:hover, .makeBeerSubmit:active {
     color: white;
 }
 .makeBeerSubmit:hover {
-    transition: background-color 0.4s ease;
     background-color: $buttonHover;
     border-color: $buttonHover;
+    transition: background-color 0.4s ease;
 }
 
 /*main login form*/
 .mainForm {
+    font-size: 1.2em;
     height: 300px;
-    width: 350px;
     margin: 0 auto;
     padding-top: 4rem;
-    font-size: 1.2em;
+    width: 350px;
 
     label {
         display: inline-block;
-        width: 100px;
+        font-size: 1.2em;
         margin-right: 10px;
         text-align: right;
-        font-size: 1.2em;
+        width: 100px;
     }
 }
 .mainForm h3, #changePassForm h3 {
@@ -165,51 +164,51 @@ nav {
 
 /*login and signup page title*/
 #loginTitle {
-    margin-top: 1.5rem;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 1.5rem;
     width: 30rem;
 }
 #loginSubText {
-    width: 35rem;
-    margin-top: 1.5rem;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 1.5rem;
     text-align: center;
+    width: 35rem;
 }
 
 /*change password view form*/
 #changePassForm {
-    width: 500px;
-    margin: 0 auto;
     font-size: 1.2em;
+    margin: 0 auto;
+    width: 500px;
 
     label {
         display: inline-block;
-        width: 255px;
+        font-size: 1.2em;
         margin-right: 10px;
         text-align: right;
-        font-size: 1.2em;
+        width: 255px;
     }
 }
 
 /*styles for large signup, new beer, login buttons*/
 .formSubmit, .submitForm, #newBeerBtn {
-    transition: background-color 0.4s ease;
-    display: block;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 14px;
-    font-size: 1.2em;
-    width: 100px;
     background-color: $mainOrange;
     border: 1px solid $mainOrange;
     border-radius: 4px;
-    padding: 3px 0px;
     color: white;
+    display: block;
+    font-size: 1.2em;
+    margin: 0 auto;
+    margin-top: 14px;
+    padding: 3px 0px;
+    text-align: center;
     text-decoration: none;
+    transition: background-color 0.4s ease;
+    width: 100px;
 }
 .submitForm {
     width: 100px;
@@ -219,119 +218,119 @@ nav {
     color: white;
 }
 .formSubmit:hover, .submitForm:hover, #newBeerBtn:hover {
+    background-color: $buttonHover;
     cursor: pointer;
     transition: background-color 0.4s ease;
-    background-color: $buttonHover;
 }
 
 /*password input fields*/
 #user, #pass, #pass2, #currPass, #newPass, #newPass2 {
+    border: 1px solid $mainOrange;
+    border-radius: 4px;
     margin-bottom: 0.5rem;
     margin-left: 1rem;
-    border: 1px solid $mainOrange;
-    text-align: center;
     font-size: 1.1em;
+    text-align: center;
     width: 180px;
-    border-radius: 4px;
 }
 #user:focus, #pass:focus, #pass2:focus, #currPass:focus, #newPass:focus, #newPass2:focus {
-    outline: none;
     box-shadow: 0px 0px 1px 1px $buttonHover;
+    outline: none;
 }
 
 /*error message*/
 #beerMessage {
-    width: 100%;
-    margin-top: 8rem;
     display: none;
-    top: 20rem;
     height: 100px;
-    position: absolute;
-    z-index: 200;
-    overflow: hidden;
     margin-left: 42%;
+    margin-top: 8rem;
+    overflow: hidden;
+    position: absolute;
+    top: 20rem;
+    width: 100%;
+    z-index: 200;
 
     h3 {
-        position: absolute;
         margin: 0 auto;
+        position: absolute;
     }
 }
 
 #errorMessage {
-    font-weight: bold;
     color: $mainOrange;
+    font-weight: bold;
 }
 
 /*main maker page content*/
 #beers {
-    width: 80%;
-    min-width: 400px;
     border-radius: 4px;
     margin: 0 auto;
     margin-top: 2rem;
+    min-width: 400px;
+    width: 80%;
 }
 
 /*cards for page data*/
 .beer, .recipe, .pairing {
-    display: inline-block;
-    width: 20rem;
-    margin: 0 auto;
     border: 2px solid $mainOrange;
     border-radius: 4px;
-    padding: 10px;
-    overflow: hidden;
-    margin-right: 1rem;
+    display: inline-block;
+    margin: 0 auto;
     margin-bottom: 1rem;
+    margin-right: 1rem;
+    overflow: hidden;
+    padding: 10px;
+    width: 20rem;
 }
 img.beerDefaultIcon {
-    margin-right: 10px;
-    height: 50px;
-    width: 50px;
     border-radius: 4px;
-    margin-top:10px;
     float:left;
+    height: 50px;
+    margin-right: 10px;
+    margin-top:10px;
+    width: 50px;
 }
 h3.beerName {
     font-weight: bold;
-    padding-left: 65px;
     font-size: 1.5em;
+    padding-left: 65px;
 }
 
 button.deleteBeer {
-    cursor: pointer;
     background: $mainOrange;
     border: 1px solid $mainOrange;
     border-radius: 4px;
     color: #ffffff;
+    cursor: pointer;
     float: right;
     padding: 5px 10px;
 }
 
 /*style for no beers filler text*/
 h3.emptyBeer {
-    width: 400px;
     font-size: 1.5em;
     margin: 0 auto;
-    text-align: center;
     margin-top: 18px;
+    text-align: center;
+    width: 400px;
 }
 
 /*style for upgrade account button*/
 button.upgradeButton {
-    cursor: pointer;
-    transition: background-color 0.4s ease;
-    display: block;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 3rem;
-    font-size: 1.2em;
-    width: 100px;
     background-color: $mainOrange;
     border: 1px solid $mainOrange;
     border-radius: 4px;
-    padding: 3px 0px;
     color: white;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2em;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 3px 0px;
+    text-align: center;
     text-decoration: none;
+    transition: background-color 0.4s ease;
+    width: 100px;
 }
 
 /*hover state handler for upgrade and delete beer buttons*/
@@ -347,7 +346,7 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 }
 
 /*center titles for subviews*/
-#changePassTitle, #recipesTitle, #pairingsTitle, #upgradeTitle {
+#changePassTitle, #recipesTitle, #pairingsTitle, #upgradeTitle, #recsTitle {
     text-align: center;
 }
 
@@ -358,11 +357,11 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 }
 
 .recipeImg, .pairImg {
-    width: 4rem;
-    margin-right: 10px;
     border-radius: 4px;
-    margin-top:10px;
     float: left;
+    margin-right: 10px;
+    margin-top:10px;
+    width: 4rem;
 }
 
 /*center upgrade view content*/
@@ -375,8 +374,8 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 }
 
 #pairTitle:hover + #subtext {
-    display: block;
     cursor: pointer;
+    display: block;
 }
 
 /*center not found text*/

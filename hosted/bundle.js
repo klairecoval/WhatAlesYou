@@ -121,6 +121,9 @@ var deleteBeer = function deleteBeer(e) {
     });
 };
 
+// search for a beer
+var searchBeer = function searchBeer(e) {};
+
 // create beer form inside of a modal
 var BeerForm = function BeerForm(props) {
     return React.createElement(
@@ -315,6 +318,7 @@ var setup = function setup(csrf) {
 
     loadBeersFromServer();
     logNewBeer();
+    handleRecsClick();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
@@ -518,6 +522,69 @@ var handleRecipesClick = function handleRecipesClick() {
     changePass.addEventListener('click', function (e) {
         e.preventDefault();
         createRecipesView();
+    });
+};
+'use strict';
+
+var RecsContainer = function RecsContainer(props) {
+    $('#beerMessage').animate({ width: 'hide' }, 350);
+
+    if (props.recs.length === 0) {
+        return React.createElement(
+            'div',
+            null,
+            'No recommendations...yet!'
+        );
+    }
+    var recsList = props.recs.map(function (rec) {
+        return React.createElement(
+            'div',
+            { className: 'recommendation' },
+            React.createElement(
+                'p',
+                null,
+                rec.name
+            )
+        );
+    });
+    return React.createElement(
+        'div',
+        null,
+        recsList
+    );
+};
+
+var RecsTitle = function RecsTitle(props) {
+    return React.createElement(
+        'h2',
+        { id: 'recsTitle' },
+        'Recommendations from Other Users'
+    );
+};
+
+// create title at top of page, below nav
+var createRecsTitle = function createRecsTitle() {
+    ReactDOM.render(React.createElement(RecsTitle, null), document.querySelector('#makeBeer'));
+};
+
+var createRecsContainer = function createRecsContainer() {
+    ReactDOM.render(React.createElement(RecsContainer, { recs: [] }), document.getElementById('beers'));
+
+    // loadRecs();
+};
+
+var createRecsView = function createRecsView() {
+    createRecsTitle();
+    createRecsContainer();
+};
+
+// when drink and burger icon clicked, create view
+var handleRecsClick = function handleRecsClick() {
+    var changePass = document.querySelector('#rec');
+
+    changePass.addEventListener('click', function (e) {
+        e.preventDefault();
+        createRecsView();
     });
 };
 'use strict';

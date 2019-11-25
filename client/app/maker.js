@@ -149,6 +149,7 @@ const setup = function(csrf) {
 
     loadBeersFromServer();
     logNewBeer();
+    handleRecsClick();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
