@@ -84,9 +84,8 @@ const deleteBeer = (req, res) => {
 };
 
 // search for a beer
-const searchBeer = (req, res) => {
-
-};
+// doesnt do anything for now
+const searchBeer = (req, res) => res.status(200).json({ msg: 'Beer deleted successfully.' });
 
 // create pairings to be loaded
 const getPairs = (req, res) => {
