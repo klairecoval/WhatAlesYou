@@ -81,7 +81,9 @@ const BeerList = function(props) {
         );
     }
 
-    const beerNodes = props.beers.map(function(beer) {
+    const beerNodes = props.beers.sort(function(a,b){
+        return a.name.localeCompare(b.name);
+    }).map(function(beer) {
         return (
             <div key={beer._id} className='beer'>
                 <img src='/assets/img/beerIcon.png' alt='beer face' className='beerDefaultIcon'/>

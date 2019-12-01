@@ -212,7 +212,9 @@ var BeerList = function BeerList(props) {
         );
     }
 
-    var beerNodes = props.beers.map(function (beer) {
+    var beerNodes = props.beers.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+    }).map(function (beer) {
         return React.createElement(
             'div',
             { key: beer._id, className: 'beer' },
