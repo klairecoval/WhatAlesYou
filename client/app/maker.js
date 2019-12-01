@@ -21,7 +21,7 @@ const handleBeer = (e) => {
 
 // delete a beer by id
 // reload beers to update view
-const deleteBeer = e => {
+const deleteBeer = (e) => {
 	const id = e.target.parentElement.querySelector('.beerId').innerText;
 	const _csrf = document.querySelector('input[name="_csrf"]').value;
 	
@@ -32,7 +32,7 @@ const deleteBeer = e => {
 
 // search for a beer
 const searchBeer = (e) => {
-
+    const queriedBeer = e.value();
 };
 
 // create beer form inside of a modal
@@ -63,6 +63,10 @@ const BeerForm = (props) => {
                             <input type='hidden' name='_csrf' value={props.csrf} />
                             <input className='makeBeerSubmit' type='submit' value='Log Beer' />
                     </form>
+                    <label htmlFor="recommend">Recommend</label>
+                    <input
+                        name="recommend"
+                        type="checkbox"/>
                     <span className="close">&times;</span>
                 </div>
             </div>

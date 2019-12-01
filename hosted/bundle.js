@@ -122,7 +122,9 @@ var deleteBeer = function deleteBeer(e) {
 };
 
 // search for a beer
-var searchBeer = function searchBeer(e) {};
+var searchBeer = function searchBeer(e) {
+    var queriedBeer = e.value();
+};
 
 // create beer form inside of a modal
 var BeerForm = function BeerForm(props) {
@@ -187,6 +189,14 @@ var BeerForm = function BeerForm(props) {
                     React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
                     React.createElement('input', { className: 'makeBeerSubmit', type: 'submit', value: 'Log Beer' })
                 ),
+                React.createElement(
+                    'label',
+                    { htmlFor: 'recommend' },
+                    'Recommend'
+                ),
+                React.createElement('input', {
+                    name: 'recommend',
+                    type: 'checkbox' }),
                 React.createElement(
                     'span',
                     { className: 'close' },
