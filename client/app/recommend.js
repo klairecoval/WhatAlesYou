@@ -10,7 +10,14 @@ const RecsContainer = (props) => {
     const recsList = props.recs.map((rec) => {
         return (
             <div className="recommendation">
-                <p>{rec.name}</p>
+                    <img src='/assets/img/beerIcon.png' alt='beer face' className='beerDefaultIcon'/>
+                    <h3 className='beerName'> {rec.name} </h3>
+                    <h3 className='beerBrewer'> Brewer: {rec.brewer} </h3>
+                    <h3 className='beerType'> Type: {rec.type} </h3>
+                    <h3 className='beerABV'> ABV: {rec.abv} </h3>
+                    <h3 className='beerIBU'> IBU: {rec.ibu} </h3>
+                    <h3 className='beerNotes'> Type: {rec.notes} </h3>
+                    <span className='beerId'>{rec._id}</span>
             </div>
         );
     });
@@ -21,9 +28,26 @@ const RecsContainer = (props) => {
     ); 
 };
 
+const loadRecs = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', '/getRecs');
+
+    const setRecs = () => {
+        const recsResponse = JSON.parse(xhr.response);
+
+        ReactDOM.render(
+            <RecsContainer recs={recsResponse} />,
+            document.getElementById('beers')
+        );
+    };
+
+    xhr.onload = setRecs;
+    xhr.send();
+};
+
 const RecsTitle = (props) => {
     return (
-        <h2 id="recsTitle">Recommendations from Other Users</h2>
+        <h2 id="recsTitle">Recommended Beers</h2>
     );
 };
 
@@ -41,7 +65,7 @@ const createRecsContainer = () => {
         document.getElementById('beers')
     );
 
-    // loadRecs();
+    loadRecs();
 };
 
 const createRecsView = () => {

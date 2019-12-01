@@ -44,6 +44,11 @@ const BeerSchema = new mongoose.Schema({
     trim: true,
   },
 
+  recommended: {
+    type: Boolean,
+    required: false,
+  },
+
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,

@@ -1,6 +1,7 @@
 const models = require('../models');
 
 const Beer = models.Beer;
+const recsList = [];
 
 // create maker page
 // pass in csrf token
@@ -30,6 +31,7 @@ const makeBeer = (req, res) => {
     abv: req.body.abv,
     ibu: req.body.ibu,
     notes: req.body.notes,
+    recommended: req.body.recommended,
     owner: req.session.account._id,
   };
 
@@ -48,6 +50,10 @@ const makeBeer = (req, res) => {
 
     return res.status(400).json({ error: 'An error occurred' });
   });
+
+  if (req.body.recommended === 'on') {
+    recsList.push(newBeer);
+  }
 
   return beerPromise;
 };
@@ -85,7 +91,27 @@ const deleteBeer = (req, res) => {
 
 // search for a beer
 // doesnt do anything for now
-const searchBeer = (req, res) => res.status(200).json({ msg: 'Beer deleted successfully.' });
+const searchBeer = (req, res, searchedBeer) => {
+  console.log(searchedBeer);
+
+  return Beer.BeerModel.findByOwner(req.session.account._id, (err) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred.' });
+    }
+
+    return res.json({ beers: searchedBeer });
+  });
+};
+
+const getRecs = (req, res) => Beer.BeerModel.findByOwner(req.session.account._id, (err) => {
+  if (err) {
+    console.log(err);
+    return res.status(400).json({ error: 'An error occurred.' });
+  }
+
+  return res.json(recsList);
+});
 
 // create pairings to be loaded
 const getPairs = (req, res) => {
@@ -159,4 +185,5 @@ module.exports = {
   deleteBeer,
   searchBeer,
   getPairs,
+  getRecs,
 };

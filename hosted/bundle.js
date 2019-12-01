@@ -123,7 +123,19 @@ var deleteBeer = function deleteBeer(e) {
 
 // search for a beer
 var searchBeer = function searchBeer(e) {
-    var queriedBeer = e.value();
+    e.preventDefault();
+    var queriedBeer = document.getElementById('searchBeer').value;
+    $('#beerMessage').animate({ height: 'hide' }, 350);
+
+    if ($('#searchBeer').val() == '') {
+        handleError('Name is required for search');
+        return false;
+    }
+
+    sendAjax('GET', '/searchBeer', null, function (data) {
+        ReactDOM.render(React.createElement(BeerList, { beers: queriedBeer }), document.querySelector('#beers'));
+    });
+    console.log(queriedBeer);
 };
 
 // create beer form inside of a modal
@@ -131,6 +143,23 @@ var BeerForm = function BeerForm(props) {
     return React.createElement(
         'div',
         null,
+        React.createElement(
+            'form',
+            {
+                id: 'searchForm',
+                onSubmit: searchBeer,
+                name: 'searchForm',
+                action: '/searchBeer',
+                method: 'GET',
+                className: 'searchForm' },
+            React.createElement(
+                'label',
+                { htmlFor: 'search' },
+                'Name: '
+            ),
+            React.createElement('input', { id: 'searchBeer', type: 'text', name: 'search', placeholder: 'Search' }),
+            React.createElement('input', { className: 'searchSubmit', type: 'submit', value: 'Search' })
+        ),
         React.createElement(
             'button',
             { id: 'newBeerBtn' },
@@ -186,17 +215,17 @@ var BeerForm = function BeerForm(props) {
                         'Notes: '
                     ),
                     React.createElement('input', { id: 'beerNotes', type: 'text', name: 'notes', placeholder: 'Notes' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'recommended' },
+                        'Recommend'
+                    ),
+                    React.createElement('input', {
+                        name: 'recommended',
+                        type: 'checkbox' }),
                     React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
                     React.createElement('input', { className: 'makeBeerSubmit', type: 'submit', value: 'Log Beer' })
                 ),
-                React.createElement(
-                    'label',
-                    { htmlFor: 'recommend' },
-                    'Recommend'
-                ),
-                React.createElement('input', {
-                    name: 'recommend',
-                    type: 'checkbox' }),
                 React.createElement(
                     'span',
                     { className: 'close' },
@@ -552,10 +581,53 @@ var RecsContainer = function RecsContainer(props) {
         return React.createElement(
             'div',
             { className: 'recommendation' },
+            React.createElement('img', { src: '/assets/img/beerIcon.png', alt: 'beer face', className: 'beerDefaultIcon' }),
             React.createElement(
-                'p',
-                null,
-                rec.name
+                'h3',
+                { className: 'beerName' },
+                ' ',
+                rec.name,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'beerBrewer' },
+                ' Brewer: ',
+                rec.brewer,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'beerType' },
+                ' Type: ',
+                rec.type,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'beerABV' },
+                ' ABV: ',
+                rec.abv,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'beerIBU' },
+                ' IBU: ',
+                rec.ibu,
+                ' '
+            ),
+            React.createElement(
+                'h3',
+                { className: 'beerNotes' },
+                ' Type: ',
+                rec.notes,
+                ' '
+            ),
+            React.createElement(
+                'span',
+                { className: 'beerId' },
+                rec._id
             )
         );
     });
@@ -566,11 +638,25 @@ var RecsContainer = function RecsContainer(props) {
     );
 };
 
+var loadRecs = function loadRecs() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/getRecs');
+
+    var setRecs = function setRecs() {
+        var recsResponse = JSON.parse(xhr.response);
+
+        ReactDOM.render(React.createElement(RecsContainer, { recs: recsResponse }), document.getElementById('beers'));
+    };
+
+    xhr.onload = setRecs;
+    xhr.send();
+};
+
 var RecsTitle = function RecsTitle(props) {
     return React.createElement(
         'h2',
         { id: 'recsTitle' },
-        'Recommendations from Other Users'
+        'Recommended Beers'
     );
 };
 
@@ -582,7 +668,7 @@ var createRecsTitle = function createRecsTitle() {
 var createRecsContainer = function createRecsContainer() {
     ReactDOM.render(React.createElement(RecsContainer, { recs: [] }), document.getElementById('beers'));
 
-    // loadRecs();
+    loadRecs();
 };
 
 var createRecsView = function createRecsView() {
@@ -620,10 +706,14 @@ var UpgradeAccount = function UpgradeAccount(props) {
         ),
         React.createElement(
             'button',
-            { className: 'upgradeButton' },
+            { className: 'upgradeButton', onClick: upgradeView },
             'Upgrade'
         )
     );
+};
+
+var upgradeView = function upgradeView(props) {
+    $('#ads').animate({ width: 'hide' }, 350);
 };
 
 // create title for upgrade page

@@ -82,6 +82,42 @@ nav {
   cursor: pointer;
   text-decoration: none; }
 
+/*search input section*/
+.searchForm {
+  height: 2.4rem;
+  margin: 0 auto;
+  margin-top: 1rem;
+  width: 18rem; }
+  .searchForm input[type=text] {
+    border: 1px solid #EC9D00;
+    border-radius: 4px;
+    font-size: 1.1em;
+    height: 1.5rem;
+    margin-bottom: 0.5rem;
+    width: 150px; }
+
+/*search beer sumbit button*/
+.searchSubmit {
+  align-content: center;
+  background-color: #EC9D00;
+  border: 1px solid #EC9D00;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  float: right;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4px 10px;
+  transition: background-color 0.4s ease; }
+
+.searchSubmit:link, .searchSubmit:visited, .searchSubmit:hover, .searchSubmit:active {
+  color: white; }
+
+.searchSubmit:hover {
+  background-color: #C96E12;
+  border-color: #C96E12;
+  transition: background-color 0.4s ease; }
+
 /*new beer form*/
 .beerForm {
   height: 12rem;
@@ -318,6 +354,7 @@ button.deleteBeer:hover, button.upgradeButton:hover {
   color: #C96E12;
   text-decoration: none; }
 
+/*standardize display of sub-images*/
 .recipeImg, .pairImg {
   border-radius: 4px;
   float: left;
@@ -333,11 +370,33 @@ button.deleteBeer:hover, button.upgradeButton:hover {
   display: none; }
 
 #pairTitle:hover + #subtext {
+  animation: fadeIn 1s, grow 0.1s;
   cursor: pointer;
   display: block;
-  -webkit-animation: fadeIn 1s, grow 0.2s;
-  animation: fadeIn 1s, grow 0.1s; }
+  -webkit-animation: fadeIn 1s, grow 0.2s; }
 
+/*center not found text*/
+#notFound h1, #notFound p {
+  text-align: center; }
+
+/*center gif on 404 page*/
+#pourGIF {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+/*ad banner*/
+#ads {
+  background-color: #C96E12;
+  height: 4rem;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0; }
+
+/*CSS animations for pairing page content*/
+/*fade in text*/
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0; }
@@ -350,6 +409,7 @@ button.deleteBeer:hover, button.upgradeButton:hover {
   to {
     opacity: 1; } }
 
+/*slow increasing of display box size*/
 @-webkit-keyframes grow {
   from {
     height: 0; }
@@ -361,13 +421,3 @@ button.deleteBeer:hover, button.upgradeButton:hover {
     height: 0; }
   to {
     height: auto; } }
-
-/*center not found text*/
-#notFound h1, #notFound p {
-  text-align: center; }
-
-/*center gif on 404 page*/
-#pourGIF {
-  display: block;
-  margin-left: auto;
-  margin-right: auto; }

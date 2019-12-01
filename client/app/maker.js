@@ -32,13 +32,39 @@ const deleteBeer = (e) => {
 
 // search for a beer
 const searchBeer = (e) => {
-    const queriedBeer = e.value();
+    e.preventDefault();
+    const queriedBeer = document.getElementById('searchBeer').value;
+    $('#beerMessage').animate({height:'hide'}, 350);
+
+    if($('#searchBeer').val() == '') {
+        handleError('Name is required for search');
+        return false;
+    }
+
+    sendAjax('GET', '/searchBeer', null, (data) => {
+        ReactDOM.render(
+            <BeerList beers={queriedBeer} />, document.querySelector('#beers')
+        );
+    });
+    console.log(queriedBeer);
 };
 
 // create beer form inside of a modal
 const BeerForm = (props) => {
     return (
         <div>
+            <form
+                id='searchForm'
+                onSubmit={searchBeer}
+                name='searchForm'
+                action='/searchBeer'
+                method='GET'
+                className='searchForm' >
+                <label htmlFor='search'>Name: </label>
+                <input id='searchBeer' type='text' name='search' placeholder='Search' />
+                <input className='searchSubmit' type='submit' value='Search' />
+            </form>
+
             <button id="newBeerBtn">New Beer</button>
             <div id="newBeerWindow" className="beerWindow">
                 <div className="newBeerContent">
@@ -60,13 +86,13 @@ const BeerForm = (props) => {
                             <input id='beerIBU' type='text' name='ibu' placeholder='IBU' />
                             <label htmlFor='notes'>Notes: </label>
                             <input id='beerNotes' type='text' name='notes' placeholder='Notes' />
+                            <label htmlFor="recommended">Recommend</label>
+                            <input
+                                name="recommended"
+                                type="checkbox"/>
                             <input type='hidden' name='_csrf' value={props.csrf} />
                             <input className='makeBeerSubmit' type='submit' value='Log Beer' />
                     </form>
-                    <label htmlFor="recommend">Recommend</label>
-                    <input
-                        name="recommend"
-                        type="checkbox"/>
                     <span className="close">&times;</span>
                 </div>
             </div>
@@ -85,9 +111,11 @@ const BeerList = function(props) {
         );
     }
 
-    const beerNodes = props.beers.sort(function(a,b){
+    const beerNodes = props.beers
+    .sort(function(a,b){
         return a.name.localeCompare(b.name);
-    }).map(function(beer) {
+    })
+    .map(function(beer) {
         return (
             <div key={beer._id} className='beer'>
                 <img src='/assets/img/beerIcon.png' alt='beer face' className='beerDefaultIcon'/>

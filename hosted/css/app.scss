@@ -90,6 +90,46 @@ nav {
     text-decoration: none;
 }
 
+/*search input section*/
+.searchForm {
+    height: 2.4rem;
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 18rem;
+
+    input[type=text] {
+        border: 1px solid $mainOrange;
+        border-radius: 4px;
+        font-size: 1.1em;
+        height: 1.5rem;
+        margin-bottom: 0.5rem;
+        width: 150px;
+    }
+}
+
+/*search beer sumbit button*/
+.searchSubmit {
+    align-content: center;
+    background-color: $mainOrange;
+    border: 1px solid $mainOrange;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 4px 10px;
+    transition: background-color 0.4s ease;
+}
+.searchSubmit:link, .searchSubmit:visited, .searchSubmit:hover, .searchSubmit:active {
+    color: white;
+}
+.searchSubmit:hover {
+    background-color: $buttonHover;
+    border-color: $buttonHover;
+    transition: background-color 0.4s ease;
+}
+
 /*new beer form*/
 .beerForm {
     height: 12rem;
@@ -356,11 +396,12 @@ button.deleteBeer:hover, button.upgradeButton:hover{
     text-decoration: none;
 }
 
+/*standardize display of sub-images*/
 .recipeImg, .pairImg {
     border-radius: 4px;
     float: left;
     margin-right: 10px;
-    margin-top:10px;
+    margin-top: 10px;
     width: 4rem;
 }
 
@@ -374,28 +415,10 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 }
 
 #pairTitle:hover + #subtext {
+    animation: fadeIn 1s, grow 0.1s;
     cursor: pointer;
     display: block;
     -webkit-animation: fadeIn 1s, grow 0.2s;
-    animation: fadeIn 1s, grow 0.1s;
-}
-
-@-webkit-keyframes fadeIn {
-    from { opacity: 0; }
-      to { opacity: 1;  }
-}
-@keyframes fadeIn {
-    from { opacity: 0; }
-      to { opacity: 1; }
-}
-
-@-webkit-keyframes grow {
-    from { height: 0; }
-      to { height: auto; }
-}
-@keyframes grow {
-    from { height: 0; }
-      to { height: auto; }
 }
 
 /*center not found text*/
@@ -408,4 +431,36 @@ button.deleteBeer:hover, button.upgradeButton:hover{
     display: block;
     margin-left: auto;
     margin-right: auto 
+}
+
+/*ad banner*/
+#ads {
+    background-color: #C96E12;
+    height: 4rem;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+/*CSS animations for pairing page content*/
+/*fade in text*/
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1;  }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+/*slow increasing of display box size*/
+@-webkit-keyframes grow {
+    from { height: 0; }
+      to { height: auto; }
+}
+@keyframes grow {
+    from { height: 0; }
+      to { height: auto; }
 }
