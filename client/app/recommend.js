@@ -47,7 +47,7 @@ const loadRecs = () => {
 
 const RecsTitle = (props) => {
     return (
-        <h2 id="recsTitle">Recommended Beers</h2>
+        <h2 id="recsTitle">Community-Recommended Beers</h2>
     );
 };
 

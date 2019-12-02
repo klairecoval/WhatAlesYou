@@ -90,11 +90,10 @@ const deleteBeer = (req, res) => {
 };
 
 // search for a beer
-// doesnt do anything for now
 const searchBeer = (req, res, searchedBeer) => {
   console.log(searchedBeer);
 
-  return Beer.BeerModel.findByOwner(req.session.account._id, (err) => {
+  return Beer.BeerModel.findBeer(searchedBeer, (err) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred.' });
@@ -104,13 +103,13 @@ const searchBeer = (req, res, searchedBeer) => {
   });
 };
 
-const getRecs = (req, res) => Beer.BeerModel.findByOwner(req.session.account._id, (err) => {
+const getRecs = (req, res) => Beer.BeerModel.findByBool(req, (err) => {
   if (err) {
     console.log(err);
-    return res.status(400).json({ error: 'An error occurred.' });
+    return res.status(500).json({ error: 'An error ocurred.' });
   }
 
-  return res.json(recsList);
+  return res.status(200).json({ beers: recsList });
 });
 
 // create pairings to be loaded

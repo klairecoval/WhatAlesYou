@@ -13,7 +13,7 @@ const UpgradeAccount = (props) => {
 
 const upgradeView = (props) => {
     $('#ads').animate({width:'hide'}, 350);
-}
+};
 
 // create title for upgrade page
 const UpgradeTitle = (props) => {

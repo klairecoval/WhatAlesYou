@@ -71,10 +71,28 @@ BeerSchema.statics.toAPI = (doc) => ({
   notes: doc.notes,
 });
 
-// find beer
+// find owner beers
 BeerSchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
+  };
+
+  return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);
+};
+
+// find beers with recommended property
+BeerSchema.statics.findByBool = (isRecommended, callback) => {
+  const search = {
+    recommended: isRecommended,
+  };
+
+  return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);
+};
+
+// find beers
+BeerSchema.statics.findBeer = (beerName, callback) => {
+  const search = {
+    name: beerName,
   };
 
   return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);

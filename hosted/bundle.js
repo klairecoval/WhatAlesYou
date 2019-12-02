@@ -656,7 +656,7 @@ var RecsTitle = function RecsTitle(props) {
     return React.createElement(
         'h2',
         { id: 'recsTitle' },
-        'Recommended Beers'
+        'Community-Recommended Beers'
     );
 };
 
