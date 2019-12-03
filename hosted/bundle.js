@@ -90,7 +90,6 @@ var handleChangePasswordClick = function handleChangePasswordClick(csrf) {
 };
 'use strict';
 
-var upgraded = void 0;
 // check if all fields have values
 // if not, return proper error message
 // if there are beers, load them in
@@ -434,11 +433,6 @@ var logNewBeer = function logNewBeer() {
 // render main page view of beers
 // load in all functions required to handle clicks for new views
 var setup = function setup(csrf) {
-    console.log(upgraded);
-    if (upgraded === true) {
-        $('#ads').css({ "background-color": "white", "font-size": "0px" });
-    };
-
     ReactDOM.render(React.createElement(BeerForm, { csrf: csrf }), document.querySelector('#makeBeer'));
 
     ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
@@ -809,9 +803,7 @@ var UpgradeAccount = function UpgradeAccount(props) {
 };
 
 var upgradeView = function upgradeView(props) {
-    upgraded = true;
     $('#ads').animate({ width: 'hide' }, 350);
-    console.log(upgraded);
 };
 
 // create title for upgrade page
