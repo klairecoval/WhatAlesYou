@@ -33,7 +33,6 @@ const deleteBeer = (e) => {
 // search for a beer
 const searchBeer = (e) => {
     e.preventDefault();
-    const queriedBeer = document.getElementById('searchBeer').value;
     $('#beerMessage').animate({height:'hide'}, 350);
 
     if($('#searchBeer').val() == '') {
@@ -43,10 +42,9 @@ const searchBeer = (e) => {
 
     sendAjax('GET', '/searchBeer', null, (data) => {
         ReactDOM.render(
-            <BeerList beers={queriedBeer} />, document.querySelector('#beers')
+            <BeerList beers={data.beers} />, document.querySelector('#beers')
         );
     });
-    console.log(queriedBeer);
 };
 
 // create beer form inside of a modal
@@ -58,7 +56,7 @@ const BeerForm = (props) => {
                 onSubmit={searchBeer}
                 name='searchForm'
                 action='/searchBeer'
-                method='GET'
+                method='POST'
                 className='searchForm' >
                 <label htmlFor='search'>Name: </label>
                 <input id='searchBeer' type='text' name='search' placeholder='Search' />
@@ -86,10 +84,14 @@ const BeerForm = (props) => {
                             <input id='beerIBU' type='text' name='ibu' placeholder='IBU' />
                             <label htmlFor='notes'>Notes: </label>
                             <input id='beerNotes' type='text' name='notes' placeholder='Notes' />
-                            <label htmlFor="recommended">Recommend</label>
-                            <input
-                                name="recommended"
-                                type="checkbox"/>
+                            <label htmlFor='rating'>Rating: </label>
+                            <select id='beerRating' name='rating' >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
                             <input type='hidden' name='_csrf' value={props.csrf} />
                             <input className='makeBeerSubmit' type='submit' value='Log Beer' />
                     </form>
@@ -98,6 +100,29 @@ const BeerForm = (props) => {
             </div>
         </div>
     );
+};
+
+const Rating = (props, rating) => {
+    if(rating === 1) {
+        return (
+            <img src='assets/img/beerIcon' />
+        );
+    } else if(rating === 2) {
+        return (
+            <div>
+                <img src='assets/img/beerIcon' />
+                <img src='assets/img/beerIcon' />
+            </div>
+        );
+    } else if(rating === 3) {
+        return (
+            <div>
+                <img src='assets/img/beerIcon' />
+                <img src='assets/img/beerIcon' />
+                <img src='assets/img/beerIcon' />
+            </div>
+        );
+    }
 };
 
 // create list of beers
@@ -125,6 +150,7 @@ const BeerList = function(props) {
                 <h3 className='beerABV'> ABV: {beer.abv} </h3>
                 <h3 className='beerIBU'> IBU: {beer.ibu} </h3>
                 <h3 className='beerNotes'> Type: {beer.notes} </h3>
+                <h3 className='beerRating'> Rating: {beer.rating} </h3>
                 <button className='deleteBeer' onClick={deleteBeer}>Remove</button>
                 <span className='beerId'>{beer._id}</span>
             </div>
@@ -183,7 +209,6 @@ const setup = function(csrf) {
 
     loadBeersFromServer();
     logNewBeer();
-    handleRecsClick();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();

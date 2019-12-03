@@ -31,7 +31,7 @@ const makeBeer = (req, res) => {
     abv: req.body.abv,
     ibu: req.body.ibu,
     notes: req.body.notes,
-    recommended: req.body.recommended,
+    rating: req.body.rating,
     owner: req.session.account._id,
   };
 
@@ -50,10 +50,6 @@ const makeBeer = (req, res) => {
 
     return res.status(400).json({ error: 'An error occurred' });
   });
-
-  if (req.body.recommended === 'on') {
-    recsList.push(newBeer);
-  }
 
   return beerPromise;
 };
@@ -90,9 +86,18 @@ const deleteBeer = (req, res) => {
 };
 
 // search for a beer
-const searchBeer = (req, res, searchedBeer) => {
-  console.log(searchedBeer);
+const searchBeer = (req, res) => {
+  console.log(req.body.search);
+  console.log(req.body);
+  if (!req.body.search) {
+    return res.status(400).json({ error: 'Name of beer is required' });
+  }
 
+  const searchedBeer = {
+    name: req.body.search,
+  };
+
+  console.log(searchedBeer);
   return Beer.BeerModel.findBeer(searchedBeer, (err) => {
     if (err) {
       console.log(err);

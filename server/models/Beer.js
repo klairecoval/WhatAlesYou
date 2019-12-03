@@ -44,9 +44,10 @@ const BeerSchema = new mongoose.Schema({
     trim: true,
   },
 
-  recommended: {
-    type: Boolean,
-    required: false,
+  rating: {
+    type: Number,
+    required: true,
+    default: 1,
   },
 
   owner: {
@@ -69,6 +70,7 @@ BeerSchema.statics.toAPI = (doc) => ({
   abv: doc.abv,
   ibu: doc.ibu,
   notes: doc.notes,
+  rating: doc.rating,
 });
 
 // find owner beers
@@ -77,19 +79,10 @@ BeerSchema.statics.findByOwner = (ownerId, callback) => {
     owner: convertId(ownerId),
   };
 
-  return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);
+  return BeerModel.find(search).select('name brewer type abv ibu notes rating').exec(callback);
 };
 
-// find beers with recommended property
-BeerSchema.statics.findByBool = (isRecommended, callback) => {
-  const search = {
-    recommended: isRecommended,
-  };
-
-  return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);
-};
-
-// find beers
+// search beers
 BeerSchema.statics.findBeer = (beerName, callback) => {
   const search = {
     name: beerName,

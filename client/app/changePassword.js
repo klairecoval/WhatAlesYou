@@ -43,7 +43,7 @@ const ChangePassword = (props) => {
 // create change pass page title
 const PassTitle = (props) => {
     return (
-        <h2 id="changePassTitle">Change Password</h2>
+        <h2 id="changePassTitle">Settings</h2>
     );
 };
 

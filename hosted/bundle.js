@@ -59,7 +59,7 @@ var PassTitle = function PassTitle(props) {
     return React.createElement(
         'h2',
         { id: 'changePassTitle' },
-        'Change Password'
+        'Settings'
     );
 };
 
@@ -124,7 +124,6 @@ var deleteBeer = function deleteBeer(e) {
 // search for a beer
 var searchBeer = function searchBeer(e) {
     e.preventDefault();
-    var queriedBeer = document.getElementById('searchBeer').value;
     $('#beerMessage').animate({ height: 'hide' }, 350);
 
     if ($('#searchBeer').val() == '') {
@@ -133,9 +132,8 @@ var searchBeer = function searchBeer(e) {
     }
 
     sendAjax('GET', '/searchBeer', null, function (data) {
-        ReactDOM.render(React.createElement(BeerList, { beers: queriedBeer }), document.querySelector('#beers'));
+        ReactDOM.render(React.createElement(BeerList, { beers: data.beers }), document.querySelector('#beers'));
     });
-    console.log(queriedBeer);
 };
 
 // create beer form inside of a modal
@@ -150,7 +148,7 @@ var BeerForm = function BeerForm(props) {
                 onSubmit: searchBeer,
                 name: 'searchForm',
                 action: '/searchBeer',
-                method: 'GET',
+                method: 'POST',
                 className: 'searchForm' },
             React.createElement(
                 'label',
@@ -217,12 +215,38 @@ var BeerForm = function BeerForm(props) {
                     React.createElement('input', { id: 'beerNotes', type: 'text', name: 'notes', placeholder: 'Notes' }),
                     React.createElement(
                         'label',
-                        { htmlFor: 'recommended' },
-                        'Recommend'
+                        { htmlFor: 'rating' },
+                        'Rating: '
                     ),
-                    React.createElement('input', {
-                        name: 'recommended',
-                        type: 'checkbox' }),
+                    React.createElement(
+                        'select',
+                        { id: 'beerRating', name: 'rating' },
+                        React.createElement(
+                            'option',
+                            { value: '1' },
+                            '1'
+                        ),
+                        React.createElement(
+                            'option',
+                            { value: '2' },
+                            '2'
+                        ),
+                        React.createElement(
+                            'option',
+                            { value: '3' },
+                            '3'
+                        ),
+                        React.createElement(
+                            'option',
+                            { value: '4' },
+                            '4'
+                        ),
+                        React.createElement(
+                            'option',
+                            { value: '5' },
+                            '5'
+                        )
+                    ),
                     React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
                     React.createElement('input', { className: 'makeBeerSubmit', type: 'submit', value: 'Log Beer' })
                 ),
@@ -234,6 +258,27 @@ var BeerForm = function BeerForm(props) {
             )
         )
     );
+};
+
+var Rating = function Rating(props, rating) {
+    if (rating === 1) {
+        return React.createElement('img', { src: 'assets/img/beerIcon' });
+    } else if (rating === 2) {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement('img', { src: 'assets/img/beerIcon' }),
+            React.createElement('img', { src: 'assets/img/beerIcon' })
+        );
+    } else if (rating === 3) {
+        return React.createElement(
+            'div',
+            null,
+            React.createElement('img', { src: 'assets/img/beerIcon' }),
+            React.createElement('img', { src: 'assets/img/beerIcon' }),
+            React.createElement('img', { src: 'assets/img/beerIcon' })
+        );
+    }
 };
 
 // create list of beers
@@ -301,6 +346,12 @@ var BeerList = function BeerList(props) {
                 ' '
             ),
             React.createElement(
+                'h3',
+                { className: 'beerRating' },
+                ' Rating: '
+            ),
+            React.createElement('p', { id: 'ratingBeer' }),
+            React.createElement(
                 'button',
                 { className: 'deleteBeer', onClick: deleteBeer },
                 'Remove'
@@ -357,9 +408,10 @@ var setup = function setup(csrf) {
 
     ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
 
+    ReactDOM.render(React.createElement(Rating, { rating: [] }), document.querySelector('#ratingBeer'));
+
     loadBeersFromServer();
     logNewBeer();
-    handleRecsClick();
     handleRecipesClick();
     handlePairingsClick();
     handleUpgradeClick();
@@ -743,9 +795,9 @@ var createUpgradeView = function createUpgradeView() {
 
 // create view when gear icon clicked
 var handleUpgradeClick = function handleUpgradeClick() {
-    var changePass = document.querySelector('#upgrade');
+    var upgrade = document.querySelector('#upgrade');
 
-    changePass.addEventListener('click', function (e) {
+    upgrade.addEventListener('click', function (e) {
         e.preventDefault();
         createUpgradeView();
     });

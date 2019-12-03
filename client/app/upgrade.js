@@ -46,9 +46,9 @@ const createUpgradeView = () => {
 
 // create view when gear icon clicked
 const handleUpgradeClick = () => {
-	const changePass = document.querySelector('#upgrade');
+	const upgrade = document.querySelector('#upgrade');
 	
-	changePass.addEventListener('click', e => {
+	upgrade.addEventListener('click', e => {
 		e.preventDefault();
         createUpgradeView();
 	});
