@@ -51,6 +51,7 @@ const searchBeer = (e) => {
 const BeerForm = (props) => {
     return (
         <div>
+            <h2 id='makerTitle'>Logged Beers</h2>
             <form
                 id='searchForm'
                 onSubmit={searchBeer}
@@ -102,29 +103,6 @@ const BeerForm = (props) => {
     );
 };
 
-const Rating = (props, rating) => {
-    if(rating === 1) {
-        return (
-            <img src='assets/img/beerIcon' />
-        );
-    } else if(rating === 2) {
-        return (
-            <div>
-                <img src='assets/img/beerIcon' />
-                <img src='assets/img/beerIcon' />
-            </div>
-        );
-    } else if(rating === 3) {
-        return (
-            <div>
-                <img src='assets/img/beerIcon' />
-                <img src='assets/img/beerIcon' />
-                <img src='assets/img/beerIcon' />
-            </div>
-        );
-    }
-};
-
 // create list of beers
 // if no beers, create simple h3 saying no data
 const BeerList = function(props) {
@@ -136,22 +114,25 @@ const BeerList = function(props) {
         );
     }
 
-    const beerNodes = props.beers
-    .sort(function(a,b){
+    const beerNodes = props.beers.sort(function(a,b){
         return a.name.localeCompare(b.name);
     })
     .map(function(beer) {
         return (
             <div key={beer._id} className='beer'>
                 <img src='/assets/img/beerIcon.png' alt='beer face' className='beerDefaultIcon'/>
+                <button className='deleteBeer' onClick={deleteBeer}>&times;</button>
                 <h3 className='beerName'> {beer.name} </h3>
-                <h3 className='beerBrewer'> Brewer: {beer.brewer} </h3>
-                <h3 className='beerType'> Type: {beer.type} </h3>
-                <h3 className='beerABV'> ABV: {beer.abv} </h3>
-                <h3 className='beerIBU'> IBU: {beer.ibu} </h3>
-                <h3 className='beerNotes'> Type: {beer.notes} </h3>
-                <h3 className='beerRating'> Rating: {beer.rating} </h3>
-                <button className='deleteBeer' onClick={deleteBeer}>Remove</button>
+                <div className='beerGroup1'>
+                    <p className='beerBrewer'> <strong>Brewer:</strong> {beer.brewer} </p>
+                    <p className='beerType'> <strong>Type:</strong> {beer.type} </p>
+                    <p className='beerABV'> <strong>ABV:</strong> {beer.abv} </p>
+                </div>
+                <div className='beerGroup2'>
+                    <p className='beerIBU'> <strong>IBU:</strong> {beer.ibu} </p>
+                    <p className='beerNotes'> <strong>Type:</strong> {beer.notes} </p>
+                    <p className='beerRating'> <strong>Rating:</strong> {beer.rating} </p>
+                </div>
                 <span className='beerId'>{beer._id}</span>
             </div>
         );

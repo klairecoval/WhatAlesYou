@@ -90,6 +90,7 @@ var handleChangePasswordClick = function handleChangePasswordClick(csrf) {
 };
 'use strict';
 
+var upgraded = void 0;
 // check if all fields have values
 // if not, return proper error message
 // if there are beers, load them in
@@ -141,6 +142,11 @@ var BeerForm = function BeerForm(props) {
     return React.createElement(
         'div',
         null,
+        React.createElement(
+            'h2',
+            { id: 'makerTitle' },
+            'Logged Beers'
+        ),
         React.createElement(
             'form',
             {
@@ -260,27 +266,6 @@ var BeerForm = function BeerForm(props) {
     );
 };
 
-var Rating = function Rating(props, rating) {
-    if (rating === 1) {
-        return React.createElement('img', { src: 'assets/img/beerIcon' });
-    } else if (rating === 2) {
-        return React.createElement(
-            'div',
-            null,
-            React.createElement('img', { src: 'assets/img/beerIcon' }),
-            React.createElement('img', { src: 'assets/img/beerIcon' })
-        );
-    } else if (rating === 3) {
-        return React.createElement(
-            'div',
-            null,
-            React.createElement('img', { src: 'assets/img/beerIcon' }),
-            React.createElement('img', { src: 'assets/img/beerIcon' }),
-            React.createElement('img', { src: 'assets/img/beerIcon' })
-        );
-    }
-};
-
 // create list of beers
 // if no beers, create simple h3 saying no data
 var BeerList = function BeerList(props) {
@@ -304,6 +289,11 @@ var BeerList = function BeerList(props) {
             { key: beer._id, className: 'beer' },
             React.createElement('img', { src: '/assets/img/beerIcon.png', alt: 'beer face', className: 'beerDefaultIcon' }),
             React.createElement(
+                'button',
+                { className: 'deleteBeer', onClick: deleteBeer },
+                '\xD7'
+            ),
+            React.createElement(
                 'h3',
                 { className: 'beerName' },
                 ' ',
@@ -311,50 +301,90 @@ var BeerList = function BeerList(props) {
                 ' '
             ),
             React.createElement(
-                'h3',
-                { className: 'beerBrewer' },
-                ' Brewer: ',
-                beer.brewer,
-                ' '
+                'div',
+                { className: 'beerGroup1' },
+                React.createElement(
+                    'p',
+                    { className: 'beerBrewer' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Brewer:'
+                    ),
+                    ' ',
+                    beer.brewer,
+                    ' '
+                ),
+                React.createElement(
+                    'p',
+                    { className: 'beerType' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Type:'
+                    ),
+                    ' ',
+                    beer.type,
+                    ' '
+                ),
+                React.createElement(
+                    'p',
+                    { className: 'beerABV' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'ABV:'
+                    ),
+                    ' ',
+                    beer.abv,
+                    ' '
+                )
             ),
             React.createElement(
-                'h3',
-                { className: 'beerType' },
-                ' Type: ',
-                beer.type,
-                ' '
-            ),
-            React.createElement(
-                'h3',
-                { className: 'beerABV' },
-                ' ABV: ',
-                beer.abv,
-                ' '
-            ),
-            React.createElement(
-                'h3',
-                { className: 'beerIBU' },
-                ' IBU: ',
-                beer.ibu,
-                ' '
-            ),
-            React.createElement(
-                'h3',
-                { className: 'beerNotes' },
-                ' Type: ',
-                beer.notes,
-                ' '
-            ),
-            React.createElement(
-                'h3',
-                { className: 'beerRating' },
-                ' Rating: '
-            ),
-            React.createElement('p', { id: 'ratingBeer' }),
-            React.createElement(
-                'button',
-                { className: 'deleteBeer', onClick: deleteBeer },
-                'Remove'
+                'div',
+                { className: 'beerGroup2' },
+                React.createElement(
+                    'p',
+                    { className: 'beerIBU' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'IBU:'
+                    ),
+                    ' ',
+                    beer.ibu,
+                    ' '
+                ),
+                React.createElement(
+                    'p',
+                    { className: 'beerNotes' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Type:'
+                    ),
+                    ' ',
+                    beer.notes,
+                    ' '
+                ),
+                React.createElement(
+                    'p',
+                    { className: 'beerRating' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Rating:'
+                    ),
+                    ' ',
+                    beer.rating,
+                    ' '
+                )
             ),
             React.createElement(
                 'span',
@@ -404,11 +434,14 @@ var logNewBeer = function logNewBeer() {
 // render main page view of beers
 // load in all functions required to handle clicks for new views
 var setup = function setup(csrf) {
+    console.log(upgraded);
+    if (upgraded === true) {
+        $('#ads').css({ "background-color": "white", "font-size": "0px" });
+    };
+
     ReactDOM.render(React.createElement(BeerForm, { csrf: csrf }), document.querySelector('#makeBeer'));
 
     ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
-
-    ReactDOM.render(React.createElement(Rating, { rating: [] }), document.querySelector('#ratingBeer'));
 
     loadBeersFromServer();
     logNewBeer();
@@ -760,12 +793,25 @@ var UpgradeAccount = function UpgradeAccount(props) {
             'button',
             { className: 'upgradeButton', onClick: upgradeView },
             'Upgrade'
+        ),
+        React.createElement(
+            'div',
+            { id: 'container' },
+            React.createElement(
+                'div',
+                { 'class': 'glass' },
+                React.createElement('div', { 'class': 'beer' })
+            ),
+            React.createElement('div', { 'class': 'head' }),
+            React.createElement('div', { 'class': 'pour' })
         )
     );
 };
 
 var upgradeView = function upgradeView(props) {
+    upgraded = true;
     $('#ads').animate({ width: 'hide' }, 350);
+    console.log(upgraded);
 };
 
 // create title for upgrade page

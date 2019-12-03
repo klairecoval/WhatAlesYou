@@ -48,6 +48,9 @@ nav {
   cursor: pointer;
   transition: background-color 0.8s ease; }
 
+#makerTitle {
+  text-align: center; }
+
 /*new beer entry modal
 - base modal styling from W3Schools */
 .beerWindow {
@@ -65,7 +68,7 @@ nav {
   background-color: #ffffff;
   border: 1px solid #C96E12;
   border-radius: 4px;
-  height: 13.6rem;
+  height: 14rem;
   margin: 15% auto;
   padding: 20px;
   width: 20rem; }
@@ -86,7 +89,6 @@ nav {
 .searchForm {
   height: 2.4rem;
   margin: 0 auto;
-  margin-top: 1rem;
   width: 18rem; }
   .searchForm input[type=text] {
     border: 1px solid #EC9D00;
@@ -235,6 +237,9 @@ nav {
   cursor: pointer;
   transition: background-color 0.4s ease; }
 
+#newBeerBtn {
+  margin-top: 0px; }
+
 /*password input fields*/
 #user, #pass, #pass2, #currPass, #newPass, #newPass2 {
   border: 1px solid #EC9D00;
@@ -272,7 +277,7 @@ nav {
 #beers {
   border-radius: 4px;
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 1rem;
   min-width: 400px;
   width: 80%; }
 
@@ -285,8 +290,16 @@ nav {
   margin-bottom: 1rem;
   margin-right: 1rem;
   overflow: hidden;
-  padding: 10px;
+  padding: 10px 10px 0px 10px;
   width: 20rem; }
+
+.beerGroup1 {
+  float: left;
+  width: 10rem; }
+
+.beerGroup2 {
+  float: right;
+  width: 10rem; }
 
 img.beerDefaultIcon {
   border-radius: 4px;
@@ -300,6 +313,9 @@ h3.beerName {
   font-weight: bold;
   font-size: 1.5em;
   padding-left: 65px; }
+
+.recipe, .pairing {
+  padding: 10px; }
 
 button.deleteBeer {
   background: #EC9D00;
@@ -367,7 +383,9 @@ button.deleteBeer:hover, button.upgradeButton:hover {
   text-align: center; }
 
 #subtext {
-  display: none; }
+  animation: fadeOut 1s, shrink 0.1s;
+  display: none;
+  -webkit-animation: fadeOut 1s, shrink 0.1s; }
 
 #pairTitle:hover + #subtext {
   animation: fadeIn 1s, grow 0.1s;
@@ -421,3 +439,27 @@ button.deleteBeer:hover, button.upgradeButton:hover {
     height: 0; }
   to {
     height: auto; } }
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+
+@-webkit-keyframes shrink {
+  from {
+    height: auto; }
+  to {
+    height: 0; } }
+
+@keyframes shrink {
+  from {
+    height: auto; }
+  to {
+    height: 0; } }
