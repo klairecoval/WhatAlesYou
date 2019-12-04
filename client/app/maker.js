@@ -40,7 +40,10 @@ const searchBeer = (e) => {
         return false;
     }
 
-    sendAjax('GET', '/searchBeer', null, (data) => {
+    const search = e.target.parentElement.querySelector('#searchBeer').value;
+
+
+    sendAjax('GET', '/searchBeer', {search}, (data) => {
         ReactDOM.render(
             <BeerList beers={data.beers} />, document.querySelector('#beers')
         );
@@ -73,6 +76,7 @@ const BeerForm = (props) => {
                         action='/maker'
                         method='POST'
                         className='beerForm' >
+                            <span className="close">&times;</span>
                             <label htmlFor='name'>Name: </label>
                             <input id='beerName' type='text' name='name' placeholder='Beer Name' />
                             <label htmlFor='brewer'>Brewer: </label>
@@ -86,17 +90,18 @@ const BeerForm = (props) => {
                             <label htmlFor='notes'>Notes: </label>
                             <input id='beerNotes' type='text' name='notes' placeholder='Notes' />
                             <label htmlFor='rating'>Rating: </label>
-                            <select id='beerRating' name='rating' >
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
+                            <div className='ratingSelect'>
+                                <select id='beerRating' name='rating' >
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </div>
                             <input type='hidden' name='_csrf' value={props.csrf} />
                             <input className='makeBeerSubmit' type='submit' value='Log Beer' />
                     </form>
-                    <span className="close">&times;</span>
                 </div>
             </div>
         </div>
@@ -140,6 +145,7 @@ const BeerList = function(props) {
 
     return (
         <div className='beerList'>
+            <h3>{props.beers.length} beers</h3>
             {beerNodes}
         </div>
     );

@@ -77,8 +77,10 @@ nav {
 .close {
   color: #aaa;
   float: left;
-  font-size: 28px;
-  font-weight: bold; }
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: -1rem;
+  margin-left: -0.75rem; }
 
 .close:hover, .close:focus {
   color: black;
@@ -97,6 +99,9 @@ nav {
     height: 1.5rem;
     margin-bottom: 0.5rem;
     width: 150px; }
+  .searchForm input[type=text]:focus {
+    box-shadow: 0px 0px 1px 1px #C96E12;
+    outline: none; }
 
 /*search beer sumbit button*/
 .searchSubmit {
@@ -122,7 +127,7 @@ nav {
 
 /*new beer form*/
 .beerForm {
-  height: 12rem;
+  height: 14rem;
   margin: 0 auto;
   width: 20rem; }
   .beerForm label {
@@ -141,6 +146,20 @@ nav {
   .beerForm input[type=text]:focus {
     box-shadow: 0px 0px 1px 1px #C96E12;
     outline: none; }
+
+.ratingSelect {
+  display: inline; }
+
+.ratingSelect select {
+  border-color: #EC9D00;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0.25rem 1rem;
+  width: 4rem; }
+
+.ratingSelect select option {
+  padding: 30px; }
 
 /*new beer sumbit button*/
 .makeBeerSubmit {
@@ -463,3 +482,17 @@ button.deleteBeer:hover, button.upgradeButton:hover {
     height: auto; }
   to {
     height: 0; } }
+
+.ratingSelect {
+  display: inline; }
+
+.ratingSelect select {
+  cursor: pointer;
+  border-color: #EC9D00;
+  padding: 0.25rem 1rem;
+  width: 4rem;
+  font-size: 1rem;
+  border-radius: 4px; }
+
+.ratingSelect select option {
+  padding: 30px; }

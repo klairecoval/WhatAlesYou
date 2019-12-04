@@ -8,6 +8,7 @@ Criteria:
 - ABV
 - IBU
 - Notes
+- Rating
 
 Pages:
 - Pairings

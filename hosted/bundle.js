@@ -131,7 +131,9 @@ var searchBeer = function searchBeer(e) {
         return false;
     }
 
-    sendAjax('GET', '/searchBeer', null, function (data) {
+    var search = e.target.parentElement.querySelector('#searchBeer').value;
+
+    sendAjax('GET', '/searchBeer', { search: search }, function (data) {
         ReactDOM.render(React.createElement(BeerList, { beers: data.beers }), document.querySelector('#beers'));
     });
 };
@@ -183,6 +185,11 @@ var BeerForm = function BeerForm(props) {
                         method: 'POST',
                         className: 'beerForm' },
                     React.createElement(
+                        'span',
+                        { className: 'close' },
+                        '\xD7'
+                    ),
+                    React.createElement(
                         'label',
                         { htmlFor: 'name' },
                         'Name: '
@@ -224,41 +231,40 @@ var BeerForm = function BeerForm(props) {
                         'Rating: '
                     ),
                     React.createElement(
-                        'select',
-                        { id: 'beerRating', name: 'rating' },
+                        'div',
+                        { className: 'ratingSelect' },
                         React.createElement(
-                            'option',
-                            { value: '1' },
-                            '1'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: '2' },
-                            '2'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: '3' },
-                            '3'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: '4' },
-                            '4'
-                        ),
-                        React.createElement(
-                            'option',
-                            { value: '5' },
-                            '5'
+                            'select',
+                            { id: 'beerRating', name: 'rating' },
+                            React.createElement(
+                                'option',
+                                { value: '1' },
+                                '1'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '2' },
+                                '2'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '3' },
+                                '3'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '4' },
+                                '4'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '5' },
+                                '5'
+                            )
                         )
                     ),
                     React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
                     React.createElement('input', { className: 'makeBeerSubmit', type: 'submit', value: 'Log Beer' })
-                ),
-                React.createElement(
-                    'span',
-                    { className: 'close' },
-                    '\xD7'
                 )
             )
         )
@@ -396,6 +402,13 @@ var BeerList = function BeerList(props) {
     return React.createElement(
         'div',
         { className: 'beerList' },
+        React.createElement(
+            'h3',
+            null,
+            'You have logged ',
+            props.beers.length,
+            ' beers!'
+        ),
         beerNodes
     );
 };

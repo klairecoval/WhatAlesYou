@@ -83,13 +83,8 @@ BeerSchema.statics.findByOwner = (ownerId, callback) => {
 };
 
 // search beers
-BeerSchema.statics.findBeer = (beerName, callback) => {
-  const search = {
-    name: beerName,
-  };
-
-  return BeerModel.find(search).select('name brewer type abv ibu notes').exec(callback);
-};
+// eslint-disable-next-line
+BeerSchema.statics.findBeer = (beerName, callback) => BeerModel.find(beerName).select('name brewer type abv ibu notes rating').exec(callback);
 
 // delete beer by id that is hidden
 BeerSchema.statics.deleteById = (id, callback) => {

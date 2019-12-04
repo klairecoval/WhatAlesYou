@@ -85,8 +85,10 @@ nav {
 .close {
     color: #aaa;
     float: left;
-    font-size: 28px;
+    font-size: 25px;
     font-weight: bold;
+    margin-top: -1rem;
+    margin-left: -0.75rem;
 }
 .close:hover, .close:focus {
     color: black;
@@ -107,6 +109,11 @@ nav {
         height: 1.5rem;
         margin-bottom: 0.5rem;
         width: 150px;
+    }
+
+    input[type=text]:focus {
+        box-shadow: 0px 0px 1px 1px $buttonHover;
+        outline: none;
     }
 }
 
@@ -135,7 +142,7 @@ nav {
 
 /*new beer form*/
 .beerForm {
-    height: 12rem;
+    height: 14rem;
     margin: 0 auto;
     width: 20rem;
 
@@ -160,6 +167,22 @@ nav {
         box-shadow: 0px 0px 1px 1px $buttonHover;
         outline: none;
     }
+}
+
+// rating select styling
+.ratingSelect {
+    display: inline;
+}
+.ratingSelect select {
+    border-color: $mainOrange;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+    width: 4rem;
+}
+.ratingSelect select option {
+    padding: 30px;
 }
 
 /*new beer sumbit button*/
@@ -503,4 +526,33 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 @keyframes shrink {
     from { height: auto; }
       to { height: 0; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.ratingSelect {
+    display: inline;
+}
+  
+.ratingSelect select {
+    cursor: pointer;
+    border-color: $mainOrange;
+    padding: 0.25rem 1rem;
+    width: 4rem;
+    font-size: 1rem;
+    border-radius: 4px;
+}
+  
+.ratingSelect select option {
+    padding: 30px;
 }

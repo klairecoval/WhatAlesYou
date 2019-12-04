@@ -87,24 +87,23 @@ const deleteBeer = (req, res) => {
 
 // search for a beer
 const searchBeer = (req, res) => {
-  console.log(req.body.search);
-  console.log(req.body);
-  if (!req.body.search) {
+  console.log(req.query.search);
+  if (!req.query.search) {
     return res.status(400).json({ error: 'Name of beer is required' });
   }
 
   const searchedBeer = {
-    name: req.body.search,
+    name: req.query.search,
   };
 
   console.log(searchedBeer);
-  return Beer.BeerModel.findBeer(searchedBeer, (err) => {
+  return Beer.BeerModel.findBeer(searchedBeer, (err, doc) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred.' });
     }
-
-    return res.json({ beers: searchedBeer });
+    console.log(doc);
+    return res.json({ beers: doc });
   });
 };
 
