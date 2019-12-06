@@ -31,11 +31,18 @@ const loadPairsFromServer = () => {
 
     const setPairs = () => {
         const pairResponse = JSON.parse(xhr.response);
-
-        ReactDOM.render(
-            <PairingsContainer pairs={pairResponse} />,
-            document.getElementById('beers')
-        );
+        
+        if(document.getElementById('beers')) {
+            ReactDOM.render(
+                <PairingsContainer pairs={pairResponse} />,
+                document.getElementById('beers')
+            );
+        } else {
+            ReactDOM.render(
+                <PairingsContainer pairs={pairResponse} />,
+                document.getElementById('breweries')
+            );
+        }
     };
 
     xhr.onload = setPairs;
@@ -51,18 +58,32 @@ const PairingsTitle = (props) => {
 
 // create title at top of page, below nav
 const createPairingsTitle = () => {
-    ReactDOM.render(
-        <PairingsTitle />,
-        document.querySelector('#makeBeer')
-    );
+    if(document.querySelector('#makeBeer')) {
+        ReactDOM.render(
+            <PairingsTitle />,
+            document.querySelector('#makeBeer')
+        );
+    } else {
+        ReactDOM.render(
+            <PairingsTitle />,
+            document.querySelector('#makeBrewery')
+        );
+    }
 };
 
 // actually create pairings in center of page
 const createPairingContainer = () => {
-    ReactDOM.render(
-        <PairingsContainer pairs={[]} />, 
-        document.getElementById('beers')
-    );
+    if(document.getElementById('beers')) {
+        ReactDOM.render(
+            <PairingsContainer pairs={[]} />, 
+            document.getElementById('beers')
+        );
+    } else {
+        ReactDOM.render(
+            <PairingsContainer pairs={[]} />, 
+            document.getElementById('breweries')
+        );
+    }
 
     loadPairsFromServer();
 };

@@ -35,10 +35,17 @@ const loadRecs = () => {
     const setRecs = () => {
         const recsResponse = JSON.parse(xhr.response);
 
-        ReactDOM.render(
-            <RecsContainer recs={recsResponse} />,
-            document.getElementById('beers')
-        );
+        if(document.getElementById('beers')) {
+            ReactDOM.render(
+                <RecsContainer recs={recsResponse} />,
+                document.getElementById('beers')
+            );
+        } else {
+            ReactDOM.render(
+                <RecsContainer recs={recsResponse} />,
+                document.getElementById('breweries')
+            );
+        }
     };
 
     xhr.onload = setRecs;
@@ -53,17 +60,31 @@ const RecsTitle = (props) => {
 
 // create title at top of page, below nav
 const createRecsTitle = () => {
-    ReactDOM.render(
-        <RecsTitle />,
-        document.querySelector('#makeBeer')
-    );
+    if(document.getElementById('makeBeer')) {
+        ReactDOM.render(
+            <RecsTitle />,
+            document.querySelector('#makeBeer')
+        );
+    } else {
+        ReactDOM.render(
+            <RecsTitle />,
+            document.querySelector('#makeBrewery')
+        );
+    }
 };
 
 const createRecsContainer = () => {
-    ReactDOM.render(
-        <RecsContainer recs={[]} />, 
-        document.getElementById('beers')
-    );
+    if(document.getElementById('beers')) {
+        ReactDOM.render(
+            <RecsContainer recs={[]} />, 
+            document.getElementById('beers')
+        );
+    } else {
+        ReactDOM.render(
+            <RecsContainer recs={[]} />, 
+            document.getElementById('breweries')
+        );
+    }
 
     loadRecs();
 };

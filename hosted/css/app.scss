@@ -489,6 +489,10 @@ button.deleteBeer:hover, button.upgradeButton:hover{
     bottom: 0;
 }
 
+.totalCount {
+    text-align: center;
+}
+
 /*CSS animations for pairing page content*/
 /*fade in text*/
 @-webkit-keyframes fadeIn {
@@ -526,33 +530,4 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 @keyframes shrink {
     from { height: auto; }
       to { height: 0; }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.ratingSelect {
-    display: inline;
-}
-  
-.ratingSelect select {
-    cursor: pointer;
-    border-color: $mainOrange;
-    padding: 0.25rem 1rem;
-    width: 4rem;
-    font-size: 1rem;
-    border-radius: 4px;
-}
-  
-.ratingSelect select option {
-    padding: 30px;
 }

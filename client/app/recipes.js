@@ -32,10 +32,17 @@ const loadRecipesFromServer = () => {
     const setRecipes = () => {
         const recipesResponse = JSON.parse(xhr.response);
 
-        ReactDOM.render(
-            <RecipesContainer recipes={recipesResponse} />,
-            document.getElementById('beers')
-        );
+        if(document.getElementById('beers')) {
+            ReactDOM.render(
+                <RecipesContainer recipes={recipesResponse} />,
+                document.getElementById('beers')
+            );
+        } else {
+            ReactDOM.render(
+                <RecipesContainer recipes={recipesResponse} />,
+                document.getElementById('breweries')
+            );
+        }
     };
 
     xhr.onload = setRecipes;
@@ -51,18 +58,32 @@ const RecipesTitle = (props) => {
 
 // place title in center top of page, below nav bar
 const createRecipesTitle = () => {
-    ReactDOM.render(
-        <RecipesTitle />,
-        document.querySelector('#makeBeer')
-    );
+    if(document.querySelector('#makeBeer')) {
+        ReactDOM.render(
+            <RecipesTitle />,
+            document.querySelector('#makeBeer')
+        );
+    } else {
+        ReactDOM.render(
+            <RecipesTitle />,
+            document.querySelector('#makeBrewery')
+        );
+    }
 };
 
 // create recipes in center of page
 const createRecipesContainer = () => {
-    ReactDOM.render(
-        <RecipesContainer recipes={[]} />, 
-        document.getElementById('beers')
-    );
+    if(document.getElementById('beers')) {
+        ReactDOM.render(
+            <RecipesContainer recipes={[]} />, 
+            document.getElementById('beers')
+        );
+    } else {
+        ReactDOM.render(
+            <RecipesContainer recipes={[]} />, 
+            document.getElementById('breweries')
+        );
+    }
 
     loadRecipesFromServer();
 };

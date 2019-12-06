@@ -2,13 +2,13 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const _ = require('underscore');
 
-let BeerModel = {};
+let BreweryModel = {};
 
 // mongoose.types.objectid converts string id to mongo id
 const convertId = mongoose.Types.ObjectId;
 const setName = (name) => _.escape(name).trim();
 
-const BeerSchema = new mongoose.Schema({
+const BrewerySchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -16,32 +16,21 @@ const BeerSchema = new mongoose.Schema({
     set: setName,
   },
 
-  brewer: {
+  address: {
     type: String,
     required: true,
     trim: true,
   },
 
-  type: {
+  link: {
     type: String,
     required: true,
     trim: true,
-  },
-
-  abv: {
-    type: Number,
-    required: true,
-  },
-
-  ibu: {
-    type: Number,
-    required: true,
   },
 
   notes: {
     type: String,
     required: true,
-    trim: true,
   },
 
   rating: {
@@ -62,44 +51,39 @@ const BeerSchema = new mongoose.Schema({
   },
 });
 
-// send beer info to api
-BeerSchema.statics.toAPI = (doc) => ({
+// send brewery info to api for display
+BrewerySchema.statics.toAPI = (doc) => ({
   name: doc.name,
-  brewer: doc.brewer,
-  type: doc.type,
-  abv: doc.abv,
-  ibu: doc.ibu,
+  address: doc.address,
+  link: doc.link,
   notes: doc.notes,
   rating: doc.rating,
 });
 
-// find owner beers
-BeerSchema.statics.findByOwner = (ownerId, callback) => {
+BrewerySchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
   };
 
-  return BeerModel.find(search).select('name brewer type abv ibu notes rating').exec(callback);
+  return BreweryModel.find(search).select('name address link notes rating').exec(callback);
 };
 
-// search beers
-BeerSchema.statics.findBeer = (beerName, callback) => {
-  console.log(beerName);
-  BeerModel.find(beerName).select('name brewer type abv ibu notes rating').exec(callback);
+BrewerySchema.statics.findBrewery = (breweryName, callback) => {
+  console.log(breweryName);
+  BreweryModel.find(breweryName).select('name address link notes rating').exec(callback);
 };
 
-// delete beer by id that is hidden
-BeerSchema.statics.deleteById = (id, callback) => {
+BrewerySchema.statics.deleteById = (id, callback) => {
   const search = {
     _id: convertId(id),
   };
 
-  return BeerModel.findOneAndRemove(search).exec(callback);
+  return BreweryModel.findOneAndRemove(search).exec(callback);
 };
 
-BeerModel = mongoose.model('Beer', BeerSchema);
+BreweryModel = mongoose.model('Brewery', BrewerySchema);
 
 module.exports = {
-  BeerModel,
-  BeerSchema,
+  BreweryModel,
+  BrewerySchema,
 };

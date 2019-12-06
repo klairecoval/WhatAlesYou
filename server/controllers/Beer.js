@@ -1,7 +1,6 @@
 const models = require('../models');
 
 const Beer = models.Beer;
-const recsList = [];
 
 // create maker page
 // pass in csrf token
@@ -87,7 +86,6 @@ const deleteBeer = (req, res) => {
 
 // search for a beer
 const searchBeer = (req, res) => {
-  console.log(req.query.search);
   if (!req.query.search) {
     return res.status(400).json({ error: 'Name of beer is required' });
   }
@@ -96,25 +94,14 @@ const searchBeer = (req, res) => {
     name: req.query.search,
   };
 
-  console.log(searchedBeer);
   return Beer.BeerModel.findBeer(searchedBeer, (err, doc) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred.' });
     }
-    console.log(doc);
     return res.json({ beers: doc });
   });
 };
-
-const getRecs = (req, res) => Beer.BeerModel.findByBool(req, (err) => {
-  if (err) {
-    console.log(err);
-    return res.status(500).json({ error: 'An error ocurred.' });
-  }
-
-  return res.status(200).json({ beers: recsList });
-});
 
 // create pairings to be loaded
 const getPairs = (req, res) => {
@@ -188,5 +175,4 @@ module.exports = {
   deleteBeer,
   searchBeer,
   getPairs,
-  getRecs,
 };

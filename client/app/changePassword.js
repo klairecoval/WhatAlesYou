@@ -49,18 +49,32 @@ const PassTitle = (props) => {
 
 // place new title on top of page, below nav bar
 const createPassTitle = () => {
-    ReactDOM.render(
-        <PassTitle />,
-        document.querySelector('#makeBeer')
-    );
+    if(document.querySelector('#makeBeer')) {
+        ReactDOM.render(
+            <PassTitle />,
+            document.querySelector('#makeBeer')
+        );
+    } else {
+        ReactDOM.render(
+            <PassTitle />,
+            document.querySelector('#makeBrewery')
+        );
+    }
 };
 
 // create pass form in main center of page
 const createChangePasswordForm = (csrf) => {
-    ReactDOM.render(
-        <ChangePassword csrf={csrf} />,
-        document.querySelector('#beers')
-    );
+    if(document.querySelector('#beers')) {
+        ReactDOM.render(
+            <ChangePassword csrf={csrf} />,
+            document.querySelector('#beers')
+        );
+    } else {
+        ReactDOM.render(
+            <ChangePassword csrf={csrf} />,
+            document.querySelector('#breweries')
+        );
+    }
 };
 
 // create total view

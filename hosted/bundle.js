@@ -1,5 +1,343 @@
 'use strict';
 
+var handleBrewery = function handleBrewery(e) {
+    e.preventDefault();
+
+    $('#beerMessage').animate({ height: 'hide' }, 350);
+
+    if ($('#breweryName').val() == '' || $('#breweryAddress').val() == '' || $('#breweryLink').val() == '' || $('#breweryNotes').val() == '') {
+        handleError('All fields are required');
+        return false;
+    }
+
+    sendAjax('POST', $('#breweryForm').attr('action'), $('#breweryForm').serialize(), function () {
+        loadBreweriesFromServer();
+    });
+
+    return false;
+};
+
+var deleteBrewery = function deleteBrewery(e) {
+    var id = e.target.parentElement.querySelector('.breweryId').innerText;
+    var _csrf = document.querySelector('input[name="_csrf"]').value;
+
+    sendAjax('DELETE', '/deleteBrewery', { id: id, _csrf: _csrf }, function (data) {
+        loadBreweriesFromServer();
+    });
+};
+
+// search for a brewery
+var searchBrewery = function searchBrewery(e) {
+    e.preventDefault();
+    $('#beerMessage').animate({ height: 'hide' }, 350);
+
+    if ($('#searchBrewery').val() == '') {
+        handleError('Name is required for search');
+        return false;
+    }
+
+    var search = e.target.parentElement.querySelector('#searchBrewery').value;
+
+    sendAjax('GET', '/searchBrewery', { search: search }, function (data) {
+        ReactDOM.render(React.createElement(BreweryList, { breweries: data.breweries }), document.querySelector('#breweries'));
+    });
+};
+
+// create brewery form inside of a modal
+var BreweryForm = function BreweryForm(props) {
+    return React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h2',
+            { id: 'makerTitle' },
+            'Logged Breweries'
+        ),
+        React.createElement(
+            'form',
+            {
+                id: 'searchForm',
+                onSubmit: searchBrewery,
+                name: 'searchForm',
+                action: '/searchBrewery',
+                method: 'POST',
+                className: 'searchForm' },
+            React.createElement(
+                'label',
+                { htmlFor: 'search' },
+                'Name: '
+            ),
+            React.createElement('input', { id: 'searchBrewery', type: 'text', name: 'search', placeholder: 'Search' }),
+            React.createElement('input', { className: 'searchSubmit', type: 'submit', value: 'Search' })
+        ),
+        React.createElement(
+            'button',
+            { id: 'newBreweryBtn' },
+            'New Brewery'
+        ),
+        React.createElement(
+            'div',
+            { id: 'newBreweryWindow', className: 'breweryWindow' },
+            React.createElement(
+                'div',
+                { className: 'newBreweryContent' },
+                React.createElement(
+                    'form',
+                    { id: 'breweryForm',
+                        onSubmit: handleBrewery,
+                        name: 'breweryForm',
+                        action: '/breweries',
+                        method: 'POST',
+                        className: 'breweryForm' },
+                    React.createElement(
+                        'span',
+                        { className: 'close' },
+                        '\xD7'
+                    ),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'name' },
+                        'Name: '
+                    ),
+                    React.createElement('input', { id: 'breweryName', type: 'text', name: 'name', placeholder: 'Brewery Name' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'address' },
+                        'Address: '
+                    ),
+                    React.createElement('input', { id: 'breweryAddress', type: 'text', name: 'address', placeholder: 'Address' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'link' },
+                        'Link: '
+                    ),
+                    React.createElement('input', { id: 'breweryLink', type: 'text', name: 'link', placeholder: 'Link' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'notes' },
+                        'Notes: '
+                    ),
+                    React.createElement('input', { id: 'breweryNotes', type: 'text', name: 'notes', placeholder: 'Notes' }),
+                    React.createElement(
+                        'label',
+                        { htmlFor: 'rating' },
+                        'Rating: '
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'ratingSelect' },
+                        React.createElement(
+                            'select',
+                            { id: 'breweryRating', name: 'rating' },
+                            React.createElement(
+                                'option',
+                                { value: '1' },
+                                '1'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '2' },
+                                '2'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '3' },
+                                '3'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '4' },
+                                '4'
+                            ),
+                            React.createElement(
+                                'option',
+                                { value: '5' },
+                                '5'
+                            )
+                        )
+                    ),
+                    React.createElement('input', { type: 'hidden', name: '_csrf', value: props.csrf }),
+                    React.createElement('input', { className: 'makeBrewerySubmit', type: 'submit', value: 'Log Brewery' })
+                )
+            )
+        )
+    );
+};
+
+// create list of breweries
+// if no breweries, create simple h3 saying no data
+var BreweryList = function BreweryList(props) {
+    if (props.breweries.length === 0) {
+        return React.createElement(
+            'div',
+            { className: 'breweriesList' },
+            React.createElement(
+                'h3',
+                { className: 'emptyBrewery' },
+                'No Breweries Logged...Yet'
+            )
+        );
+    }
+
+    var breweryNodes = props.breweries.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+    }).map(function (brew) {
+        return React.createElement(
+            'div',
+            { key: brew._id, className: 'brewery' },
+            React.createElement('img', { src: '/assets/img/beerIcon.png', alt: 'brewery face', className: 'beerDefaultIcon' }),
+            React.createElement(
+                'button',
+                { className: 'deleteBrewery', onClick: deleteBrewery },
+                '\xD7'
+            ),
+            React.createElement(
+                'h3',
+                { className: 'breweryName' },
+                ' ',
+                brew.name,
+                ' '
+            ),
+            React.createElement(
+                'div',
+                { className: 'breweryGroup1' },
+                React.createElement(
+                    'p',
+                    { className: 'breweryAddress' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Address:'
+                    ),
+                    ' ',
+                    brew.address,
+                    ' '
+                ),
+                React.createElement(
+                    'p',
+                    { className: 'breweryLink' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Link:'
+                    ),
+                    ' ',
+                    brew.link,
+                    ' '
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'breweryGroup2' },
+                React.createElement(
+                    'p',
+                    { className: 'breweryNotes' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Notes:'
+                    ),
+                    ' ',
+                    brew.notes,
+                    ' '
+                ),
+                React.createElement(
+                    'p',
+                    { className: 'breweryRating' },
+                    ' ',
+                    React.createElement(
+                        'strong',
+                        null,
+                        'Rating:'
+                    ),
+                    ' ',
+                    brew.rating,
+                    ' '
+                )
+            ),
+            React.createElement(
+                'span',
+                { className: 'breweryId' },
+                brew._id
+            )
+        );
+    });
+
+    return React.createElement(
+        'div',
+        { className: 'breweryList' },
+        breweryNodes,
+        React.createElement(
+            'p',
+            { className: 'totalCount' },
+            props.breweries.length,
+            ' breweries'
+        )
+    );
+};
+
+// load in breweries from server
+// place them in center of page
+var loadBreweriesFromServer = function loadBreweriesFromServer() {
+    sendAjax('GET', '/getBreweries', null, function (data) {
+        ReactDOM.render(React.createElement(BreweryList, { breweries: data.breweries }), document.querySelector('#breweries'));
+    });
+};
+
+// handle new brewery button (create modal)
+var logNewBrewery = function logNewBrewery() {
+    var modal = document.getElementById("newBreweryWindow");
+    var btn = document.getElementById("newBreweryBtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    };
+
+    // if user clicks outside the modal, close
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+};
+
+// render main page view of breweries
+// load in all functions required to handle clicks for new views
+var setupBrew = function setupBrew(csrf) {
+    if (document.querySelector('#makeBrewery')) {
+        ReactDOM.render(React.createElement(BreweryForm, { csrf: csrf }), document.querySelector('#makeBrewery'));
+        ReactDOM.render(React.createElement(BreweryList, { breweries: [] }), document.querySelector('#breweries'));
+
+        loadBreweriesFromServer();
+        logNewBrewery();
+        handleRecipesClick();
+        handlePairingsClick();
+        handleUpgradeClick();
+        handleChangePasswordClick(csrf);
+    }
+};
+
+// get csrf token
+var getBrewToken = function getBrewToken() {
+    sendAjax('GET', '/getToken', null, function (result) {
+        setupBrew(result.csrfToken);
+    });
+};
+
+// instantiate above
+$(document).ready(function () {
+    getBrewToken();
+});
+'use strict';
+
 // check if user has entered values into all fields
 // check if values are valid (match, etc)
 // return error messages if not correct
@@ -65,12 +403,20 @@ var PassTitle = function PassTitle(props) {
 
 // place new title on top of page, below nav bar
 var createPassTitle = function createPassTitle() {
-    ReactDOM.render(React.createElement(PassTitle, null), document.querySelector('#makeBeer'));
+    if (document.querySelector('#makeBeer')) {
+        ReactDOM.render(React.createElement(PassTitle, null), document.querySelector('#makeBeer'));
+    } else {
+        ReactDOM.render(React.createElement(PassTitle, null), document.querySelector('#makeBrewery'));
+    }
 };
 
 // create pass form in main center of page
 var createChangePasswordForm = function createChangePasswordForm(csrf) {
-    ReactDOM.render(React.createElement(ChangePassword, { csrf: csrf }), document.querySelector('#beers'));
+    if (document.querySelector('#beers')) {
+        ReactDOM.render(React.createElement(ChangePassword, { csrf: csrf }), document.querySelector('#beers'));
+    } else {
+        ReactDOM.render(React.createElement(ChangePassword, { csrf: csrf }), document.querySelector('#breweries'));
+    }
 };
 
 // create total view
@@ -402,14 +748,13 @@ var BeerList = function BeerList(props) {
     return React.createElement(
         'div',
         { className: 'beerList' },
+        beerNodes,
         React.createElement(
-            'h3',
-            null,
-            'You have logged ',
+            'p',
+            { className: 'totalCount' },
             props.beers.length,
-            ' beers!'
-        ),
-        beerNodes
+            ' beers'
+        )
     );
 };
 
@@ -446,16 +791,19 @@ var logNewBeer = function logNewBeer() {
 // render main page view of beers
 // load in all functions required to handle clicks for new views
 var setup = function setup(csrf) {
-    ReactDOM.render(React.createElement(BeerForm, { csrf: csrf }), document.querySelector('#makeBeer'));
+    if (document.querySelector('#makeBeer')) {
+        console.log('gwklrj');
+        ReactDOM.render(React.createElement(BeerForm, { csrf: csrf }), document.querySelector('#makeBeer'));
 
-    ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
+        ReactDOM.render(React.createElement(BeerList, { beers: [] }), document.querySelector('#beers'));
 
-    loadBeersFromServer();
-    logNewBeer();
-    handleRecipesClick();
-    handlePairingsClick();
-    handleUpgradeClick();
-    handleChangePasswordClick(csrf);
+        loadBeersFromServer();
+        logNewBeer();
+        handleRecipesClick();
+        handlePairingsClick();
+        handleUpgradeClick();
+        handleChangePasswordClick(csrf);
+    }
 };
 
 // get csrf token
@@ -521,7 +869,11 @@ var loadPairsFromServer = function loadPairsFromServer() {
     var setPairs = function setPairs() {
         var pairResponse = JSON.parse(xhr.response);
 
-        ReactDOM.render(React.createElement(PairingsContainer, { pairs: pairResponse }), document.getElementById('beers'));
+        if (document.getElementById('beers')) {
+            ReactDOM.render(React.createElement(PairingsContainer, { pairs: pairResponse }), document.getElementById('beers'));
+        } else {
+            ReactDOM.render(React.createElement(PairingsContainer, { pairs: pairResponse }), document.getElementById('breweries'));
+        }
     };
 
     xhr.onload = setPairs;
@@ -539,12 +891,20 @@ var PairingsTitle = function PairingsTitle(props) {
 
 // create title at top of page, below nav
 var createPairingsTitle = function createPairingsTitle() {
-    ReactDOM.render(React.createElement(PairingsTitle, null), document.querySelector('#makeBeer'));
+    if (document.querySelector('#makeBeer')) {
+        ReactDOM.render(React.createElement(PairingsTitle, null), document.querySelector('#makeBeer'));
+    } else {
+        ReactDOM.render(React.createElement(PairingsTitle, null), document.querySelector('#makeBrewery'));
+    }
 };
 
 // actually create pairings in center of page
 var createPairingContainer = function createPairingContainer() {
-    ReactDOM.render(React.createElement(PairingsContainer, { pairs: [] }), document.getElementById('beers'));
+    if (document.getElementById('beers')) {
+        ReactDOM.render(React.createElement(PairingsContainer, { pairs: [] }), document.getElementById('beers'));
+    } else {
+        ReactDOM.render(React.createElement(PairingsContainer, { pairs: [] }), document.getElementById('breweries'));
+    }
 
     loadPairsFromServer();
 };
@@ -614,7 +974,11 @@ var loadRecipesFromServer = function loadRecipesFromServer() {
     var setRecipes = function setRecipes() {
         var recipesResponse = JSON.parse(xhr.response);
 
-        ReactDOM.render(React.createElement(RecipesContainer, { recipes: recipesResponse }), document.getElementById('beers'));
+        if (document.getElementById('beers')) {
+            ReactDOM.render(React.createElement(RecipesContainer, { recipes: recipesResponse }), document.getElementById('beers'));
+        } else {
+            ReactDOM.render(React.createElement(RecipesContainer, { recipes: recipesResponse }), document.getElementById('breweries'));
+        }
     };
 
     xhr.onload = setRecipes;
@@ -632,12 +996,20 @@ var RecipesTitle = function RecipesTitle(props) {
 
 // place title in center top of page, below nav bar
 var createRecipesTitle = function createRecipesTitle() {
-    ReactDOM.render(React.createElement(RecipesTitle, null), document.querySelector('#makeBeer'));
+    if (document.querySelector('#makeBeer')) {
+        ReactDOM.render(React.createElement(RecipesTitle, null), document.querySelector('#makeBeer'));
+    } else {
+        ReactDOM.render(React.createElement(RecipesTitle, null), document.querySelector('#makeBrewery'));
+    }
 };
 
 // create recipes in center of page
 var createRecipesContainer = function createRecipesContainer() {
-    ReactDOM.render(React.createElement(RecipesContainer, { recipes: [] }), document.getElementById('beers'));
+    if (document.getElementById('beers')) {
+        ReactDOM.render(React.createElement(RecipesContainer, { recipes: [] }), document.getElementById('beers'));
+    } else {
+        ReactDOM.render(React.createElement(RecipesContainer, { recipes: [] }), document.getElementById('breweries'));
+    }
 
     loadRecipesFromServer();
 };
@@ -737,7 +1109,11 @@ var loadRecs = function loadRecs() {
     var setRecs = function setRecs() {
         var recsResponse = JSON.parse(xhr.response);
 
-        ReactDOM.render(React.createElement(RecsContainer, { recs: recsResponse }), document.getElementById('beers'));
+        if (document.getElementById('beers')) {
+            ReactDOM.render(React.createElement(RecsContainer, { recs: recsResponse }), document.getElementById('beers'));
+        } else {
+            ReactDOM.render(React.createElement(RecsContainer, { recs: recsResponse }), document.getElementById('breweries'));
+        }
     };
 
     xhr.onload = setRecs;
@@ -754,11 +1130,19 @@ var RecsTitle = function RecsTitle(props) {
 
 // create title at top of page, below nav
 var createRecsTitle = function createRecsTitle() {
-    ReactDOM.render(React.createElement(RecsTitle, null), document.querySelector('#makeBeer'));
+    if (document.getElementById('makeBeer')) {
+        ReactDOM.render(React.createElement(RecsTitle, null), document.querySelector('#makeBeer'));
+    } else {
+        ReactDOM.render(React.createElement(RecsTitle, null), document.querySelector('#makeBrewery'));
+    }
 };
 
 var createRecsContainer = function createRecsContainer() {
-    ReactDOM.render(React.createElement(RecsContainer, { recs: [] }), document.getElementById('beers'));
+    if (document.getElementById('beers')) {
+        ReactDOM.render(React.createElement(RecsContainer, { recs: [] }), document.getElementById('beers'));
+    } else {
+        ReactDOM.render(React.createElement(RecsContainer, { recs: [] }), document.getElementById('breweries'));
+    }
 
     loadRecs();
 };
@@ -800,17 +1184,6 @@ var UpgradeAccount = function UpgradeAccount(props) {
             'button',
             { className: 'upgradeButton', onClick: upgradeView },
             'Upgrade'
-        ),
-        React.createElement(
-            'div',
-            { id: 'container' },
-            React.createElement(
-                'div',
-                { 'class': 'glass' },
-                React.createElement('div', { 'class': 'beer' })
-            ),
-            React.createElement('div', { 'class': 'head' }),
-            React.createElement('div', { 'class': 'pour' })
         )
     );
 };
@@ -830,12 +1203,20 @@ var UpgradeTitle = function UpgradeTitle(props) {
 
 // place title for page in top center of view
 var createUpgradeTitle = function createUpgradeTitle() {
-    ReactDOM.render(React.createElement(UpgradeTitle, null), document.querySelector('#makeBeer'));
+    if (document.querySelector('#makeBeer')) {
+        ReactDOM.render(React.createElement(UpgradeTitle, null), document.querySelector('#makeBeer'));
+    } else {
+        ReactDOM.render(React.createElement(UpgradeTitle, null), document.querySelector('#makeBrewery'));
+    }
 };
 
 // create upgrade content in center of page
 var createUpgradeAccountInfo = function createUpgradeAccountInfo() {
-    ReactDOM.render(React.createElement(UpgradeAccount, null), document.querySelector('#beers'));
+    if (document.querySelector('#beers')) {
+        ReactDOM.render(React.createElement(UpgradeAccount, null), document.querySelector('#beers'));
+    } else {
+        ReactDOM.render(React.createElement(UpgradeAccount, null), document.querySelector('#breweries'));
+    }
 };
 
 // call title and main info functions

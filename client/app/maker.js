@@ -145,8 +145,8 @@ const BeerList = function(props) {
 
     return (
         <div className='beerList'>
-            <h3>{props.beers.length} beers</h3>
             {beerNodes}
+            <p className='totalCount'>{props.beers.length} beers</p>
         </div>
     );
 };
@@ -186,20 +186,23 @@ const logNewBeer = () => {
 // render main page view of beers
 // load in all functions required to handle clicks for new views
 const setup = function(csrf) {
-    ReactDOM.render(
-        <BeerForm csrf={csrf} />, document.querySelector('#makeBeer')
-    );
-
-    ReactDOM.render(
-        <BeerList beers={[]} />, document.querySelector('#beers')
-    );
-
-    loadBeersFromServer();
-    logNewBeer();
-    handleRecipesClick();
-    handlePairingsClick();
-    handleUpgradeClick();
-    handleChangePasswordClick(csrf);
+    if(document.querySelector('#makeBeer')) {
+        console.log('gwklrj');
+        ReactDOM.render(
+            <BeerForm csrf={csrf} />, document.querySelector('#makeBeer')
+        );
+    
+        ReactDOM.render(
+            <BeerList beers={[]} />, document.querySelector('#beers')
+        );
+    
+        loadBeersFromServer();
+        logNewBeer();
+        handleRecipesClick();
+        handlePairingsClick();
+        handleUpgradeClick();
+        handleChangePasswordClick(csrf);
+    }
 };
 
 // get csrf token
