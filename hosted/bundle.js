@@ -262,7 +262,7 @@ var BreweryList = function BreweryList(props) {
                     ),
                     ' ',
                     brew.rating,
-                    ' '
+                    '/5 '
                 )
             ),
             React.createElement(
@@ -742,7 +742,7 @@ var BeerList = function BeerList(props) {
                     ),
                     ' ',
                     beer.rating,
-                    ' '
+                    '/5 '
                 )
             ),
             React.createElement(

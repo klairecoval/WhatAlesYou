@@ -128,7 +128,7 @@ const BreweryList = function(props) {
                 </div>
                 <div className='breweryGroup2'>
                     <p className='breweryNotes'> <strong>Notes:</strong> {brew.notes} </p>
-                    <p className='breweryRating'> <strong>Rating:</strong> {brew.rating} </p>
+                    <p className='breweryRating'> <strong>Rating:</strong> {brew.rating}/5 </p>
                 </div>
                 <span className='breweryId'>{brew._id}</span>
             </div>
