@@ -60,6 +60,7 @@ BrewerySchema.statics.toAPI = (doc) => ({
   rating: doc.rating,
 });
 
+// find all breweries created by account
 BrewerySchema.statics.findByOwner = (ownerId, callback) => {
   const search = {
     owner: convertId(ownerId),
@@ -68,11 +69,13 @@ BrewerySchema.statics.findByOwner = (ownerId, callback) => {
   return BreweryModel.find(search).select('name address link notes rating').exec(callback);
 };
 
+// search for brewery by name
 BrewerySchema.statics.findBrewery = (breweryName, callback) => {
   console.log(breweryName);
   BreweryModel.find(breweryName).select('name address link notes rating').exec(callback);
 };
 
+// delete brewery by id
 BrewerySchema.statics.deleteById = (id, callback) => {
   const search = {
     _id: convertId(id),

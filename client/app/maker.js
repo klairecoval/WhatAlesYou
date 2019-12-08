@@ -31,6 +31,7 @@ const deleteBeer = (e) => {
 };
 
 // search for a beer
+// reload displayed beers
 const searchBeer = (e) => {
     e.preventDefault();
     $('#beerMessage').animate({height:'hide'}, 350);
@@ -54,17 +55,17 @@ const searchBeer = (e) => {
 const BeerForm = (props) => {
     return (
         <div>
-            <h2 id='makerTitle'>Logged Beers</h2>
+            <h1 id='makerTitle'>Beers</h1>
             <form
-                id='searchForm'
+                id='searchBeerForm'
                 onSubmit={searchBeer}
                 name='searchForm'
                 action='/searchBeer'
                 method='POST'
-                className='searchForm' >
+                className='searchBeerForm' >
                 <label htmlFor='search'>Name: </label>
                 <input id='searchBeer' type='text' name='search' placeholder='Search' />
-                <input className='searchSubmit' type='submit' value='Search' />
+                <input className='searchBeerSubmit' type='submit' value='Search' />
             </form>
 
             <button id="newBeerBtn">New Beer</button>
@@ -187,7 +188,6 @@ const logNewBeer = () => {
 // load in all functions required to handle clicks for new views
 const setup = function(csrf) {
     if(document.querySelector('#makeBeer')) {
-        console.log('gwklrj');
         ReactDOM.render(
             <BeerForm csrf={csrf} />, document.querySelector('#makeBeer')
         );

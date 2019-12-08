@@ -1,5 +1,3 @@
-/*variables*/
-/*Main styles across all pages*/
 html, body {
   font-family: 'Raleway', sans-serif;
   height: 100%;
@@ -8,20 +6,21 @@ html, body {
   padding: 0;
   width: 100%; }
 
-/*style logo*/
-#logo {
+.logo {
   border-radius: 4px;
   float: left;
   padding: 5px;
   width: 40; }
 
-#logo:hover {
+.logo:hover {
   background-color: #C96E12;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.8s ease; }
 
-/*style nav bar*/
+#brewLogo {
+  height: 40px; }
+
 nav {
   background-image: linear-gradient(to right, #F6C101, #EC9D00);
   box-shadow: 0px 4px 14px 0px rgba(119, 53, 53, 0.14);
@@ -48,12 +47,7 @@ nav {
   cursor: pointer;
   transition: background-color 0.8s ease; }
 
-#makerTitle {
-  text-align: center; }
-
-/*new beer entry modal
-- base modal styling from W3Schools */
-.beerWindow {
+.beerWindow, .breweryWindow {
   background-color: rgba(0, 0, 0, 0.4);
   display: none;
   height: 100%;
@@ -64,14 +58,17 @@ nav {
   width: 100%;
   z-index: 1; }
 
-.newBeerContent {
+.newBeerContent, .newBreweryContent {
   background-color: #ffffff;
   border: 1px solid #C96E12;
   border-radius: 4px;
-  height: 14rem;
+  height: 15rem;
   margin: 15% auto;
   padding: 20px;
   width: 20rem; }
+
+.newBreweryContent {
+  height: 11rem; }
 
 /*close button x*/
 .close {
@@ -87,24 +84,22 @@ nav {
   cursor: pointer;
   text-decoration: none; }
 
-/*search input section*/
-.searchForm {
+.searchBeerForm, .searchBreweryForm {
   height: 2.4rem;
   margin: 0 auto;
   width: 18rem; }
-  .searchForm input[type=text] {
+  .searchBeerForm input[type=text], .searchBreweryForm input[type=text] {
     border: 1px solid #EC9D00;
     border-radius: 4px;
     font-size: 1.1em;
     height: 1.5rem;
     margin-bottom: 0.5rem;
     width: 150px; }
-  .searchForm input[type=text]:focus {
+  .searchBeerForm input[type=text]:focus, .searchBreweryForm input[type=text]:focus {
     box-shadow: 0px 0px 1px 1px #C96E12;
     outline: none; }
 
-/*search beer sumbit button*/
-.searchSubmit {
+.searchBeerSubmit, .searchBrewerySubmit {
   align-content: center;
   background-color: #EC9D00;
   border: 1px solid #EC9D00;
@@ -117,33 +112,33 @@ nav {
   padding: 4px 10px;
   transition: background-color 0.4s ease; }
 
-.searchSubmit:link, .searchSubmit:visited, .searchSubmit:hover, .searchSubmit:active {
+.searchBeerSubmit:link, .searchBeerSubmit:visited, .searchBeerSubmit:hover, .searchBeerSubmit:active,
+.searchBrewerySubmit:link, .searchBrewerySubmit:visited, .searchBrewerySubmit:hover, .searchBrewerySubmit:active {
   color: white; }
 
-.searchSubmit:hover {
+.searchBeerSubmit:hover, .searchBrewerySubmit:hover {
   background-color: #C96E12;
   border-color: #C96E12;
   transition: background-color 0.4s ease; }
 
-/*new beer form*/
-.beerForm {
+.beerForm, .breweryForm {
   height: 14rem;
   margin: 0 auto;
   width: 20rem; }
-  .beerForm label {
+  .beerForm label, .breweryForm label {
     display: inline-block;
     font-size: 1.2em;
     margin-right: 10px;
     text-align: right;
     width: 100px; }
-  .beerForm input[type=text] {
+  .beerForm input[type=text], .breweryForm input[type=text] {
     border: 1px solid #EC9D00;
     border-radius: 4px;
     font-size: 1.1em;
     height: 1.5rem;
     margin-bottom: 0.5rem;
     width: 150px; }
-  .beerForm input[type=text]:focus {
+  .beerForm input[type=text]:focus, .breweryForm input[type=text]:focus {
     box-shadow: 0px 0px 1px 1px #C96E12;
     outline: none; }
 
@@ -155,35 +150,35 @@ nav {
   border-radius: 4px;
   cursor: pointer;
   font-size: 1rem;
-  padding: 0.25rem 1rem;
+  padding: 0.1rem 1rem;
   width: 4rem; }
 
 .ratingSelect select option {
   padding: 30px; }
 
-/*new beer sumbit button*/
-.makeBeerSubmit {
-  align-content: center;
+.makeBeerSubmit, .makeBrewerySubmit {
   background-color: #EC9D00;
   border: 1px solid #EC9D00;
   border-radius: 4px;
   color: white;
   cursor: pointer;
   float: right;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 24%;
+  margin-right: 26%;
+  margin-top: 0.5rem;
   padding: 5px 10px;
-  transition: background-color 0.4s ease; }
+  transition: background-color 0.4s ease;
+  width: 8rem; }
 
-.makeBeerSubmit:link, .makeBeerSubmit:visited, .makeBeerSubmit:hover, .makeBeerSubmit:active {
+.makeBeerSubmit:link, .makeBeerSubmit:visited, .makeBeerSubmit:hover, .makeBeerSubmit:active,
+.makeBrewerySubmit:link, .makeBrewerySubmit:visited, .makeBrewerySubmit:hover, .makeBrewerySubmit:active {
   color: white; }
 
-.makeBeerSubmit:hover {
+.makeBeerSubmit:hover, .makeBrewerySubmit:hover {
   background-color: #C96E12;
   border-color: #C96E12;
   transition: background-color 0.4s ease; }
 
-/*main login form*/
 .mainForm {
   font-size: 1.2em;
   height: 300px;
@@ -200,7 +195,6 @@ nav {
 .mainForm h3, #changePassForm h3 {
   text-align: center; }
 
-/*login and signup page title*/
 #loginTitle {
   display: block;
   margin-left: auto;
@@ -216,7 +210,6 @@ nav {
   text-align: center;
   width: 35rem; }
 
-/*change password view form*/
 #changePassForm {
   font-size: 1.2em;
   margin: 0 auto;
@@ -228,8 +221,7 @@ nav {
     text-align: right;
     width: 255px; }
 
-/*styles for large signup, new beer, login buttons*/
-.formSubmit, .submitForm, #newBeerBtn {
+.formSubmit, .submitForm, #newBeerBtn, #newBreweryBtn {
   background-color: #EC9D00;
   border: 1px solid #EC9D00;
   border-radius: 4px;
@@ -251,15 +243,17 @@ nav {
 .submitForm:link, .submitForm:visited, .submitForm:hover, .submitForm:active {
   color: white; }
 
-.formSubmit:hover, .submitForm:hover, #newBeerBtn:hover {
+.formSubmit:hover, .submitForm:hover, #newBeerBtn:hover, #newBreweryBtn:hover {
   background-color: #C96E12;
   cursor: pointer;
   transition: background-color 0.4s ease; }
 
-#newBeerBtn {
+#newBeerBtn, #newBreweryBtn {
   margin-top: 0px; }
 
-/*password input fields*/
+#newBreweryBtn {
+  width: 132px; }
+
 #user, #pass, #pass2, #currPass, #newPass, #newPass2 {
   border: 1px solid #EC9D00;
   border-radius: 4px;
@@ -273,7 +267,6 @@ nav {
   box-shadow: 0px 0px 1px 1px #C96E12;
   outline: none; }
 
-/*error message*/
 #beerMessage {
   display: none;
   height: 100px;
@@ -292,16 +285,14 @@ nav {
   color: #EC9D00;
   font-weight: bold; }
 
-/*main maker page content*/
-#beers {
+#beers, #breweries {
   border-radius: 4px;
   margin: 0 auto;
   margin-top: 1rem;
   min-width: 400px;
   width: 80%; }
 
-/*cards for page data*/
-.beer, .recipe, .pairing {
+.beer, .recipe, .pairing, .brewery {
   border: 2px solid #EC9D00;
   border-radius: 4px;
   display: inline-block;
@@ -311,6 +302,9 @@ nav {
   overflow: hidden;
   padding: 10px 10px 0px 10px;
   width: 20rem; }
+  .beer a, .recipe a, .pairing a, .brewery a {
+    color: #C96E12;
+    text-decoration: none; }
 
 .beerGroup1 {
   float: left;
@@ -320,7 +314,7 @@ nav {
   float: right;
   width: 10rem; }
 
-img.beerDefaultIcon {
+img.beerDefaultIcon, img.breweryDefaultIcon {
   border-radius: 4px;
   float: left;
   height: 50px;
@@ -328,7 +322,7 @@ img.beerDefaultIcon {
   margin-top: 10px;
   width: 50px; }
 
-h3.beerName {
+h3.beerName, h3.breweryName {
   font-weight: bold;
   font-size: 1.5em;
   padding-left: 65px; }
@@ -336,7 +330,7 @@ h3.beerName {
 .recipe, .pairing {
   padding: 10px; }
 
-button.deleteBeer {
+button.deleteBeer, button.deleteBrewery {
   background: #EC9D00;
   border: 1px solid #EC9D00;
   border-radius: 4px;
@@ -345,15 +339,13 @@ button.deleteBeer {
   float: right;
   padding: 5px 10px; }
 
-/*style for no beers filler text*/
-h3.emptyBeer {
+h3.emptyBeer, h3.emptyBrewery {
   font-size: 1.5em;
   margin: 0 auto;
   margin-top: 18px;
   text-align: center;
   width: 400px; }
 
-/*style for upgrade account button*/
 button.upgradeButton {
   background-color: #EC9D00;
   border: 1px solid #EC9D00;
@@ -370,36 +362,23 @@ button.upgradeButton {
   transition: background-color 0.4s ease;
   width: 100px; }
 
-/*hover state handler for upgrade and delete beer buttons*/
-button.deleteBeer:hover, button.upgradeButton:hover {
+button.deleteBeer:hover, button.upgradeButton:hover, button.deleteBrewery:hover {
   background: #C96E12;
   transition: background 1s; }
 
-/*hide beer id
-- used for delete beer function*/
-.beerId {
+.beerId, .breweryId {
   display: none; }
 
-/*center titles for subviews*/
-#changePassTitle, #recipesTitle, #pairingsTitle, #upgradeTitle, #recsTitle {
+#changePassTitle, #recipesTitle, #pairingsTitle, #upgradeTitle, #recsTitle,
+#makerTitle, #upgradeContent, #notFound h1, #notFound p, .totalCount {
   text-align: center; }
 
-/*style link for recipes view*/
-.recipe a {
-  color: #C96E12;
-  text-decoration: none; }
-
-/*standardize display of sub-images*/
 .recipeImg, .pairImg {
   border-radius: 4px;
   float: left;
   margin-right: 10px;
   margin-top: 10px;
   width: 4rem; }
-
-/*center upgrade view content*/
-#upgradeContent {
-  text-align: center; }
 
 #subtext {
   animation: fadeOut 1s, shrink 0.1s;
@@ -412,31 +391,11 @@ button.deleteBeer:hover, button.upgradeButton:hover {
   display: block;
   -webkit-animation: fadeIn 1s, grow 0.2s; }
 
-/*center not found text*/
-#notFound h1, #notFound p {
-  text-align: center; }
-
-/*center gif on 404 page*/
 #pourGIF {
   display: block;
   margin-left: auto;
   margin-right: auto; }
 
-/*ad banner*/
-#ads {
-  background-color: #C96E12;
-  height: 4rem;
-  text-align: center;
-  width: 100%;
-  position: fixed;
-  left: 0;
-  bottom: 0; }
-
-.totalCount {
-  text-align: center; }
-
-/*CSS animations for pairing page content*/
-/*fade in text*/
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0; }
@@ -449,7 +408,6 @@ button.deleteBeer:hover, button.upgradeButton:hover {
   to {
     opacity: 1; } }
 
-/*slow increasing of display box size*/
 @-webkit-keyframes grow {
   from {
     height: 0; }
@@ -461,27 +419,3 @@ button.deleteBeer:hover, button.upgradeButton:hover {
     height: 0; }
   to {
     height: auto; } }
-
-@-webkit-keyframes fadeOut {
-  from {
-    opacity: 1; }
-  to {
-    opacity: 0; } }
-
-@keyframes fadeOut {
-  from {
-    opacity: 1; }
-  to {
-    opacity: 0; } }
-
-@-webkit-keyframes shrink {
-  from {
-    height: auto; }
-  to {
-    height: 0; } }
-
-@keyframes shrink {
-  from {
-    height: auto; }
-  to {
-    height: 0; } }

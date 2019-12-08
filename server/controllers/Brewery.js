@@ -65,7 +65,7 @@ const getBreweries = (request, response) => {
   });
 };
 
-// remove logged brewery
+// remove logged brewery by id
 const deleteBrewery = (req, res) => {
   if (!req.body.id) {
     return res.status(400).json({ error: 'Brewery id is required to delete.' });
@@ -81,7 +81,7 @@ const deleteBrewery = (req, res) => {
   });
 };
 
-// search for a brewery
+// search for a brewery by name
 const searchBrewery = (req, res) => {
   if (!req.query.search) {
     return res.status(400).json({ error: 'Name of brewery is required' });

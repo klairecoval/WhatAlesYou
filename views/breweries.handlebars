@@ -2,10 +2,8 @@
 <head>
   <meta charset="utf-8"/>
   <title>LagerLogger</title>
-  {{!-- <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script> --}}
-  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react@15/dist/react.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
   <script crossorigin src="https://unpkg.com/prop-types/prop-types.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
@@ -17,8 +15,8 @@
 
 <body>
   <nav>
-    <a href="/login"><img id="logo" src="/assets/img/beerIcon.png" alt="beer logo"/></a>
-    <a href="/breweries"><img src="/assets/img/brewery.png" id="brewery" alt="brewery icon" style="width: 35px"/></a>
+    <a href="/login"><img class="logo" src="/assets/img/beerIcon.png" alt="beer logo"/></a>
+    <a href="/breweries"><img class="logo" id="brewLogo" src="/assets/img/brew.png" alt="brewery logo"/></a>
     <div class="navlink">
       <a id="recipes" href="#" title="Recipes"><img src="/assets/img/recipe.png" id="recipe" alt="recipe icon" style="width: 35px"/></a>
       <a id="pairings" href="#" title="Pairings"><img src="/assets/img/pairing.png" id="pairing" alt="pairing icon" style="width: 35px"/></a>
@@ -34,7 +32,6 @@
   <div id="beerMessage">
     <h3><span id="errorMessage"></span></h3>
   </div>
-  <div id="ads"><p>This is an ad for a local bar?</p></div>
   <script src="/assets/bundle.js"></script>
 </body>
 

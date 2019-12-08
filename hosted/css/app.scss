@@ -1,9 +1,9 @@
-/*variables*/
+// color variables
 $buttonHover: #C96E12;
 $mainOrange: #EC9D00;
 $mustard: #F6C101;
 
-/*Main styles across all pages*/
+// main styles across all pages
 html, body {
     font-family: 'Raleway', sans-serif;
     height: 100%;
@@ -13,21 +13,24 @@ html, body {
     width: 100%;
 }
 
-/*style logo*/
-#logo {
+// stylizing for logos
+.logo {
     border-radius: 4px;
     float: left;
     padding: 5px;
     width: 40;
 }
-#logo:hover {
+.logo:hover {
     background-color: $buttonHover;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.8s ease;
 }
+#brewLogo {
+    height: 40px;
+}
 
-/*style nav bar*/
+// nav bar
 nav {
     background-image: linear-gradient(to right, $mustard , $mainOrange);
     box-shadow: 0px 4px 14px 0px rgba(119, 53, 53, 0.14);
@@ -55,13 +58,9 @@ nav {
     transition: background-color 0.8s ease;
 }
 
-#makerTitle {
-    text-align: center;
-}
-
-/*new beer entry modal
-- base modal styling from W3Schools */
-.beerWindow {
+// new beer and brewery entry modal
+// base modal styling from W3Schools
+.beerWindow, .breweryWindow {
     background-color: rgba(0,0,0,0.4);
     display: none;
     height: 100%; 
@@ -72,14 +71,17 @@ nav {
     width: 100%; 
     z-index: 1;
 }
-.newBeerContent {
+.newBeerContent, .newBreweryContent {
     background-color: #ffffff;
     border: 1px solid $buttonHover;
     border-radius: 4px;
-    height: 14rem;
+    height: 15rem;
     margin: 15% auto;
     padding: 20px;
     width: 20rem; 
+}
+.newBreweryContent {
+    height: 11rem;
 }
 /*close button x*/
 .close {
@@ -96,8 +98,8 @@ nav {
     text-decoration: none;
 }
 
-/*search input section*/
-.searchForm {
+// search input section
+.searchBeerForm, .searchBreweryForm {
     height: 2.4rem;
     margin: 0 auto;
     width: 18rem;
@@ -117,8 +119,8 @@ nav {
     }
 }
 
-/*search beer sumbit button*/
-.searchSubmit {
+// search beer and brewery submit button
+.searchBeerSubmit, .searchBrewerySubmit {
     align-content: center;
     background-color: $mainOrange;
     border: 1px solid $mainOrange;
@@ -131,17 +133,18 @@ nav {
     padding: 4px 10px;
     transition: background-color 0.4s ease;
 }
-.searchSubmit:link, .searchSubmit:visited, .searchSubmit:hover, .searchSubmit:active {
+.searchBeerSubmit:link, .searchBeerSubmit:visited, .searchBeerSubmit:hover, .searchBeerSubmit:active,
+.searchBrewerySubmit:link, .searchBrewerySubmit:visited, .searchBrewerySubmit:hover, .searchBrewerySubmit:active {
     color: white;
 }
-.searchSubmit:hover {
+.searchBeerSubmit:hover, .searchBrewerySubmit:hover {
     background-color: $buttonHover;
     border-color: $buttonHover;
     transition: background-color 0.4s ease;
 }
 
-/*new beer form*/
-.beerForm {
+// new beer and brewery form
+.beerForm, .breweryForm {
     height: 14rem;
     margin: 0 auto;
     width: 20rem;
@@ -178,37 +181,39 @@ nav {
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
-    padding: 0.25rem 1rem;
+    padding: 0.1rem 1rem;
     width: 4rem;
 }
 .ratingSelect select option {
     padding: 30px;
 }
 
-/*new beer sumbit button*/
-.makeBeerSubmit {
-    align-content: center;
+// new beer and brewery submit button
+.makeBeerSubmit, .makeBrewerySubmit {
     background-color: $mainOrange;
     border: 1px solid $mainOrange;
     border-radius: 4px;
     color: white;
     cursor: pointer;
     float: right;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 24%;
+    margin-right: 26%;
+    margin-top: 0.5rem;
     padding: 5px 10px;
     transition: background-color 0.4s ease;
+    width: 8rem;
 }
-.makeBeerSubmit:link, .makeBeerSubmit:visited, .makeBeerSubmit:hover, .makeBeerSubmit:active {
+.makeBeerSubmit:link, .makeBeerSubmit:visited, .makeBeerSubmit:hover, .makeBeerSubmit:active,
+.makeBrewerySubmit:link, .makeBrewerySubmit:visited, .makeBrewerySubmit:hover, .makeBrewerySubmit:active {
     color: white;
 }
-.makeBeerSubmit:hover {
+.makeBeerSubmit:hover, .makeBrewerySubmit:hover {
     background-color: $buttonHover;
     border-color: $buttonHover;
     transition: background-color 0.4s ease;
 }
 
-/*main login form*/
+// main login form
 .mainForm {
     font-size: 1.2em;
     height: 300px;
@@ -228,7 +233,7 @@ nav {
     text-align: center;
 }
 
-/*login and signup page title*/
+// login and signup page title
 #loginTitle {
     display: block;
     margin-left: auto;
@@ -245,7 +250,7 @@ nav {
     width: 35rem;
 }
 
-/*change password view form*/
+// change password view form
 #changePassForm {
     font-size: 1.2em;
     margin: 0 auto;
@@ -260,8 +265,8 @@ nav {
     }
 }
 
-/*styles for large signup, new beer, login buttons*/
-.formSubmit, .submitForm, #newBeerBtn {
+// style for large signup, new beer, new brewery, login buttons
+.formSubmit, .submitForm, #newBeerBtn, #newBreweryBtn {
     background-color: $mainOrange;
     border: 1px solid $mainOrange;
     border-radius: 4px;
@@ -283,17 +288,23 @@ nav {
 .submitForm:link, .submitForm:visited, .submitForm:hover, .submitForm:active {
     color: white;
 }
-.formSubmit:hover, .submitForm:hover, #newBeerBtn:hover {
+.formSubmit:hover, .submitForm:hover, #newBeerBtn:hover, #newBreweryBtn:hover {
     background-color: $buttonHover;
     cursor: pointer;
     transition: background-color 0.4s ease;
 }
 
-#newBeerBtn {
+// on main pages, remove top margin
+#newBeerBtn, #newBreweryBtn {
     margin-top: 0px;
 }
 
-/*password input fields*/
+// make new brewery button wider 
+#newBreweryBtn {
+    width: 132px;
+}
+
+// password input fields
 #user, #pass, #pass2, #currPass, #newPass, #newPass2 {
     border: 1px solid $mainOrange;
     border-radius: 4px;
@@ -308,7 +319,7 @@ nav {
     outline: none;
 }
 
-/*error message*/
+// error message
 #beerMessage {
     display: none;
     height: 100px;
@@ -325,14 +336,13 @@ nav {
         position: absolute;
     }
 }
-
 #errorMessage {
     color: $mainOrange;
     font-weight: bold;
 }
 
-/*main maker page content*/
-#beers {
+// main maker page content and brewery page
+#beers, #breweries {
     border-radius: 4px;
     margin: 0 auto;
     margin-top: 1rem;
@@ -340,8 +350,8 @@ nav {
     width: 80%;
 }
 
-/*cards for page data*/
-.beer, .recipe, .pairing {
+// cards for page data
+.beer, .recipe, .pairing, .brewery {
     border: 2px solid $mainOrange;
     border-radius: 4px;
     display: inline-block;
@@ -351,6 +361,11 @@ nav {
     overflow: hidden;
     padding: 10px 10px 0px 10px;
     width: 20rem;
+
+    a {
+        color: $buttonHover;
+        text-decoration: none;
+    }
 }
 .beerGroup1 {
     float: left;
@@ -361,7 +376,7 @@ nav {
     width: 10rem;
 
 }
-img.beerDefaultIcon {
+img.beerDefaultIcon, img.breweryDefaultIcon {
     border-radius: 4px;
     float:left;
     height: 50px;
@@ -369,17 +384,17 @@ img.beerDefaultIcon {
     margin-top:10px;
     width: 50px;
 }
-h3.beerName {
+h3.beerName, h3.breweryName {
     font-weight: bold;
     font-size: 1.5em;
     padding-left: 65px;
 }
-
 .recipe, .pairing {
     padding: 10px;
 }
 
-button.deleteBeer {
+// delete brewery or beer button 
+button.deleteBeer, button.deleteBrewery {
     background: $mainOrange;
     border: 1px solid $mainOrange;
     border-radius: 4px;
@@ -389,8 +404,8 @@ button.deleteBeer {
     padding: 5px 10px;
 }
 
-/*style for no beers filler text*/
-h3.emptyBeer {
+// style for no content filler text
+h3.emptyBeer, h3.emptyBrewery {
     font-size: 1.5em;
     margin: 0 auto;
     margin-top: 18px;
@@ -398,7 +413,7 @@ h3.emptyBeer {
     width: 400px;
 }
 
-/*style for upgrade account button*/
+// style for upgrade account button
 button.upgradeButton {
     background-color: $mainOrange;
     border: 1px solid $mainOrange;
@@ -416,30 +431,24 @@ button.upgradeButton {
     width: 100px;
 }
 
-/*hover state handler for upgrade and delete beer buttons*/
-button.deleteBeer:hover, button.upgradeButton:hover{
+// hover state handler for upgrade and delete beer buttons
+button.deleteBeer:hover, button.upgradeButton:hover, button.deleteBrewery:hover{
     background: $buttonHover;
     transition: background 1s;
 }
 
-/*hide beer id
-- used for delete beer function*/
-.beerId {
+// hide beer id for delete purposes only
+.beerId, .breweryId {
     display: none;
 }
 
-/*center titles for subviews*/
-#changePassTitle, #recipesTitle, #pairingsTitle, #upgradeTitle, #recsTitle {
+// center titles for subviews
+#changePassTitle, #recipesTitle, #pairingsTitle, #upgradeTitle, #recsTitle,
+#makerTitle, #upgradeContent, #notFound h1, #notFound p, .totalCount {
     text-align: center;
 }
 
-/*style link for recipes view*/
-.recipe a {
-    color: $buttonHover;
-    text-decoration: none;
-}
-
-/*standardize display of sub-images*/
+// standardize display of sub-images for recipe and pairing
 .recipeImg, .pairImg {
     border-radius: 4px;
     float: left;
@@ -448,17 +457,12 @@ button.deleteBeer:hover, button.upgradeButton:hover{
     width: 4rem;
 }
 
-/*center upgrade view content*/
-#upgradeContent {
-    text-align: center;
-}
-
+// pairing about brew type content
 #subtext {
     animation: fadeOut 1s, shrink 0.1s;
     display: none;
     -webkit-animation: fadeOut 1s, shrink 0.1s;
 }
-
 #pairTitle:hover + #subtext {
     animation: fadeIn 1s, grow 0.1s;
     cursor: pointer;
@@ -466,35 +470,15 @@ button.deleteBeer:hover, button.upgradeButton:hover{
     -webkit-animation: fadeIn 1s, grow 0.2s;
 }
 
-/*center not found text*/
-#notFound h1, #notFound p {
-    text-align: center;
-}
-
-/*center gif on 404 page*/
+// center gif on 404 page
 #pourGIF {
     display: block;
     margin-left: auto;
     margin-right: auto 
 }
 
-/*ad banner*/
-#ads {
-    background-color: #C96E12;
-    height: 4rem;
-    text-align: center;
-    width: 100%;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-}
-
-.totalCount {
-    text-align: center;
-}
-
-/*CSS animations for pairing page content*/
-/*fade in text*/
+// CSS animations for pairing page content
+//fade in text
 @-webkit-keyframes fadeIn {
     from { opacity: 0; }
       to { opacity: 1;  }
@@ -503,8 +487,7 @@ button.deleteBeer:hover, button.upgradeButton:hover{
     from { opacity: 0; }
       to { opacity: 1; }
 }
-
-/*slow increasing of display box size*/
+// slow increasing of display box size
 @-webkit-keyframes grow {
     from { height: 0; }
       to { height: auto; }
@@ -512,22 +495,4 @@ button.deleteBeer:hover, button.upgradeButton:hover{
 @keyframes grow {
     from { height: 0; }
       to { height: auto; }
-}
-
-@-webkit-keyframes fadeOut {
-    from { opacity: 1; }
-      to { opacity: 0;  }
-}
-@keyframes fadeOut {
-    from { opacity: 1; }
-      to { opacity: 0; }
-}
-
-@-webkit-keyframes shrink {
-    from { height: auto; }
-      to { height: 0; }
-}
-@keyframes shrink {
-    from { height: auto; }
-      to { height: 0; }
 }

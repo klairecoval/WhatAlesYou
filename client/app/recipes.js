@@ -10,7 +10,7 @@ const RecipesContainer = (props) => {
     }
     const recipesList = props.recipes.map((recipe) => {
         return (
-            <div className="recipe">
+            <div className="recipe" key={recipe.name}>
                 <img src={recipe.image} className="recipeImg"/>
                 <h4><a href={recipe.link}>{recipe.name}</a></h4>
                 <p>{recipe.description}</p>

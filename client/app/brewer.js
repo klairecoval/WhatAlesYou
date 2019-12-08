@@ -1,3 +1,4 @@
+// check if brewery has all fields required
 const handleBrewery = (e) => {
     e.preventDefault();
 
@@ -16,6 +17,8 @@ const handleBrewery = (e) => {
     return false;
 };
 
+// delete beer by id
+// reload after to update displayed beers
 const deleteBrewery = (e) => {
 	const id = e.target.parentElement.querySelector('.breweryId').innerText;
 	const _csrf = document.querySelector('input[name="_csrf"]').value;
@@ -25,7 +28,8 @@ const deleteBrewery = (e) => {
 	});
 };
 
-// search for a brewery
+// search for a brewery by name
+// reload displayed breweries to clear and only display searched
 const searchBrewery = (e) => {
     e.preventDefault();
     $('#beerMessage').animate({height:'hide'}, 350);
@@ -48,17 +52,17 @@ const searchBrewery = (e) => {
 const BreweryForm = (props) => {
     return (
         <div>
-            <h2 id='makerTitle'>Logged Breweries</h2>
+            <h1 id='makerTitle'>Breweries</h1>
             <form
-                id='searchForm'
+                id='searchBreweryForm'
                 onSubmit={searchBrewery}
                 name='searchForm'
                 action='/searchBrewery'
                 method='POST'
-                className='searchForm' >
+                className='searchBreweryForm' >
                 <label htmlFor='search'>Name: </label>
                 <input id='searchBrewery' type='text' name='search' placeholder='Search' />
-                <input className='searchSubmit' type='submit' value='Search' />
+                <input className='searchBrewerySubmit' type='submit' value='Search' />
             </form>
 
             <button id="newBreweryBtn">New Brewery</button>
@@ -115,12 +119,12 @@ const BreweryList = function(props) {
     .map(function(brew) {
         return (
             <div key={brew._id} className='brewery'>
-                <img src='/assets/img/beerIcon.png' alt='brewery face' className='beerDefaultIcon'/>
+                <img src='/assets/img/brew.png' alt='brewery' className='breweryDefaultIcon'/>
                 <button className='deleteBrewery' onClick={deleteBrewery}>&times;</button>
                 <h3 className='breweryName'> {brew.name} </h3>
                 <div className='breweryGroup1'>
                     <p className='breweryAddress'> <strong>Address:</strong> {brew.address} </p>
-                    <p className='breweryLink'> <strong>Link:</strong> {brew.link} </p>
+                    <p className='breweryLink'> <strong>Link: </strong><a href={brew.link}>{brew.link}</a> </p>
                 </div>
                 <div className='breweryGroup2'>
                     <p className='breweryNotes'> <strong>Notes:</strong> {brew.notes} </p>

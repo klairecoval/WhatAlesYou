@@ -84,7 +84,7 @@ const deleteBeer = (req, res) => {
   });
 };
 
-// search for a beer
+// search for a beer by name
 const searchBeer = (req, res) => {
   if (!req.query.search) {
     return res.status(400).json({ error: 'Name of beer is required' });
@@ -144,26 +144,42 @@ const getPairs = (req, res) => {
 // create recipes to be loaded
 const getRecipes = (req, res) => {
   res.json([
-    { name: 'Beer Dip',
-      image: '/assets/img/dip.png',
-      description: 'Ranch dressing and shredded cheese form dip, paired best with pretzels.',
-      link: 'https://www.tasteofhome.com/recipes/beer-dip/' },
-    { name: 'Beer Can Chicken',
-      image: '/assets/img/chicken.png',
-      description: 'Keep chicken moist by teaming it in beer while on the grill.',
-      link: 'https://www.tasteofhome.com/article/beer-can-chicken/' },
-    { name: 'Potato-Beer-Cheese Soup',
-      image: '/assets/img/soup.png',
-      description: 'Warm your soul with a velvety soup with notes of beer and cheese.',
-      link: 'https://www.tasteofhome.com/recipes/potato-beer-cheese-soup/' },
-    { name: 'Fish and Chips with Mushy Peas',
-      image: '/assets/img/fishChips.png',
-      description: 'Fry once to cook through. Fry twice to crisp the outside.',
-      link: 'https://www.bonappetit.com/recipe/fish-and-chips-with-minty-mushy-peas' },
+    { name: 'Beer-Baked White Beans',
+      image: '/assets/img/beans.png',
+      description: 'White beans are baked in a pale ale for ultimate flavor.',
+      link: 'https://www.delish.com/cooking/recipe-ideas/recipes/a22234/beer-baked-white-beans-recipe-mslo0913/' },
     { name: 'Beer Battered Onion Rings',
       image: '/assets/img/onionRings.png',
       description: 'Onion rings deliver big crunch and rich onion flavor.',
       link: 'https://www.foodnetwork.ca/recipe/beer-battered-onion-rings/18695/' },
+    { name: 'Braised Beets with Ham',
+      image: '/assets/img/beet.png',
+      description: 'A tangier take on a county classic with ham.',
+      link: 'https://nyti.ms/2LBK5Xh' },
+    { name: 'Beer Can Chicken',
+      image: '/assets/img/chicken.png',
+      description: 'Keep chicken moist by teaming it in beer while on the grill.',
+      link: 'https://www.tasteofhome.com/article/beer-can-chicken/' },
+    { name: 'Beer Dip',
+      image: '/assets/img/dip.png',
+      description: 'Ranch dressing and shredded cheese form dip, paired best with pretzels.',
+      link: 'https://www.tasteofhome.com/recipes/beer-dip/' },
+    { name: 'Creamy Risotto with Edamame',
+      image: '/assets/img/risotto.png',
+      description: 'Laughing Cow cheese adds richness without making the dish taste too sharp.',
+      link: 'https://www.foodandwine.com/recipes/creamy-risotto-with-edamame' },
+    { name: 'Fish and Chips with Mushy Peas',
+      image: '/assets/img/fishChips.png',
+      description: 'Fry once to cook through. Fry twice to crisp the outside.',
+      link: 'https://www.bonappetit.com/recipe/fish-and-chips-with-minty-mushy-peas' },
+    { name: 'Maple-Stout Quick Bread',
+      image: '/assets/img/bread.png',
+      description: 'Stout beer gives this bread a slightly bitter note and nut-brown hue.',
+      link: 'https://www.myrecipes.com/recipe/maple-stout-quick-bread' },
+    { name: 'Potato-Beer-Cheese Soup',
+      image: '/assets/img/soup.png',
+      description: 'Warm your soul with a velvety soup with notes of beer and cheese.',
+      link: 'https://www.tasteofhome.com/recipes/potato-beer-cheese-soup/' },
   ]);
 };
 

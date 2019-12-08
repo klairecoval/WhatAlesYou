@@ -10,7 +10,7 @@ const PairingsContainer = (props) => {
     }
     const pairsList = props.pairs.map((pair) => {
         return (
-            <div className="pairing">
+            <div className="pairing" key={pair.beer}>
                 <img src={pair.image} className="pairImg"/>
                 <p id="pairTitle"><strong>{pair.beer}</strong> pair well with {pair.food}</p>
                 <p id="subtext">{pair.about}</p>
@@ -31,7 +31,7 @@ const loadPairsFromServer = () => {
 
     const setPairs = () => {
         const pairResponse = JSON.parse(xhr.response);
-        
+
         if(document.getElementById('beers')) {
             ReactDOM.render(
                 <PairingsContainer pairs={pairResponse} />,
